@@ -1,0 +1,44 @@
+[
+ {
+  "A": "Vitality",
+  "B": "Aurora",
+  "winner": "Vitality",
+  "score": [
+   3,
+   1
+  ],
+  "maps": [
+   "Anubis",
+   "Inferno",
+   "Mirage",
+   "Cache",
+   "Nuke"
+  ],
+  "mvp": "zywoo",
+  "my_winner": "Vitality",
+  "my_score": [
+   3,
+   0
+  ],
+  "my_maps": [
+   "Anubis",
+   "Dust2",
+   "Inferno",
+   "Mirage",
+   "Nuke"
+  ],
+  "my_mvp": "zywoo",
+  "my_p": 69.9,
+  "my_rank": {
+   "A": 4,
+   "B": 12
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 20,
+   "mvp": 10
+  },
+  "total": 40
+ }
+]

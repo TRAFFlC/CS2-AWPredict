@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cs2-awpredict"
+version = "1.0.0a0"
+description = "CS2 赛前预测：胜方 / 选图 / 比分 / MVP，含各项可达上限与已知局限"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["counter-strike", "cs2", "prediction", "pickem", "veto", "vrs"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# 运行期只依赖标准库：模型、HTTP 服务、前端全部零第三方依赖。
+# （Playwright 仅用于 UI 回归测试，非必需。）
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["playwright>=1.40"]
+
+[project.scripts]
+awpredict = "predict_gui:main"
+
+[tool.setuptools]
+py-modules = [
+    "predict", "decide", "model_v2", "veto_model", "map_pools",
+    "pool_experiment", "coldstart", "split", "state_snapshot",
+    "record_schema", "veto_rec_build", "ingest_new", "predict_gui", "scorer",
+]
+
+[tool.setuptools.package-data]
+"*" = ["predict_page.html", "data/*.jsonl", "data/*.json", "data/*.pkl"]

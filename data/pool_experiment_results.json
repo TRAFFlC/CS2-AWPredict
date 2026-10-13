@@ -1,0 +1,258 @@
+{
+  "split": {
+    "train": 2087,
+    "valid": 242,
+    "test": 321
+  },
+  "boundaries": {
+    "b1": "2026-05-31",
+    "b2": "2026-07-30"
+  },
+  "excluded_matches": 55,
+  "modal_score": {
+    "3": [
+      2,
+      0
+    ],
+    "5": [
+      3,
+      0
+    ]
+  },
+  "n_train_truth": 2087,
+  "results": {
+    "valid": {
+      "rank_baseline": {
+        "n": 242,
+        "acc": 0.6115702479338843,
+        "item1": 1480,
+        "item2": 690,
+        "item3": 0,
+        "total": 2170,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "base": {
+        "n": 242,
+        "acc": 0.6198347107438017,
+        "item1": 1500,
+        "item2": 640,
+        "item3": 0,
+        "total": 2140,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "pool_id": {
+        "n": 242,
+        "acc": 0.6198347107438017,
+        "item1": 1500,
+        "item2": 660,
+        "item3": 0,
+        "total": 2160,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "pool_feat": {
+        "n": 242,
+        "acc": 0.6157024793388429,
+        "item1": 1490,
+        "item2": 630,
+        "item3": 0,
+        "total": 2120,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "segmented": {
+        "n": 242,
+        "acc": 0.6239669421487604,
+        "item1": 1510,
+        "item2": 660,
+        "item3": 0,
+        "total": 2170,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_no_pool": {
+        "n": 242,
+        "acc": 0.6115702479338843,
+        "item1": 1480,
+        "item2": 690,
+        "item3": 1720,
+        "total": 3890,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_pool_restrict": {
+        "n": 242,
+        "acc": 0.6115702479338843,
+        "item1": 1480,
+        "item2": 690,
+        "item3": 1720,
+        "total": 3890,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_pool_floor": {
+        "n": 242,
+        "acc": 0.6115702479338843,
+        "item1": 1480,
+        "item2": 690,
+        "item3": 1720,
+        "total": 3890,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_newmap": {
+        "n": 242,
+        "acc": 0.6115702479338843,
+        "item1": 1480,
+        "item2": 690,
+        "item3": 1660,
+        "total": 3830,
+        "out_of_pool": 0,
+        "cache_pred": 57,
+        "cache_hit": 16
+      },
+      "diag_unseen_pool_maps_in_test": {
+        "Cache": 16
+      },
+      "diag_cache_matches": 16,
+      "boot_pool_feat_vs_base": [
+        -0.02066115702479332,
+        0.008264462809917439
+      ],
+      "era_mix": {
+        "1": 185,
+        "2": 57
+      },
+      "seg_models": [
+        0,
+        1
+      ]
+    },
+    "test": {
+      "rank_baseline": {
+        "n": 317,
+        "acc": 0.6309148264984227,
+        "item1": 2000,
+        "item2": 980,
+        "item3": 0,
+        "total": 2980,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "base": {
+        "n": 317,
+        "acc": 0.6782334384858044,
+        "item1": 2150,
+        "item2": 1100,
+        "item3": 0,
+        "total": 3250,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "pool_id": {
+        "n": 317,
+        "acc": 0.6813880126182965,
+        "item1": 2160,
+        "item2": 1110,
+        "item3": 0,
+        "total": 3270,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "pool_feat": {
+        "n": 317,
+        "acc": 0.6813880126182965,
+        "item1": 2160,
+        "item2": 1110,
+        "item3": 0,
+        "total": 3270,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "segmented": {
+        "n": 317,
+        "acc": 0.6719242902208202,
+        "item1": 2130,
+        "item2": 1120,
+        "item3": 0,
+        "total": 3250,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_no_pool": {
+        "n": 317,
+        "acc": 0.6309148264984227,
+        "item1": 2000,
+        "item2": 980,
+        "item3": 2160,
+        "total": 5140,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_pool_restrict": {
+        "n": 317,
+        "acc": 0.6309148264984227,
+        "item1": 2000,
+        "item2": 980,
+        "item3": 2160,
+        "total": 5140,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_pool_floor": {
+        "n": 317,
+        "acc": 0.6309148264984227,
+        "item1": 2000,
+        "item2": 980,
+        "item3": 2160,
+        "total": 5140,
+        "out_of_pool": 0,
+        "cache_pred": 0,
+        "cache_hit": 0
+      },
+      "maps_newmap": {
+        "n": 317,
+        "acc": 0.6309148264984227,
+        "item1": 2000,
+        "item2": 980,
+        "item3": 1970,
+        "total": 4950,
+        "out_of_pool": 0,
+        "cache_pred": 317,
+        "cache_hit": 110
+      },
+      "diag_unseen_pool_maps_in_test": {
+        "Cache": 110
+      },
+      "diag_cache_matches": 110,
+      "boot_pool_feat_vs_base": [
+        -0.009463722397476393,
+        0.018927444794952675
+      ],
+      "era_mix": {
+        "2": 317
+      },
+      "seg_models": [
+        0,
+        1
+      ]
+    }
+  }
+}

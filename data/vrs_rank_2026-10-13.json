@@ -1,0 +1,987 @@
+{
+ "date": "2026-10-13",
+ "source": "Valve Regional Standings (VRS)",
+ "type": "world",
+ "teams": [
+  {
+   "rank": 1,
+   "name": "Vitality",
+   "points": 1977
+  },
+  {
+   "rank": 2,
+   "name": "MOUZ",
+   "points": 1942
+  },
+  {
+   "rank": 3,
+   "name": "Spirit",
+   "points": 1935
+  },
+  {
+   "rank": 4,
+   "name": "Aurora",
+   "points": 1838
+  },
+  {
+   "rank": 5,
+   "name": "Falcons",
+   "points": 1838
+  },
+  {
+   "rank": 6,
+   "name": "Legacy",
+   "points": 1787
+  },
+  {
+   "rank": 7,
+   "name": "FURIA",
+   "points": 1781
+  },
+  {
+   "rank": 8,
+   "name": "G2",
+   "points": 1716
+  },
+  {
+   "rank": 9,
+   "name": "FUT",
+   "points": 1698
+  },
+  {
+   "rank": 10,
+   "name": "Astralis",
+   "points": 1606
+  },
+  {
+   "rank": 11,
+   "name": "PARIVISION",
+   "points": 1554
+  },
+  {
+   "rank": 12,
+   "name": "BETBOOM",
+   "points": 1523
+  },
+  {
+   "rank": 13,
+   "name": "MIBR",
+   "points": 1513
+  },
+  {
+   "rank": 14,
+   "name": "1win",
+   "points": 1512
+  },
+  {
+   "rank": 15,
+   "name": "9z",
+   "points": 1512
+  },
+  {
+   "rank": 16,
+   "name": "Ninjas in Pyjamas",
+   "points": 1504
+  },
+  {
+   "rank": 17,
+   "name": "M80",
+   "points": 1503
+  },
+  {
+   "rank": 18,
+   "name": "FaZe",
+   "points": 1500
+  },
+  {
+   "rank": 19,
+   "name": "B8",
+   "points": 1500
+  },
+  {
+   "rank": 20,
+   "name": "Luminosity",
+   "points": 1495
+  },
+  {
+   "rank": 21,
+   "name": "HEROIC",
+   "points": 1494
+  },
+  {
+   "rank": 22,
+   "name": "Nemiga",
+   "points": 1483
+  },
+  {
+   "rank": 23,
+   "name": "Liquid",
+   "points": 1480
+  },
+  {
+   "rank": 24,
+   "name": "100 Thieves",
+   "points": 1475
+  },
+  {
+   "rank": 25,
+   "name": "Natus Vincere",
+   "points": 1469
+  },
+  {
+   "rank": 26,
+   "name": "Inner Circle",
+   "points": 1443
+  },
+  {
+   "rank": 27,
+   "name": "3DMAX",
+   "points": 1439
+  },
+  {
+   "rank": 28,
+   "name": "magic",
+   "points": 1423
+  },
+  {
+   "rank": 29,
+   "name": "JiJieHao",
+   "points": 1416
+  },
+  {
+   "rank": 30,
+   "name": "BIG",
+   "points": 1411
+  },
+  {
+   "rank": 31,
+   "name": "Alliance",
+   "points": 1411
+  },
+  {
+   "rank": 32,
+   "name": "GamerLegion",
+   "points": 1397
+  },
+  {
+   "rank": 33,
+   "name": "fnatic",
+   "points": 1393
+  },
+  {
+   "rank": 34,
+   "name": "Nemesis",
+   "points": 1392
+  },
+  {
+   "rank": 35,
+   "name": "Eternal Fire",
+   "points": 1386
+  },
+  {
+   "rank": 36,
+   "name": "K27",
+   "points": 1372
+  },
+  {
+   "rank": 37,
+   "name": "HOTU",
+   "points": 1371
+  },
+  {
+   "rank": 38,
+   "name": "DENDELE",
+   "points": 1367
+  },
+  {
+   "rank": 39,
+   "name": "Sangal",
+   "points": 1352
+  },
+  {
+   "rank": 40,
+   "name": "Wildcard",
+   "points": 1343
+  },
+  {
+   "rank": 41,
+   "name": "BBL",
+   "points": 1320
+  },
+  {
+   "rank": 42,
+   "name": "Imperial",
+   "points": 1315
+  },
+  {
+   "rank": 43,
+   "name": "NRG",
+   "points": 1314
+  },
+  {
+   "rank": 44,
+   "name": "SINNERS",
+   "points": 1290
+  },
+  {
+   "rank": 45,
+   "name": "EYEBALLERS",
+   "points": 1279
+  },
+  {
+   "rank": 46,
+   "name": "BC.Game",
+   "points": 1269
+  },
+  {
+   "rank": 47,
+   "name": "TYLOO",
+   "points": 1265
+  },
+  {
+   "rank": 48,
+   "name": "SAW",
+   "points": 1265
+  },
+  {
+   "rank": 49,
+   "name": "Nuclear TigeRES",
+   "points": 1249
+  },
+  {
+   "rank": 50,
+   "name": "FOKUS",
+   "points": 1248
+  },
+  {
+   "rank": 51,
+   "name": "Virtus.pro",
+   "points": 1248
+  },
+  {
+   "rank": 52,
+   "name": "Fluxo",
+   "points": 1245
+  },
+  {
+   "rank": 53,
+   "name": "The MongolZ",
+   "points": 1234
+  },
+  {
+   "rank": 54,
+   "name": "paiN",
+   "points": 1232
+  },
+  {
+   "rank": 55,
+   "name": "Metizport",
+   "points": 1231
+  },
+  {
+   "rank": 56,
+   "name": "Betclic",
+   "points": 1221
+  },
+  {
+   "rank": 57,
+   "name": "Iberian Soul",
+   "points": 1205
+  },
+  {
+   "rank": 58,
+   "name": "Chinggis Warriors",
+   "points": 1200
+  },
+  {
+   "rank": 59,
+   "name": "SportsBetExpert",
+   "points": 1200
+  },
+  {
+   "rank": 60,
+   "name": "PURE",
+   "points": 1199
+  },
+  {
+   "rank": 61,
+   "name": "Color",
+   "points": 1191
+  },
+  {
+   "rank": 62,
+   "name": "FlyQuest",
+   "points": 1190
+  },
+  {
+   "rank": 63,
+   "name": "INFINITE",
+   "points": 1175
+  },
+  {
+   "rank": 64,
+   "name": "WBT",
+   "points": 1169
+  },
+  {
+   "rank": 65,
+   "name": "5star",
+   "points": 1162
+  },
+  {
+   "rank": 66,
+   "name": "Voca",
+   "points": 1158
+  },
+  {
+   "rank": 67,
+   "name": "Black Phoenix",
+   "points": 1157
+  },
+  {
+   "rank": 68,
+   "name": "BESTIA",
+   "points": 1154
+  },
+  {
+   "rank": 69,
+   "name": "Lynn Vision",
+   "points": 1151
+  },
+  {
+   "rank": 70,
+   "name": "UPGRADE",
+   "points": 1145
+  },
+  {
+   "rank": 71,
+   "name": "Acend",
+   "points": 1144
+  },
+  {
+   "rank": 72,
+   "name": "UNiTY",
+   "points": 1142
+  },
+  {
+   "rank": 73,
+   "name": "CYBERSHOKE",
+   "points": 1132
+  },
+  {
+   "rank": 74,
+   "name": "NT",
+   "points": 1124
+  },
+  {
+   "rank": 75,
+   "name": "NAVI Junior",
+   "points": 1119
+  },
+  {
+   "rank": 76,
+   "name": "GenOne",
+   "points": 1119
+  },
+  {
+   "rank": 77,
+   "name": "Lazer Cats",
+   "points": 1116
+  },
+  {
+   "rank": 78,
+   "name": "RBLS",
+   "points": 1115
+  },
+  {
+   "rank": 79,
+   "name": "aimclub",
+   "points": 1105
+  },
+  {
+   "rank": 80,
+   "name": "Without a Roof",
+   "points": 1098
+  },
+  {
+   "rank": 81,
+   "name": "PRIVATE",
+   "points": 1093
+  },
+  {
+   "rank": 82,
+   "name": "Galorys",
+   "points": 1089
+  },
+  {
+   "rank": 83,
+   "name": "ShindeN",
+   "points": 1088
+  },
+  {
+   "rank": 84,
+   "name": "LP",
+   "points": 1087
+  },
+  {
+   "rank": 85,
+   "name": "BET-M",
+   "points": 1087
+  },
+  {
+   "rank": 86,
+   "name": "BRUTE",
+   "points": 1086
+  },
+  {
+   "rank": 87,
+   "name": "Phantom",
+   "points": 1084
+  },
+  {
+   "rank": 88,
+   "name": "Rune Eaters",
+   "points": 1071
+  },
+  {
+   "rank": 89,
+   "name": "INOX Division",
+   "points": 1070
+  },
+  {
+   "rank": 90,
+   "name": "FORZE Reload",
+   "points": 1067
+  },
+  {
+   "rank": 91,
+   "name": "9INE",
+   "points": 1066
+  },
+  {
+   "rank": 92,
+   "name": "Sashi",
+   "points": 1065
+  },
+  {
+   "rank": 93,
+   "name": "Nexus",
+   "points": 1051
+  },
+  {
+   "rank": 94,
+   "name": "Johnny Speeds",
+   "points": 1044
+  },
+  {
+   "rank": 95,
+   "name": "QUAZAR",
+   "points": 1044
+  },
+  {
+   "rank": 96,
+   "name": "Omega",
+   "points": 1029
+  },
+  {
+   "rank": 97,
+   "name": "LAG",
+   "points": 1029
+  },
+  {
+   "rank": 98,
+   "name": "BAKS",
+   "points": 1026
+  },
+  {
+   "rank": 99,
+   "name": "ENCE",
+   "points": 982
+  },
+  {
+   "rank": 100,
+   "name": "OG",
+   "points": 976
+  },
+  {
+   "rank": 101,
+   "name": "EAC",
+   "points": 974
+  },
+  {
+   "rank": 102,
+   "name": "6yuBoJlbl",
+   "points": 972
+  },
+  {
+   "rank": 103,
+   "name": "Bushido Wildcats",
+   "points": 953
+  },
+  {
+   "rank": 104,
+   "name": "G2 Ares",
+   "points": 950
+  },
+  {
+   "rank": 105,
+   "name": "Spirit Academy",
+   "points": 949
+  },
+  {
+   "rank": 106,
+   "name": "Ground Zero",
+   "points": 947
+  },
+  {
+   "rank": 107,
+   "name": "mellren",
+   "points": 925
+  },
+  {
+   "rank": 108,
+   "name": "Fire Flux",
+   "points": 925
+  },
+  {
+   "rank": 109,
+   "name": "Nordic Partners",
+   "points": 923
+  },
+  {
+   "rank": 110,
+   "name": "HAVU",
+   "points": 918
+  },
+  {
+   "rank": 111,
+   "name": "THUNDER dOWNUNDER",
+   "points": 906
+  },
+  {
+   "rank": 112,
+   "name": "STATE",
+   "points": 900
+  },
+  {
+   "rank": 113,
+   "name": "Illyrians",
+   "points": 891
+  },
+  {
+   "rank": 114,
+   "name": "ex-RUBY",
+   "points": 887
+  },
+  {
+   "rank": 115,
+   "name": "Alter Ego",
+   "points": 883
+  },
+  {
+   "rank": 116,
+   "name": "Walczaki",
+   "points": 879
+  },
+  {
+   "rank": 117,
+   "name": "Saint Sinners",
+   "points": 879
+  },
+  {
+   "rank": 118,
+   "name": "Abyssal",
+   "points": 877
+  },
+  {
+   "rank": 119,
+   "name": "Falcons Force",
+   "points": 876
+  },
+  {
+   "rank": 120,
+   "name": "MOUZ NXT",
+   "points": 876
+  },
+  {
+   "rank": 121,
+   "name": "Misa",
+   "points": 864
+  },
+  {
+   "rank": 122,
+   "name": "Rare Atom",
+   "points": 860
+  },
+  {
+   "rank": 123,
+   "name": "WBT Academy",
+   "points": 852
+  },
+  {
+   "rank": 124,
+   "name": "KOLESIE",
+   "points": 851
+  },
+  {
+   "rank": 125,
+   "name": "The Last Resort",
+   "points": 851
+  },
+  {
+   "rank": 126,
+   "name": "Lavked",
+   "points": 843
+  },
+  {
+   "rank": 127,
+   "name": "Noir Verse",
+   "points": 841
+  },
+  {
+   "rank": 128,
+   "name": "ex-Keyd Stars",
+   "points": 840
+  },
+  {
+   "rank": 129,
+   "name": "PAQT",
+   "points": 838
+  },
+  {
+   "rank": 130,
+   "name": "PCIFIC",
+   "points": 824
+  },
+  {
+   "rank": 131,
+   "name": "Villainous",
+   "points": 676
+  },
+  {
+   "rank": 132,
+   "name": "The Huns",
+   "points": 672
+  },
+  {
+   "rank": 133,
+   "name": "Fisher College",
+   "points": 668
+  },
+  {
+   "rank": 134,
+   "name": "ABT",
+   "points": 667
+  },
+  {
+   "rank": 135,
+   "name": "Fake do Biru",
+   "points": 667
+  },
+  {
+   "rank": 137,
+   "name": "Endless Journey",
+   "points": 659
+  },
+  {
+   "rank": 138,
+   "name": "BESTIA Academy",
+   "points": 658
+  },
+  {
+   "rank": 139,
+   "name": "Dark Moon",
+   "points": 657
+  },
+  {
+   "rank": 140,
+   "name": "MEIA NOITE",
+   "points": 657
+  },
+  {
+   "rank": 141,
+   "name": "EHISTO BASE",
+   "points": 654
+  },
+  {
+   "rank": 142,
+   "name": "Nas",
+   "points": 654
+  },
+  {
+   "rank": 143,
+   "name": "Gremio",
+   "points": 652
+  },
+  {
+   "rank": 144,
+   "name": "ALGO",
+   "points": 652
+  },
+  {
+   "rank": 145,
+   "name": "Optibet",
+   "points": 644
+  },
+  {
+   "rank": 146,
+   "name": "Revenge",
+   "points": 644
+  },
+  {
+   "rank": 147,
+   "name": "Privateer",
+   "points": 643
+  },
+  {
+   "rank": 148,
+   "name": "Fortress",
+   "points": 642
+  },
+  {
+   "rank": 149,
+   "name": "Passion UA",
+   "points": 641
+  },
+  {
+   "rank": 150,
+   "name": "Club 333",
+   "points": 635
+  },
+  {
+   "rank": 151,
+   "name": "BERG",
+   "points": 635
+  },
+  {
+   "rank": 152,
+   "name": "Clutchain fe",
+   "points": 635
+  },
+  {
+   "rank": 153,
+   "name": "NEW VISION",
+   "points": 634
+  },
+  {
+   "rank": 154,
+   "name": "FaZe Up Next",
+   "points": 633
+  },
+  {
+   "rank": 155,
+   "name": "ALTAY",
+   "points": 631
+  },
+  {
+   "rank": 156,
+   "name": "Dripmen",
+   "points": 627
+  },
+  {
+   "rank": 157,
+   "name": "TNC",
+   "points": 626
+  },
+  {
+   "rank": 158,
+   "name": "Hashiras",
+   "points": 626
+  },
+  {
+   "rank": 159,
+   "name": "DEPO",
+   "points": 625
+  },
+  {
+   "rank": 160,
+   "name": "ex-Aether",
+   "points": 625
+  },
+  {
+   "rank": 161,
+   "name": "Toobisie",
+   "points": 625
+  },
+  {
+   "rank": 162,
+   "name": "Shimmer",
+   "points": 623
+  },
+  {
+   "rank": 163,
+   "name": "Mai Tai",
+   "points": 622
+  },
+  {
+   "rank": 164,
+   "name": "PATSANVISION",
+   "points": 511
+  },
+  {
+   "rank": 165,
+   "name": "Young Ninjas",
+   "points": 510
+  },
+  {
+   "rank": 166,
+   "name": "F5",
+   "points": 510
+  },
+  {
+   "rank": 167,
+   "name": "Arch",
+   "points": 508
+  },
+  {
+   "rank": 168,
+   "name": "Omen",
+   "points": 508
+  },
+  {
+   "rank": 169,
+   "name": "SemperFi",
+   "points": 506
+  },
+  {
+   "rank": 170,
+   "name": "benched gods",
+   "points": 505
+  },
+  {
+   "rank": 171,
+   "name": "Incognito",
+   "points": 502
+  },
+  {
+   "rank": 172,
+   "name": "TrafficPills",
+   "points": 500
+  },
+  {
+   "rank": 173,
+   "name": "REVENIX",
+   "points": 499
+  },
+  {
+   "rank": 174,
+   "name": "BORING PLAYERS",
+   "points": 497
+  },
+  {
+   "rank": 176,
+   "name": "FURY",
+   "points": 487
+  },
+  {
+   "rank": 177,
+   "name": "METANOIA Wolves",
+   "points": 487
+  },
+  {
+   "rank": 178,
+   "name": "ex-VP.Prodigy",
+   "points": 484
+  },
+  {
+   "rank": 179,
+   "name": "playersclub",
+   "points": 483
+  },
+  {
+   "rank": 180,
+   "name": "Fruju",
+   "points": 483
+  },
+  {
+   "rank": 181,
+   "name": "Sementes do Mal",
+   "points": 477
+  },
+  {
+   "rank": 182,
+   "name": "Just Players",
+   "points": 475
+  },
+  {
+   "rank": 183,
+   "name": "WAZABI",
+   "points": 474
+  },
+  {
+   "rank": 184,
+   "name": "EC BANGA",
+   "points": 474
+  },
+  {
+   "rank": 185,
+   "name": "Subtop De France",
+   "points": 474
+  },
+  {
+   "rank": 186,
+   "name": "New Legends",
+   "points": 473
+  },
+  {
+   "rank": 187,
+   "name": "Clutchain",
+   "points": 472
+  },
+  {
+   "rank": 188,
+   "name": "OlyBet",
+   "points": 470
+  },
+  {
+   "rank": 189,
+   "name": "DAMAJUANA",
+   "points": 467
+  },
+  {
+   "rank": 190,
+   "name": "Zetta",
+   "points": 467
+  },
+  {
+   "rank": 191,
+   "name": "EAC EXTRA",
+   "points": 466
+  },
+  {
+   "rank": 192,
+   "name": "Banzai",
+   "points": 465
+  },
+  {
+   "rank": 193,
+   "name": "EXODIA",
+   "points": 455
+  },
+  {
+   "rank": 194,
+   "name": "ex-KRU",
+   "points": 455
+  },
+  {
+   "rank": 195,
+   "name": "Coalesce",
+   "points": 452
+  },
+  {
+   "rank": 196,
+   "name": "GUARA",
+   "points": 448
+  },
+  {
+   "rank": 197,
+   "name": "Trainwrecks",
+   "points": 447
+  },
+  {
+   "rank": 198,
+   "name": "Unreal Nightmare",
+   "points": 440
+  }
+ ]
+}

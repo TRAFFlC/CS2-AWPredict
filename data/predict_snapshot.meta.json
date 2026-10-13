@@ -1,0 +1,22 @@
+{
+  "version": "predict-snapshot/1",
+  "corpus_sha256": "2569b2cde365540c2fac1a96f6b966cdb92e2855d167654312087bd3b4068d88",
+  "records_sha256": "ee975825301fd26c0db41a618f1bb0a5b2acaaba9c038ddefcac3c383141090a",
+  "ledger_last_date": "2026-10-11",
+  "models": {
+    "wmodel": "dict",
+    "mmodel": "dict",
+    "smodel": "ScoreModel"
+  },
+  "sel": {
+    "winfeats": [
+      "d_elo",
+      "d_elom",
+      "d_rank",
+      "d_h2h",
+      "d_lineup",
+      "d_games"
+    ],
+    "score_name": "always_win0"
+  }
+}

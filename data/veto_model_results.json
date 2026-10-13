@@ -1,0 +1,136 @@
+{
+  "mode": "walk_forward",
+  "split": {
+    "train": 2087,
+    "valid": 242,
+    "test": 321
+  },
+  "half_life": 60.0,
+  "chosen_C": 0.3,
+  "valid": {
+    "n": 242,
+    "points": 2130,
+    "hits": 426,
+    "slots": 662,
+    "hit_rate": 0.6435045317220544,
+    "per_slot": {
+      "0": 168,
+      "1": 129,
+      "2": 121,
+      "3": 4,
+      "4": 4
+    }
+  },
+  "test": {
+    "n": 321,
+    "points": 2765,
+    "hits": 553,
+    "slots": 901,
+    "hit_rate": 0.6137624861265261,
+    "per_slot": {
+      "0": 208,
+      "1": 179,
+      "2": 163,
+      "3": 2,
+      "4": 1
+    }
+  },
+  "arms": {
+    "full_model": {
+      "valid": {
+        "n": 242,
+        "points": 2130,
+        "hits": 426,
+        "slots": 662,
+        "hit_rate": 0.6435045317220544,
+        "per_slot": {
+          "0": 168,
+          "1": 129,
+          "2": 121,
+          "3": 4,
+          "4": 4
+        }
+      },
+      "test": {
+        "n": 321,
+        "points": 2765,
+        "hits": 553,
+        "slots": 901,
+        "hit_rate": 0.6137624861265261,
+        "per_slot": {
+          "0": 208,
+          "1": 179,
+          "2": 163,
+          "3": 2,
+          "4": 1
+        }
+      }
+    },
+    "freq_g_app": {
+      "valid": {
+        "n": 242,
+        "points": 1720,
+        "hits": 344,
+        "slots": 662,
+        "hit_rate": 0.5196374622356495
+      },
+      "test": {
+        "n": 321,
+        "points": 2160,
+        "hits": 432,
+        "slots": 901,
+        "hit_rate": 0.4794672586015538
+      }
+    },
+    "freq_team_sum": {
+      "valid": {
+        "n": 242,
+        "points": 2075,
+        "hits": 415,
+        "slots": 662,
+        "hit_rate": 0.6268882175226587
+      },
+      "test": {
+        "n": 321,
+        "points": 2650,
+        "hits": 530,
+        "slots": 901,
+        "hit_rate": 0.5882352941176471
+      }
+    },
+    "veto_free": {
+      "valid": {
+        "n": 242,
+        "points": 2085,
+        "hits": 417,
+        "slots": 662,
+        "hit_rate": 0.6299093655589124
+      },
+      "test": {
+        "n": 321,
+        "points": 2740,
+        "hits": 548,
+        "slots": 901,
+        "hit_rate": 0.6082130965593785
+      }
+    }
+  },
+  "features": [
+    "g_app",
+    "a_app",
+    "b_app",
+    "a_ban",
+    "b_ban",
+    "a_pick",
+    "b_pick",
+    "a_wr",
+    "b_wr",
+    "new",
+    "both_pick",
+    "both_ban",
+    "min_app",
+    "both_pick_prod",
+    "both_ban_prod",
+    "sim_in_set"
+  ]
+}

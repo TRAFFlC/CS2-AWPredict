@@ -1,0 +1,192 @@
+[
+ {
+  "A": "NRG",
+  "B": "Aurora",
+  "winner": "Aurora",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Mirage",
+   "Nuke"
+  ],
+  "mvp": "xantares",
+  "my_winner": "Aurora",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Inferno",
+   "Mirage",
+   "Nuke"
+  ],
+  "my_mvp": "wicadia",
+  "my_p": 56.3,
+  "my_rank": {
+   "A": 50,
+   "B": 12
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "Vitality",
+  "B": "FURIA",
+  "winner": "Vitality",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Mirage",
+   "Anubis",
+   "Cache"
+  ],
+  "mvp": "zywoo",
+  "my_winner": "Vitality",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Cache",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "zywoo",
+  "my_p": 66.8,
+  "my_rank": {
+   "A": 4,
+   "B": 7
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 10
+  },
+  "total": 35
+ },
+ {
+  "A": "MIBR",
+  "B": "NRG",
+  "winner": "MIBR",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Cache",
+   "Inferno",
+   "Nuke"
+  ],
+  "mvp": "lnz",
+  "my_winner": "MIBR",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Inferno",
+   "Nuke"
+  ],
+  "my_mvp": "insani",
+  "my_p": 64.5,
+  "my_rank": {
+   "A": 21,
+   "B": 50
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "MOUZ",
+  "B": "FURIA",
+  "winner": "FURIA",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Mirage",
+   "Nuke"
+  ],
+  "mvp": "kscerato",
+  "my_winner": "MOUZ",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "my_mvp": "xelex",
+  "my_p": 57.0,
+  "my_rank": {
+   "A": 2,
+   "B": 7
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "Aurora",
+  "B": "Vitality",
+  "winner": "Aurora",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Anubis",
+   "Inferno",
+   "Nuke"
+  ],
+  "mvp": "jimpphat",
+  "my_winner": "Vitality",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "my_mvp": "zywoo",
+  "my_p": 56.1,
+  "my_rank": {
+   "A": 12,
+   "B": 4
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ }
+]

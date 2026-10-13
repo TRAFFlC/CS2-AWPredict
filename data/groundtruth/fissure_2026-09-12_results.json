@@ -1,0 +1,78 @@
+[
+ {
+  "A": "BetBoom",
+  "B": "G2",
+  "winner": "G2",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Mirage",
+   "Anubis",
+   "Dust2"
+  ],
+  "mvp": "nertz",
+  "my_winner": "G2",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "my_mvp": "heavygod",
+  "my_p": 70.4,
+  "my_rank": {
+   "A": 14,
+   "B": 8
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "Legacy",
+  "B": "MIBR",
+  "winner": "Legacy",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Nuke",
+   "Dust2",
+   "Inferno"
+  ],
+  "mvp": "n1ssim",
+  "my_winner": "Legacy",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Inferno",
+   "Nuke"
+  ],
+  "my_mvp": "try",
+  "my_p": 66.7,
+  "my_rank": {
+   "A": 6,
+   "B": 21
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ }
+]

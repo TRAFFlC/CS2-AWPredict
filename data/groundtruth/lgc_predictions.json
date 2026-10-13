@@ -1,0 +1,484 @@
+[
+ {
+  "date": "2026-09-17",
+  "A": "B8",
+  "B": "Metizport",
+  "bo": 1,
+  "winner": "B8",
+  "p_win": 70.5,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "npl",
+  "exp": 9.7,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "M80",
+  "B": "Ninjas in Pyjamas",
+  "bo": 1,
+  "winner": "Ninjas in Pyjamas",
+  "p_win": 54.5,
+  "score": "0:1",
+  "maps": "Mirage",
+  "mvp": "lake",
+  "exp": 6.8,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "GamerLegion",
+  "B": "Luminosity",
+  "bo": 1,
+  "winner": "GamerLegion",
+  "p_win": 64.3,
+  "score": "1:0",
+  "maps": "Nuke",
+  "mvp": "fl4mus",
+  "exp": 8.7,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ },
+ {
+  "date": "2026-09-17",
+  "A": "Luminosity",
+  "B": "Metizport",
+  "bo": 1,
+  "winner": "Luminosity",
+  "p_win": 60.4,
+  "score": "1:0",
+  "maps": "Nuke",
+  "mvp": "lux",
+  "exp": 8.5,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ },
+ {
+  "date": "2026-09-17",
+  "A": "B8",
+  "B": "GamerLegion",
+  "bo": 1,
+  "winner": "B8",
+  "p_win": 67.2,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "npl",
+  "exp": 9.3,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "M80",
+  "B": "GamerLegion",
+  "bo": 1,
+  "winner": "GamerLegion",
+  "p_win": 54.6,
+  "score": "0:1",
+  "maps": "Mirage",
+  "mvp": "lake",
+  "exp": 6.7,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "B8",
+  "B": "Ninjas in Pyjamas",
+  "bo": 1,
+  "winner": "B8",
+  "p_win": 64.0,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "npl",
+  "exp": 9.0,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "B8",
+  "B": "Luminosity",
+  "bo": 1,
+  "winner": "B8",
+  "p_win": 67.9,
+  "score": "1:0",
+  "maps": "Dust2",
+  "mvp": "npl",
+  "exp": 9.2,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ },
+ {
+  "date": "2026-09-17",
+  "A": "Ninjas in Pyjamas",
+  "B": "Metizport",
+  "bo": 1,
+  "winner": "Ninjas in Pyjamas",
+  "p_win": 66.9,
+  "score": "1:0",
+  "maps": "Nuke",
+  "mvp": "xkacpersky",
+  "exp": 9.2,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "GamerLegion",
+  "B": "Ninjas in Pyjamas",
+  "bo": 1,
+  "winner": "Ninjas in Pyjamas",
+  "p_win": 54.6,
+  "score": "0:1",
+  "maps": "Nuke",
+  "mvp": "fl4mus",
+  "exp": 6.6,
+  "flags": []
+ },
+ {
+  "date": "2026-09-17",
+  "A": "M80",
+  "B": "Metizport",
+  "bo": 1,
+  "winner": "M80",
+  "p_win": 62.4,
+  "score": "1:0",
+  "maps": "Inferno",
+  "mvp": "lake",
+  "exp": 8.9,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Luminosity",
+  "B": "M80",
+  "bo": 1,
+  "winner": "M80",
+  "p_win": 55.3,
+  "score": "0:1",
+  "maps": "Dust2",
+  "mvp": "lux",
+  "exp": 6.4,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Metizport",
+  "B": "GamerLegion",
+  "bo": 1,
+  "winner": "GamerLegion",
+  "p_win": 51.3,
+  "score": "0:1",
+  "maps": "Nuke",
+  "mvp": "fl4mus",
+  "exp": 7.2,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "B8",
+  "B": "M80",
+  "bo": 1,
+  "winner": "B8",
+  "p_win": 65.4,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "npl",
+  "exp": 9.2,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Luminosity",
+  "B": "M80",
+  "bo": 1,
+  "winner": "M80",
+  "p_win": 55.3,
+  "score": "0:1",
+  "maps": "Dust2",
+  "mvp": "lux",
+  "exp": 6.4,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Inner Circle",
+  "B": "BBL",
+  "bo": 1,
+  "winner": "Inner Circle",
+  "p_win": 57.5,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "cptkurtka023",
+  "exp": 8.1,
+  "flags": [
+   "🔴BBL(语料 1 场)"
+  ]
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Liquid",
+  "B": "INFINITE",
+  "bo": 1,
+  "winner": "Liquid",
+  "p_win": 62.1,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "elige",
+  "exp": 8.6,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "3DMAX",
+  "B": "EYEBALLERS",
+  "bo": 1,
+  "winner": "3DMAX",
+  "p_win": 59.3,
+  "score": "1:0",
+  "maps": "Ancient",
+  "mvp": "misutaaa",
+  "exp": 8.3,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "BBL",
+  "B": "INFINITE",
+  "bo": 1,
+  "winner": "INFINITE",
+  "p_win": 62.0,
+  "score": "0:1",
+  "maps": "Mirage",
+  "mvp": "leakz",
+  "exp": 5.7,
+  "flags": [
+   "🔴BBL(语料 1 场)"
+  ]
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Inner Circle",
+  "B": "Liquid",
+  "bo": 1,
+  "winner": "Inner Circle",
+  "p_win": 55.4,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "cptkurtka023",
+  "exp": 7.8,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Inner Circle",
+  "B": "3DMAX",
+  "bo": 1,
+  "winner": "Inner Circle",
+  "p_win": 60.5,
+  "score": "1:0",
+  "maps": "Ancient",
+  "mvp": "cptkurtka023",
+  "exp": 8.5,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "EYEBALLERS",
+  "B": "Liquid",
+  "bo": 1,
+  "winner": "Liquid",
+  "p_win": 52.0,
+  "score": "0:1",
+  "maps": "Mirage",
+  "mvp": "maxster",
+  "exp": 6.9,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "Inner Circle",
+  "B": "INFINITE",
+  "bo": 1,
+  "winner": "Inner Circle",
+  "p_win": 59.6,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "cptkurtka023",
+  "exp": 8.4,
+  "flags": []
+ },
+ {
+  "date": "2026-09-18",
+  "A": "3DMAX",
+  "B": "BBL",
+  "bo": 1,
+  "winner": "3DMAX",
+  "p_win": 55.9,
+  "score": "1:0",
+  "maps": "Nuke",
+  "mvp": "misutaaa",
+  "exp": 7.8,
+  "flags": [
+   "🔴BBL(语料 1 场)"
+  ]
+ },
+ {
+  "date": "2026-09-19",
+  "A": "Liquid",
+  "B": "3DMAX",
+  "bo": 1,
+  "winner": "Liquid",
+  "p_win": 57.7,
+  "score": "1:0",
+  "maps": "Inferno",
+  "mvp": "elige",
+  "exp": 8.0,
+  "flags": []
+ },
+ {
+  "date": "2026-09-19",
+  "A": "BBL",
+  "B": "EYEBALLERS",
+  "bo": 1,
+  "winner": "EYEBALLERS",
+  "p_win": 60.7,
+  "score": "0:1",
+  "maps": "Mirage",
+  "mvp": "leakz",
+  "exp": 5.9,
+  "flags": [
+   "🔴BBL(语料 1 场)"
+  ]
+ },
+ {
+  "date": "2026-09-19",
+  "A": "BBL",
+  "B": "Liquid",
+  "bo": 1,
+  "winner": "Liquid",
+  "p_win": 57.3,
+  "score": "0:1",
+  "maps": "Mirage",
+  "mvp": "leakz",
+  "exp": 6.2,
+  "flags": [
+   "🔴BBL(语料 1 场)"
+  ]
+ },
+ {
+  "date": "2026-09-19",
+  "A": "EYEBALLERS",
+  "B": "INFINITE",
+  "bo": 1,
+  "winner": "EYEBALLERS",
+  "p_win": 58.7,
+  "score": "1:0",
+  "maps": "Mirage",
+  "mvp": "maxster",
+  "exp": 8.3,
+  "flags": []
+ },
+ {
+  "date": "2026-09-19",
+  "A": "EYEBALLERS",
+  "B": "Inner Circle",
+  "bo": 1,
+  "winner": "Inner Circle",
+  "p_win": 52.0,
+  "score": "0:1",
+  "maps": "Ancient",
+  "mvp": "maxster",
+  "exp": 6.9,
+  "flags": []
+ },
+ {
+  "date": "2026-09-19",
+  "A": "3DMAX",
+  "B": "INFINITE",
+  "bo": 1,
+  "winner": "3DMAX",
+  "p_win": 64.2,
+  "score": "1:0",
+  "maps": "Ancient",
+  "mvp": "misutaaa",
+  "exp": 8.8,
+  "flags": []
+ },
+ {
+  "date": "2026-09-21",
+  "A": "Luminosity",
+  "B": "BBL",
+  "bo": 3,
+  "winner": "Luminosity",
+  "p_win": 53.3,
+  "score": "2:0",
+  "maps": "Dust2 / Inferno / Nuke",
+  "mvp": "lux",
+  "exp": 17.4,
+  "flags": [
+   "🔴Luminosity(语料 2 场)",
+   "🔴BBL(语料 1 场)"
+  ]
+ },
+ {
+  "date": "2026-09-21",
+  "A": "3DMAX",
+  "B": "M80",
+  "bo": 3,
+  "winner": "3DMAX",
+  "p_win": 57.9,
+  "score": "2:0",
+  "maps": "Cache / Dust2 / Inferno",
+  "mvp": "misutaaa",
+  "exp": 20.3,
+  "flags": []
+ },
+ {
+  "date": "2026-09-22",
+  "A": "Luminosity",
+  "B": "B8",
+  "bo": 3,
+  "winner": "B8",
+  "p_win": 53.8,
+  "score": "0:2",
+  "maps": "Ancient / Dust2 / Mirage",
+  "mvp": "npl",
+  "exp": 18.2,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ },
+ {
+  "date": "2026-09-23",
+  "A": "3DMAX",
+  "B": "Inner Circle",
+  "bo": 3,
+  "winner": "Inner Circle",
+  "p_win": 54.3,
+  "score": "0:2",
+  "maps": "Ancient / Cache / Dust2",
+  "mvp": "misutaaa",
+  "exp": 17.5,
+  "flags": []
+ },
+ {
+  "date": "2026-09-24",
+  "A": "3DMAX",
+  "B": "Luminosity",
+  "bo": 5,
+  "winner": "3DMAX",
+  "p_win": 60.0,
+  "score": "3:0",
+  "maps": "Ancient / Cache / Dust2 / Inferno / Nuke",
+  "mvp": "misutaaa",
+  "exp": 32.1,
+  "flags": [
+   "🔴Luminosity(语料 2 场)"
+  ]
+ }
+]

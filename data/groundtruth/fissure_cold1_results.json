@@ -1,0 +1,306 @@
+[
+ {
+  "A": "Astralis",
+  "B": "Sangal",
+  "winner": "Astralis",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Nuke",
+   "Dust2",
+   "Cache"
+  ],
+  "mvp": "ryu",
+  "my_winner": "Astralis",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "staehr",
+  "my_p": 73.3,
+  "my_rank": {
+   "A": 20,
+   "B": 190
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "Sashi",
+  "B": "FOKUS",
+  "winner": "FOKUS",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Anubis",
+   "Nuke",
+   "Dust2"
+  ],
+  "mvp": "jocab",
+  "my_winner": "FOKUS",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Cache",
+   "Nuke"
+  ],
+  "my_mvp": "banjo",
+  "my_p": 53.1,
+  "my_rank": {
+   "A": 49,
+   "B": 48
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 25
+ },
+ {
+  "A": "FOKUS",
+  "B": "Astralis",
+  "winner": "Astralis",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "mvp": "staehr",
+  "my_winner": "Astralis",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "staehr",
+  "my_p": 51.7,
+  "my_rank": {
+   "A": 48,
+   "B": 20
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 10
+  },
+  "total": 35
+ },
+ {
+  "A": "Sashi",
+  "B": "Sangal",
+  "winner": "Sangal",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Nuke",
+   "Cache",
+   "Anubis"
+  ],
+  "mvp": "r4dyx",
+  "my_winner": "Sashi",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Cache",
+   "Nuke"
+  ],
+  "my_mvp": "zyphon",
+  "my_p": 60.9,
+  "my_rank": {
+   "A": 49,
+   "B": 190
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "Sangal",
+  "B": "FOKUS",
+  "winner": "Sangal",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Anubis",
+   "Nuke",
+   "Mirage"
+  ],
+  "mvp": "joey",
+  "my_winner": "FOKUS",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "banjo",
+  "my_p": 54.9,
+  "my_rank": {
+   "A": 190,
+   "B": 48
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 5
+ },
+ {
+  "A": "HEROIC",
+  "B": "Johnny Speeds",
+  "winner": "HEROIC",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Cache",
+   "Anubis",
+   "Nuke"
+  ],
+  "mvp": "brollan",
+  "my_winner": "HEROIC",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "martinezsa",
+  "my_p": 71.6,
+  "my_rank": {
+   "A": 24,
+   "B": 108
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 0,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "Virtus.pro",
+  "B": "BBL",
+  "winner": "BBL",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Nuke",
+   "Mirage",
+   "Dust2"
+  ],
+  "mvp": "leakz",
+  "my_winner": "Virtus.pro",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Cache",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "b1st",
+  "my_p": 55.2,
+  "my_rank": {
+   "A": 42,
+   "B": 53
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "HEROIC",
+  "B": "BBL",
+  "winner": "HEROIC",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Nuke",
+   "Inferno",
+   "Dust2"
+  ],
+  "mvp": "martinezsa",
+  "my_winner": "HEROIC",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "my_mvp": "martinezsa",
+  "my_p": 60.3,
+  "my_rank": {
+   "A": 24,
+   "B": 53
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 10
+  },
+  "total": 40
+ }
+]

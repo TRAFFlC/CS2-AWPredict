@@ -1,0 +1,9688 @@
+[
+ {
+  "id": 2396249,
+  "pA": 0.6978920781979707,
+  "pred_winner": "NRG",
+  "truth_winner": "Voca",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "grim",
+  "truth_mvp": "nosrac",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396382,
+  "pA": 0.5048680064315106,
+  "pred_winner": "Omega",
+  "truth_winner": "Omega",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "botpa1",
+  "truth_mvp": "dan4o",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396252,
+  "pA": 0.6077432692502426,
+  "pred_winner": "NRG",
+  "truth_winner": "NRG",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient"
+  ],
+  "pred_mvp": "grim",
+  "truth_mvp": "sonic",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396441,
+  "pA": 0.5351497463903698,
+  "pred_winner": "Jam",
+  "truth_winner": "Jam",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Anubis",
+   "Dust2"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "s4ltovsk1yy",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396462,
+  "pA": 0.6146770307975254,
+  "pred_winner": "BC.Game",
+  "truth_winner": "BC.Game",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "senzu",
+  "truth_mvp": "senzu",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396467,
+  "pA": 0.6284919856353519,
+  "pred_winner": "Inner Circle",
+  "truth_winner": "Inner Circle",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Cache"
+  ],
+  "pred_mvp": "dawy",
+  "truth_mvp": "cptkurtka023",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396469,
+  "pA": 0.7188894541311152,
+  "pred_winner": "BIG",
+  "truth_winner": "BIG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "gr1ks",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396473,
+  "pA": 0.6279481045979795,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "mizu",
+  "truth_mvp": "n0rb3r7",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396475,
+  "pA": 0.4771687756518655,
+  "pred_winner": "INFINITE",
+  "truth_winner": "Betclic",
+  "pred_score": [
+   0,
+   1
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "sl3nd",
+  "truth_mvp": "prism",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396477,
+  "pA": 0.6470707982498739,
+  "pred_winner": "1win",
+  "truth_winner": "BC.Game",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "senzu",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396479,
+  "pA": 0.6262136949549758,
+  "pred_winner": "HEROIC",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "nilo",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396349,
+  "pA": 0.7422801266141043,
+  "pred_winner": "Imperial",
+  "truth_winner": "Imperial",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "noway",
+  "truth_mvp": "chelo",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396446,
+  "pA": 0.7446239685900793,
+  "pred_winner": "BRUTE",
+  "truth_winner": "Nexus",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Anubis"
+  ],
+  "pred_mvp": "majky",
+  "truth_mvp": "shield",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396501,
+  "pA": 0.6268688612088517,
+  "pred_winner": "EYEBALLERS",
+  "truth_winner": "EYEBALLERS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Anubis",
+   "Inferno"
+  ],
+  "pred_mvp": "krimz",
+  "truth_mvp": "dex",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396505,
+  "pA": 0.6546023029331354,
+  "pred_winner": "Liquid",
+  "truth_winner": "Liquid",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "elige",
+  "truth_mvp": "elige",
+  "points": 20,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396507,
+  "pA": 0.6281164299058776,
+  "pred_winner": "FOKUS",
+  "truth_winner": "FOKUS",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "banjo",
+  "truth_mvp": "podi",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396509,
+  "pA": 0.6008394806561382,
+  "pred_winner": "Acend",
+  "truth_winner": "NRG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "h4rn",
+  "truth_mvp": "jeorge",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396511,
+  "pA": 0.579768670895113,
+  "pred_winner": "K27",
+  "truth_winner": "K27",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "clax",
+  "truth_mvp": "xeedo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396513,
+  "pA": 0.38049432641855524,
+  "pred_winner": "Virtus.pro",
+  "truth_winner": "Virtus.pro",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "b1st",
+  "truth_mvp": "aquars",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396528,
+  "pA": 0.6817450516738109,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "ax1le",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396532,
+  "pA": 0.6033613204692827,
+  "pred_winner": "EYEBALLERS",
+  "truth_winner": "EYEBALLERS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "maxster",
+  "truth_mvp": "maxster",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396533,
+  "pA": 0.6599649315971096,
+  "pred_winner": "HEROIC",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "nilo",
+  "points": 20,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396534,
+  "pA": 0.5749113683938788,
+  "pred_winner": "fnatic",
+  "truth_winner": "fnatic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Anubis",
+   "Dust2"
+  ],
+  "pred_mvp": "jambo",
+  "truth_mvp": "mazay",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396535,
+  "pA": 0.6911629239543183,
+  "pred_winner": "Virtus.pro",
+  "truth_winner": "Sashi",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "b1st",
+  "truth_mvp": "zyphon",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396538,
+  "pA": 0.6767786343913713,
+  "pred_winner": "BIG",
+  "truth_winner": "BIG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "gr1ks",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396539,
+  "pA": 0.5980685594202889,
+  "pred_winner": "NRG",
+  "truth_winner": "Phantom",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "jeorge",
+  "truth_mvp": "cej0t",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396540,
+  "pA": 0.3091633118842158,
+  "pred_winner": "DENDELE",
+  "truth_winner": "JiJieHao",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Ancient"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "cacanito",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396541,
+  "pA": 0.706372170632219,
+  "pred_winner": "Inner Circle",
+  "truth_winner": "Inner Circle",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Anubis",
+   "Ancient"
+  ],
+  "pred_mvp": "dawy",
+  "truth_mvp": "dawy",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396542,
+  "pA": 0.6973605260834908,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "kade0",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396543,
+  "pA": 0.5529872734874816,
+  "pred_winner": "Acend",
+  "truth_winner": "Acend",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "h4rn",
+  "truth_mvp": "redstar",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396544,
+  "pA": 0.658075217796451,
+  "pred_winner": "Liquid",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Anubis",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Cache"
+  ],
+  "pred_mvp": "elige",
+  "truth_mvp": "belchonokk",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396545,
+  "pA": 0.5747602775426113,
+  "pred_winner": "BC.Game",
+  "truth_winner": "BC.Game",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "senzu",
+  "truth_mvp": "senzu",
+  "points": 20,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396546,
+  "pA": 0.5771391844641847,
+  "pred_winner": "100 Thieves",
+  "truth_winner": "100 Thieves",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "device",
+  "truth_mvp": "poiii",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396547,
+  "pA": 0.5791779784791176,
+  "pred_winner": "K27",
+  "truth_winner": "K27",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Anubis",
+   "Nuke"
+  ],
+  "pred_mvp": "clax",
+  "truth_mvp": "qw1nk1",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396548,
+  "pA": 0.6846024427260118,
+  "pred_winner": "HEROIC",
+  "truth_winner": "fnatic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "jackasmo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396549,
+  "pA": 0.6087350850578455,
+  "pred_winner": "Betclic",
+  "truth_winner": "Sashi",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Anubis",
+   "Ancient"
+  ],
+  "pred_mvp": "prism",
+  "truth_mvp": "cabbi",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396550,
+  "pA": 0.7181655453242666,
+  "pred_winner": "BIG",
+  "truth_winner": "BIG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "gr1ks",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396551,
+  "pA": 0.4227763416825131,
+  "pred_winner": "Phantom",
+  "truth_winner": "JiJieHao",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "nicoodoz",
+  "truth_mvp": "m1n1",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396552,
+  "pA": 0.5232432659591266,
+  "pred_winner": "Inner Circle",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "dawy",
+  "truth_mvp": "frontales",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396553,
+  "pA": 0.5398357448029756,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "artfr0st",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396554,
+  "pA": 0.6279286613343406,
+  "pred_winner": "100 Thieves",
+  "truth_winner": "100 Thieves",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Anubis",
+   "Nuke"
+  ],
+  "pred_mvp": "device",
+  "truth_mvp": "gizmy",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396555,
+  "pA": 0.4944954190094911,
+  "pred_winner": "K27",
+  "truth_winner": "K27",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Cache"
+  ],
+  "pred_mvp": "clax",
+  "truth_mvp": "qw1nk1",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396556,
+  "pA": 0.7088526377463762,
+  "pred_winner": "BIG",
+  "truth_winner": "BIG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "gr1ks",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396557,
+  "pA": 0.7575976946259594,
+  "pred_winner": "HOTU",
+  "truth_winner": "JiJieHao",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "bibu",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396558,
+  "pA": 0.6281543605170747,
+  "pred_winner": "100 Thieves",
+  "truth_winner": "100 Thieves",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Anubis",
+   "Dust2"
+  ],
+  "pred_mvp": "device",
+  "truth_mvp": "poiii",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396559,
+  "pA": 0.7635875742974724,
+  "pred_winner": "Spirit",
+  "truth_winner": "JiJieHao",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   10,
+   13
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "sinnopsyy",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396560,
+  "pA": 0.5081940265610954,
+  "pred_winner": "GamerLegion",
+  "truth_winner": "GamerLegion",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   3
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "rez",
+  "truth_mvp": "fl4mus",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396561,
+  "pA": 0.691840454941718,
+  "pred_winner": "G2",
+  "truth_winner": "G2",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   11
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "heavygod",
+  "truth_mvp": "r1nkle",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396563,
+  "pA": 0.7238496817727614,
+  "pred_winner": "Falcons",
+  "truth_winner": "Falcons",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   6
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "m0nesy",
+  "points": 20,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396564,
+  "pA": 0.6074194731781248,
+  "pred_winner": "Astralis",
+  "truth_winner": "Astralis",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   6
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "staehr",
+  "truth_mvp": "phzy",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396565,
+  "pA": 0.4774578266909644,
+  "pred_winner": "BetBoom",
+  "truth_winner": "FaZe",
+  "pred_score": [
+   0,
+   1
+  ],
+  "truth_score": [
+   13,
+   11
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "magnojez",
+  "truth_mvp": "jcobbb",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396567,
+  "pA": 0.7316194003767648,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   4
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "apex",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396569,
+  "pA": 0.6396876800098349,
+  "pred_winner": "FUT",
+  "truth_winner": "FUT",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   10
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "xfl0ud",
+  "truth_mvp": "dziugss",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396570,
+  "pA": 0.7331928735639296,
+  "pred_winner": "MOUZ",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   8
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "xelex",
+  "truth_mvp": "xelex",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396571,
+  "pA": 0.7480286799912402,
+  "pred_winner": "Natus Vincere",
+  "truth_winner": "Natus Vincere",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   9
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "w0nderful",
+  "truth_mvp": "im",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396572,
+  "pA": 0.5932342601749006,
+  "pred_winner": "The MongolZ",
+  "truth_winner": "The MongolZ",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   7
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "tikuak",
+  "truth_mvp": "910",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396574,
+  "pA": 0.6484903799325314,
+  "pred_winner": "FURIA",
+  "truth_winner": "FURIA",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   10
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "kscerato",
+  "truth_mvp": "kscerato",
+  "points": 20,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396575,
+  "pA": 0.5681038622033,
+  "pred_winner": "GamerLegion",
+  "truth_winner": "GamerLegion",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "fl4mus",
+  "truth_mvp": "tauson",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396576,
+  "pA": 0.5949150526093073,
+  "pred_winner": "G2",
+  "truth_winner": "G2",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "r1nkle",
+  "truth_mvp": "nertz",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396577,
+  "pA": 0.7575788587034552,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396578,
+  "pA": 0.6653723322155536,
+  "pred_winner": "Aurora",
+  "truth_winner": "Aurora",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "wicadia",
+  "truth_mvp": "xantares",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396579,
+  "pA": 0.6981592815043631,
+  "pred_winner": "Falcons",
+  "truth_winner": "Falcons",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "niko",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396580,
+  "pA": 0.628294548668087,
+  "pred_winner": "Legacy",
+  "truth_winner": "FaZe",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "latto",
+  "truth_mvp": "twistzz",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396581,
+  "pA": 0.5770316100987665,
+  "pred_winner": "MIBR",
+  "truth_winner": "MIBR",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "nqz",
+  "truth_mvp": "insani",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396582,
+  "pA": 0.6542696233118642,
+  "pred_winner": "BetBoom",
+  "truth_winner": "Ninjas in Pyjamas",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Anubis",
+   "Ancient"
+  ],
+  "pred_mvp": "magnojez",
+  "truth_mvp": "xkacpersky",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396583,
+  "pA": 0.7784945042705579,
+  "pred_winner": "Vitality",
+  "truth_winner": "B8",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "npl",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396584,
+  "pA": 0.5857799178752776,
+  "pred_winner": "MOUZ",
+  "truth_winner": "FUT",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "xelex",
+  "truth_mvp": "xfl0ud",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396585,
+  "pA": 0.557263385010031,
+  "pred_winner": "PARIVISION",
+  "truth_winner": "PARIVISION",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "jame",
+  "truth_mvp": "jame",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396586,
+  "pA": 0.704699025563239,
+  "pred_winner": "TYLOO",
+  "truth_winner": "Lynn Vision",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "jamyoung",
+  "truth_mvp": "emiliaqaq",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396818,
+  "pA": 0.5994378014824977,
+  "pred_winner": "BASEMENT BOYS",
+  "truth_winner": "Lavked",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "tr0uble",
+  "truth_mvp": "k4nfuz",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396822,
+  "pA": 0.5011961979057855,
+  "pred_winner": "OG",
+  "truth_winner": "BAKS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Cache",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "adamb",
+  "truth_mvp": "turbo",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396367,
+  "pA": 0.5490595255659414,
+  "pred_winner": "Imperial",
+  "truth_winner": "Imperial",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "chelo",
+  "truth_mvp": "noway",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396587,
+  "pA": 0.669342428806691,
+  "pred_winner": "Natus Vincere",
+  "truth_winner": "Natus Vincere",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "w0nderful",
+  "truth_mvp": "b1t",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396588,
+  "pA": 0.6194504233806547,
+  "pred_winner": "FURIA",
+  "truth_winner": "FURIA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "pred_mvp": "kscerato",
+  "truth_mvp": "kscerato",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396589,
+  "pA": 0.6701624600263388,
+  "pred_winner": "magic",
+  "truth_winner": "magic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "tenzy",
+  "truth_mvp": "tenzy",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396590,
+  "pA": 0.5860614120630647,
+  "pred_winner": "paiN",
+  "truth_winner": "paiN",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Nuke"
+  ],
+  "pred_mvp": "piriajr",
+  "truth_mvp": "saffee",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396591,
+  "pA": 0.6930254524369713,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396592,
+  "pA": 0.6599416330220219,
+  "pred_winner": "Aurora",
+  "truth_winner": "Aurora",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Anubis",
+   "Inferno"
+  ],
+  "pred_mvp": "wicadia",
+  "truth_mvp": "jimpphat",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396829,
+  "pA": 0.3599989640200338,
+  "pred_winner": "BAKS",
+  "truth_winner": "BASEMENT BOYS",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "turbo",
+  "truth_mvp": "owner",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396831,
+  "pA": 0.6577839108962286,
+  "pred_winner": "OG",
+  "truth_winner": "Lavked",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "adamb",
+  "truth_mvp": "xm1nd",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396593,
+  "pA": 0.6066444475568882,
+  "pred_winner": "Legacy",
+  "truth_winner": "Legacy",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "latto",
+  "truth_mvp": "n1ssim",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396594,
+  "pA": 0.5740915782373138,
+  "pred_winner": "Astralis",
+  "truth_winner": "Astralis",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "staehr",
+  "truth_mvp": "staehr",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396595,
+  "pA": 0.6558349543088503,
+  "pred_winner": "MOUZ",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "xelex",
+  "truth_mvp": "spinx",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396596,
+  "pA": 0.796683590027832,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "zywoo",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396597,
+  "pA": 0.5716467200930107,
+  "pred_winner": "9z",
+  "truth_winner": "magic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "luchov",
+  "truth_mvp": "aw",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396598,
+  "pA": 0.6267523483015515,
+  "pred_winner": "The MongolZ",
+  "truth_winner": "The MongolZ",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "910",
+  "truth_mvp": "blitz",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396698,
+  "pA": 0.5035474754753358,
+  "pred_winner": "Nexus",
+  "truth_winner": "Bushido Wildcats",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Cache"
+  ],
+  "pred_mvp": "fnk",
+  "truth_mvp": "cacan",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396832,
+  "pA": 0.6764231194354142,
+  "pred_winner": "INOX Division",
+  "truth_winner": "BASEMENT BOYS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "kr1vda",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396833,
+  "pA": 0.6898506030058879,
+  "pred_winner": "EAC",
+  "truth_winner": "EAC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "bekker",
+  "truth_mvp": "fessor",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396834,
+  "pA": 0.6643563159735221,
+  "pred_winner": "INOX Division",
+  "truth_winner": "Lavked",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "k4nfuz",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396835,
+  "pA": 0.701412788648932,
+  "pred_winner": "EAC",
+  "truth_winner": "EAC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "pred_mvp": "bekker",
+  "truth_mvp": "fessor",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396891,
+  "pA": 0.45785960439016876,
+  "pred_winner": "G2 Ares",
+  "truth_winner": "G2 Ares",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "hitori",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396907,
+  "pA": 0.6353684344996106,
+  "pred_winner": "Metizport",
+  "truth_winner": "Metizport",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Nuke"
+  ],
+  "pred_mvp": "f1ku",
+  "truth_mvp": "mail09",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396599,
+  "pA": 0.6417565035177888,
+  "pred_winner": "G2",
+  "truth_winner": "G2",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "r1nkle",
+  "truth_mvp": "r1nkle",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396600,
+  "pA": 0.6235875809163263,
+  "pred_winner": "FURIA",
+  "truth_winner": "FURIA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "kscerato",
+  "truth_mvp": "kscerato",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396601,
+  "pA": 0.581139265362728,
+  "pred_winner": "FUT",
+  "truth_winner": "FUT",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Anubis"
+  ],
+  "pred_mvp": "xfl0ud",
+  "truth_mvp": "dem0n",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396602,
+  "pA": 0.6553804841191555,
+  "pred_winner": "MOUZ",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "xertion",
+  "truth_mvp": "torzsi",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396647,
+  "pA": 0.6573055031260185,
+  "pred_winner": "GenOne",
+  "truth_winner": "GenOne",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "djoko",
+  "truth_mvp": "bl4sez",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396649,
+  "pA": 0.5468546781461624,
+  "pred_winner": "Bushido Wildcats",
+  "truth_winner": "Black Phoenix",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "cacan",
+  "truth_mvp": "yiksrezo",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396918,
+  "pA": 0.4528373999024166,
+  "pred_winner": "EAC",
+  "truth_winner": "Color",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Anubis"
+  ],
+  "pred_mvp": "fessor",
+  "truth_mvp": "cronuss",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396603,
+  "pA": 0.5213678379436356,
+  "pred_winner": "Legacy",
+  "truth_winner": "Legacy",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "latto",
+  "truth_mvp": "n1ssim",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396604,
+  "pA": 0.6994962691331016,
+  "pred_winner": "Falcons",
+  "truth_winner": "Falcons",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "kyousuke",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396605,
+  "pA": 0.7322073125321836,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "zywoo",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396606,
+  "pA": 0.7553928681795098,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396607,
+  "pA": 0.6404864995061458,
+  "pred_winner": "FURIA",
+  "truth_winner": "FURIA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Anubis"
+  ],
+  "pred_mvp": "kscerato",
+  "truth_mvp": "yekindar",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396919,
+  "pA": 0.639295491271095,
+  "pred_winner": "OG",
+  "truth_winner": "OG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "adamb",
+  "truth_mvp": "cadian",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396920,
+  "pA": 0.5335341672413387,
+  "pred_winner": "Color",
+  "truth_winner": "Metizport",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Cache",
+   "Inferno"
+  ],
+  "pred_mvp": "cronuss",
+  "truth_mvp": "forsyy",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396921,
+  "pA": 0.609393622807293,
+  "pred_winner": "Color",
+  "truth_winner": "Color",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "cronuss",
+  "truth_mvp": "reyoz",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396922,
+  "pA": 0.5416826820271451,
+  "pred_winner": "Metizport",
+  "truth_winner": "Metizport",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "f1ku",
+  "truth_mvp": "forsyy",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396608,
+  "pA": 0.5509894451451869,
+  "pred_winner": "MOUZ",
+  "truth_winner": "FUT",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "xertion",
+  "truth_mvp": "xfl0ud",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396609,
+  "pA": 0.653908119404587,
+  "pred_winner": "Falcons",
+  "truth_winner": "Legacy",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "try",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396610,
+  "pA": 0.5410547045296846,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396655,
+  "pA": 0.4373006700355694,
+  "pred_winner": "Black Phoenix",
+  "truth_winner": "ex-RUSTEC",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Inferno",
+   "Nuke"
+  ],
+  "pred_mvp": "yiksrezo",
+  "truth_mvp": "shalfey",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396611,
+  "pA": 0.5347350941506706,
+  "pred_winner": "FUT",
+  "truth_winner": "FUT",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "xfl0ud",
+  "truth_mvp": "cmtry",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396612,
+  "pA": 0.6796685483550521,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396660,
+  "pA": 0.6971353583082303,
+  "pred_winner": "Bushido Wildcats",
+  "truth_winner": "Bushido Wildcats",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "vej",
+  "truth_mvp": "vej",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396662,
+  "pA": 0.4608289501689047,
+  "pred_winner": "Black Phoenix",
+  "truth_winner": "UNiTY",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Mirage",
+   "Dust2"
+  ],
+  "pred_mvp": "topo",
+  "truth_mvp": "2high",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396706,
+  "pA": 0.6366053597897011,
+  "pred_winner": "Butterfly",
+  "truth_winner": "Butterfly",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "nitzie",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397024,
+  "pA": 0.7529118095782283,
+  "pred_winner": "Nemesis",
+  "truth_winner": "Nemesis",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "r3salt",
+  "truth_mvp": "sdaim",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 10
+ },
+ {
+  "id": 2397025,
+  "pA": 0.715866421295271,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "artfr0st",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397027,
+  "pA": 0.7928836338811601,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "SPARTA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "glowiing",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396613,
+  "pA": 0.5399531229256505,
+  "pred_winner": "Legacy",
+  "truth_winner": "Legacy",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "latto",
+  "truth_mvp": "try",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396614,
+  "pA": 0.6805533011511503,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   3,
+   0
+  ],
+  "truth_score": [
+   3,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient",
+   "Anubis",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Anubis",
+   "Ancient",
+   "Nuke",
+   "Mirage"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 20,
+  "score_points": 0
+ },
+ {
+  "id": 2396665,
+  "pA": 0.6373356042738781,
+  "pred_winner": "GenOne",
+  "truth_winner": "GenOne",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Anubis",
+   "Dust2"
+  ],
+  "pred_mvp": "djoko",
+  "truth_mvp": "djoko",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396709,
+  "pA": 0.6093312057257952,
+  "pred_winner": "Color",
+  "truth_winner": "SPARTA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "travis",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396771,
+  "pA": 0.6508733539928793,
+  "pred_winner": "Black Phoenix",
+  "truth_winner": "Lavked",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "yiksrezo",
+  "truth_mvp": "yakuza",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397029,
+  "pA": 0.6042455762725192,
+  "pred_winner": "K27",
+  "truth_winner": "K27",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "qw1nk1",
+  "truth_mvp": "qw1nk1",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397031,
+  "pA": 0.5984987466816569,
+  "pred_winner": "ex-RUBY",
+  "truth_winner": "Black Phoenix",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "h4san4tor",
+  "truth_mvp": "yiksrezo",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396714,
+  "pA": 0.41917717411061384,
+  "pred_winner": "Butterfly",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Nuke"
+  ],
+  "pred_mvp": "nitzie",
+  "truth_mvp": "finw",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397033,
+  "pA": 0.6901710900818638,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Cache"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "dwushka",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397070,
+  "pA": 0.6700274161020928,
+  "pred_winner": "100 Thieves",
+  "truth_winner": "100 Thieves",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   6
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "poiii",
+  "truth_mvp": "rain",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397071,
+  "pA": 0.5574798783303736,
+  "pred_winner": "ex-RUBY",
+  "truth_winner": "Eternal Fire",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   11,
+   13
+  ],
+  "pred_maps": [
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Cache"
+  ],
+  "pred_mvp": "h4san4tor",
+  "truth_mvp": "soulfly",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397072,
+  "pA": 0.5822227804355616,
+  "pred_winner": "Acend",
+  "truth_winner": "Acend",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   19,
+   17
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient"
+  ],
+  "pred_mvp": "h4rn",
+  "truth_mvp": "spellan",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397073,
+  "pA": 0.5577363007959287,
+  "pred_winner": "Nemiga",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   11
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "syph0",
+  "truth_mvp": "robo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397076,
+  "pA": 0.5431562323536575,
+  "pred_winner": "Color",
+  "truth_winner": "Color",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   4
+  ],
+  "pred_maps": [
+   "Cache"
+  ],
+  "truth_maps": [
+   "Inferno"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "ryujin",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397078,
+  "pA": 0.6655663126587796,
+  "pred_winner": "100 Thieves",
+  "truth_winner": "Eternal Fire",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "poiii",
+  "truth_mvp": "regali",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397079,
+  "pA": 0.5178711478103682,
+  "pred_winner": "Acend",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "h4rn",
+  "truth_mvp": "kair0n",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397080,
+  "pA": 0.7102732478420224,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Anubis",
+   "Nuke"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "senka",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397081,
+  "pA": 0.6002239572649917,
+  "pred_winner": "Color",
+  "truth_winner": "Color",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "reyoz",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396671,
+  "pA": 0.4439691651407,
+  "pred_winner": "G2 Ares",
+  "truth_winner": "ex-RUSTEC",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Anubis",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "hitori",
+  "truth_mvp": "brilliance",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396717,
+  "pA": 0.5031294873643095,
+  "pred_winner": "ex-RUBY",
+  "truth_winner": "Black Phoenix",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Mirage",
+   "Dust2"
+  ],
+  "pred_mvp": "sowalio",
+  "truth_mvp": "yiksrezo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396719,
+  "pA": 0.5542888280833397,
+  "pred_winner": "Color",
+  "truth_winner": "Color",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "lattykk",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396776,
+  "pA": 0.6084052195910106,
+  "pred_winner": "ex-Zero Tenacity",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "vldn",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397037,
+  "pA": 0.5342144504948705,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "artfr0st",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397038,
+  "pA": 0.5850527650434708,
+  "pred_winner": "ex-RUBY",
+  "truth_winner": "ex-RUBY",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "sowalio",
+  "truth_mvp": "sowalio",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397039,
+  "pA": 0.8324170509850906,
+  "pred_winner": "K27",
+  "truth_winner": "K27",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "qw1nk1",
+  "truth_mvp": "clax",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396721,
+  "pA": 0.793184855348047,
+  "pred_winner": "INOX Division",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "finw",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396923,
+  "pA": 0.5225720128437874,
+  "pred_winner": "G2",
+  "truth_winner": "G2",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Anubis",
+   "Mirage"
+  ],
+  "pred_mvp": "r1nkle",
+  "truth_mvp": "r1nkle",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396924,
+  "pA": 0.7432178372150728,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Cache",
+   "Anubis"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396925,
+  "pA": 0.7149935393184659,
+  "pred_winner": "Natus Vincere",
+  "truth_winner": "M80",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Mirage",
+   "Anubis"
+  ],
+  "pred_mvp": "w0nderful",
+  "truth_mvp": "jba",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396926,
+  "pA": 0.6976753009849904,
+  "pred_winner": "FURIA",
+  "truth_winner": "FURIA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "kscerato",
+  "truth_mvp": "yekindar",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397041,
+  "pA": 0.7457935261609998,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "flouzer",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397042,
+  "pA": 0.6113641065870072,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "n0rb3r7",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397043,
+  "pA": 0.5192823424730889,
+  "pred_winner": "1win",
+  "truth_winner": "Nemesis",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "r3salt",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396676,
+  "pA": 0.6302816738788932,
+  "pred_winner": "GenOne",
+  "truth_winner": "GenOne",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "djoko",
+  "truth_mvp": "keoz",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396677,
+  "pA": 0.6626120861053116,
+  "pred_winner": "Nemiga",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "syph0",
+  "truth_mvp": "khan",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396678,
+  "pA": 0.6238390200894643,
+  "pred_winner": "Acend",
+  "truth_winner": "Acend",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "h4rn",
+  "truth_mvp": "kaluber",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396679,
+  "pA": 0.477918893205017,
+  "pred_winner": "Just Players",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Anubis"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "fenomen",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396784,
+  "pA": 0.5749710718752699,
+  "pred_winner": "FOKUS",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Mirage"
+  ],
+  "pred_mvp": "banjo",
+  "truth_mvp": "vldn",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396927,
+  "pA": 0.7481895770670561,
+  "pred_winner": "Vitality",
+  "truth_winner": "Inner Circle",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "cptkurtka023",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396928,
+  "pA": 0.5532186154740889,
+  "pred_winner": "MOUZ",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "xertion",
+  "truth_mvp": "xelex",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396929,
+  "pA": 0.5833167882467016,
+  "pred_winner": "FUT",
+  "truth_winner": "Legacy",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "xfl0ud",
+  "truth_mvp": "try",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396930,
+  "pA": 0.7694930604482698,
+  "pred_winner": "Falcons",
+  "truth_winner": "Falcons",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "m0nesy",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397044,
+  "pA": 0.6915684389482185,
+  "pred_winner": "Nemiga",
+  "truth_winner": "ex-RUBY",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "syph0",
+  "truth_mvp": "h4san4tor",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397045,
+  "pA": 0.7910576050825365,
+  "pred_winner": "Rune Eaters",
+  "truth_winner": "SPARTA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "noni",
+  "truth_mvp": "glowiing",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397047,
+  "pA": 0.6487150710507916,
+  "pred_winner": "Black Phoenix",
+  "truth_winner": "FORZE Reload",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "yiksrezo",
+  "truth_mvp": "kaide",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397188,
+  "pA": 0.587281441457022,
+  "pred_winner": "QUAZAR",
+  "truth_winner": "QUAZAR",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Mirage",
+   "Anubis"
+  ],
+  "pred_mvp": "newt",
+  "truth_mvp": "ne1xxx",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397189,
+  "pA": 0.7061697363662814,
+  "pred_winner": "QUAZAR",
+  "truth_winner": "QUAZAR",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Anubis"
+  ],
+  "pred_mvp": "newt",
+  "truth_mvp": "newt",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396680,
+  "pA": 0.6558592019326953,
+  "pred_winner": "ex-Zero Tenacity",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "vldn",
+  "truth_mvp": "vldn",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396681,
+  "pA": 0.6595988558373903,
+  "pred_winner": "Sashi",
+  "truth_winner": "ex-RUSTEC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "pred_mvp": "zyphon",
+  "truth_mvp": "shalfey",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396683,
+  "pA": 0.520760747429814,
+  "pred_winner": "SINNERS",
+  "truth_winner": "SINNERS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "modo",
+  "truth_mvp": "stressarn",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396726,
+  "pA": 0.5388075589982908,
+  "pred_winner": "UPGRADE",
+  "truth_winner": "Black Phoenix",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Anubis",
+   "Nuke"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "yiksrezo",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396728,
+  "pA": 0.545247879179149,
+  "pred_winner": "ex-RUBY",
+  "truth_winner": "ex-RUBY",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "h4san4tor",
+  "truth_mvp": "sh1nejezzz",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396787,
+  "pA": 0.4993679147358835,
+  "pred_winner": "Bushido Wildcats",
+  "truth_winner": "Bushido Wildcats",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Cache"
+  ],
+  "pred_mvp": "vej",
+  "truth_mvp": "vej",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396931,
+  "pA": 0.6607429818283921,
+  "pred_winner": "Aurora",
+  "truth_winner": "Aurora",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Anubis",
+   "Inferno",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "wicadia",
+  "truth_mvp": "jimpphat",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396932,
+  "pA": 0.7522340139421875,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Ancient"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "donk",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396933,
+  "pA": 0.683252907374153,
+  "pred_winner": "Natus Vincere",
+  "truth_winner": "Natus Vincere",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "b1t",
+  "truth_mvp": "makazze",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396934,
+  "pA": 0.7081637101249508,
+  "pred_winner": "FURIA",
+  "truth_winner": "FURIA",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "kscerato",
+  "truth_mvp": "kscerato",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397048,
+  "pA": 0.8130591213591968,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "ax1le",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397049,
+  "pA": 0.5974801569866051,
+  "pred_winner": "Rune Eaters",
+  "truth_winner": "Black Phoenix",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Cache"
+  ],
+  "pred_mvp": "noni",
+  "truth_mvp": "karnez",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397050,
+  "pA": 0.6188712735163072,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Anubis",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "z1k4",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397146,
+  "pA": 0.5705805149640943,
+  "pred_winner": "Fluxo",
+  "truth_winner": "Galorys",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "dav1deus",
+  "truth_mvp": "pkl",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397147,
+  "pA": 0.5580771321586854,
+  "pred_winner": "Imperial",
+  "truth_winner": "Imperial",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "noway",
+  "truth_mvp": "vini",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397191,
+  "pA": 0.561884505185701,
+  "pred_winner": "9INE",
+  "truth_winner": "Rune Eaters",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "b1elany",
+  "truth_mvp": "demente",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396684,
+  "pA": 0.5444585288258871,
+  "pred_winner": "SINNERS",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "modo",
+  "truth_mvp": "vldn",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396685,
+  "pA": 0.6428179090462911,
+  "pred_winner": "INOX Division",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "finw",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396686,
+  "pA": 0.5983752551761539,
+  "pred_winner": "Acend",
+  "truth_winner": "GenOne",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "redstar",
+  "truth_mvp": "keoz",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396687,
+  "pA": 0.6235261945547048,
+  "pred_winner": "Nemiga",
+  "truth_winner": "Phantom",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Anubis",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "khan",
+  "truth_mvp": "nicoodoz",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396792,
+  "pA": 0.7025018022888618,
+  "pred_winner": "ex-Zero Tenacity",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Cache",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "vldn",
+  "truth_mvp": "vldn",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396793,
+  "pA": 0.5754676689671454,
+  "pred_winner": "Sashi",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Inferno"
+  ],
+  "pred_mvp": "zyphon",
+  "truth_mvp": "finw",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396935,
+  "pA": 0.6579307490507948,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "jl",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396936,
+  "pA": 0.6699762498351847,
+  "pred_winner": "MOUZ",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "xelex",
+  "truth_mvp": "spinx",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396937,
+  "pA": 0.7300184992631837,
+  "pred_winner": "FUT",
+  "truth_winner": "FUT",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Anubis",
+   "Dust2"
+  ],
+  "pred_mvp": "xfl0ud",
+  "truth_mvp": "krabeni",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396938,
+  "pA": 0.5883351795664282,
+  "pred_winner": "Falcons",
+  "truth_winner": "Falcons",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "m0nesy",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397052,
+  "pA": 0.648985148702881,
+  "pred_winner": "K27",
+  "truth_winner": "ex-RUBY",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "qw1nk1",
+  "truth_mvp": "relaxxie",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397053,
+  "pA": 0.6846641126087365,
+  "pred_winner": "Color",
+  "truth_winner": "Color",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "cronuss",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397194,
+  "pA": 0.6142240315692471,
+  "pred_winner": "9INE",
+  "truth_winner": "9INE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Ancient",
+   "Nuke"
+  ],
+  "pred_mvp": "rim3",
+  "truth_mvp": "b1elany",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397195,
+  "pA": 0.7152763461285117,
+  "pred_winner": "EAC",
+  "truth_winner": "EAC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "pred_mvp": "fessor",
+  "truth_mvp": "n1xen",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397230,
+  "pA": 0.4561774899108367,
+  "pred_winner": "Bushido Wildcats",
+  "truth_winner": "UNiTY",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Nuke",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "vej",
+  "truth_mvp": "m1key",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397340,
+  "pA": 0.558061072573024,
+  "pred_winner": "ex-RUSTEC",
+  "truth_winner": "FORZE Reload",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "shalfey",
+  "truth_mvp": "kaide",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396688,
+  "pA": 0.5738047760754679,
+  "pred_winner": "INOX Division",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "fenomen",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396689,
+  "pA": 0.502839721239816,
+  "pred_winner": "Phantom",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "pred_mvp": "nicoodoz",
+  "truth_mvp": "cjoffo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396690,
+  "pA": 0.5170985982482611,
+  "pred_winner": "INOX Division",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "fenomen",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396794,
+  "pA": 0.5170985982482611,
+  "pred_winner": "INOX Division",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "vldn",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396796,
+  "pA": 0.6077689516076175,
+  "pred_winner": "ex-Zero Tenacity",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "pred_mvp": "vldn",
+  "truth_mvp": "cjoffo",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396939,
+  "pA": 0.6986935991404067,
+  "pred_winner": "Aurora",
+  "truth_winner": "Aurora",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "wicadia",
+  "truth_mvp": "woxic",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396940,
+  "pA": 0.5650503644292694,
+  "pred_winner": "G2",
+  "truth_winner": "G2",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "r1nkle",
+  "truth_mvp": "heavygod",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396941,
+  "pA": 0.6359090074857119,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "zywoo",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396942,
+  "pA": 0.7144267515431918,
+  "pred_winner": "FUT",
+  "truth_winner": "FUT",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Nuke",
+   "Anubis"
+  ],
+  "pred_mvp": "xfl0ud",
+  "truth_mvp": "dem0n",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397054,
+  "pA": 0.5466609919821517,
+  "pred_winner": "UPGRADE",
+  "truth_winner": "UPGRADE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "dezl3bio",
+  "truth_mvp": "squezxc",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397055,
+  "pA": 0.3533820542134606,
+  "pred_winner": "Black Phoenix",
+  "truth_winner": "SPARTA",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "yiksrezo",
+  "truth_mvp": "travis",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397056,
+  "pA": 0.4924063703609568,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "ayuki",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397152,
+  "pA": 0.7183461211343862,
+  "pred_winner": "Imperial",
+  "truth_winner": "Galorys",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "noway",
+  "truth_mvp": "tomate",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397153,
+  "pA": 0.5382543724674032,
+  "pred_winner": "Fluxo",
+  "truth_winner": "ShindeN",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "dav1deus",
+  "truth_mvp": "abizz",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397197,
+  "pA": 0.6423450450003524,
+  "pred_winner": "Eternal Fire",
+  "truth_winner": "OG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "jottaaa",
+  "truth_mvp": "adamb",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397199,
+  "pA": 0.5066848163024373,
+  "pred_winner": "OG",
+  "truth_winner": "OG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "spooke",
+  "truth_mvp": "pr1metapz",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397343,
+  "pA": 0.4666376462062783,
+  "pred_winner": "FORZE Reload",
+  "truth_winner": "FORZE Reload",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "kaide",
+  "truth_mvp": "kaide",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397375,
+  "pA": 0.5720069263292499,
+  "pred_winner": "Omega",
+  "truth_winner": "Omega",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "botpa1",
+  "truth_mvp": "botpa1",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2396735,
+  "pA": 0.5694866114035911,
+  "pred_winner": "3DMAX",
+  "truth_winner": "3DMAX",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "misutaaa",
+  "truth_mvp": "misutaaa",
+  "points": 45,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396736,
+  "pA": 0.6573799439976737,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "mizu",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396737,
+  "pA": 0.37327349975352253,
+  "pred_winner": "Walczaki",
+  "truth_winner": "Walczaki",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "olimp",
+  "truth_mvp": "reiko",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396943,
+  "pA": 0.6831620570613214,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Cache",
+   "Mirage"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "sh1ro",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396944,
+  "pA": 0.5721488197744053,
+  "pred_winner": "G2",
+  "truth_winner": "G2",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "r1nkle",
+  "truth_mvp": "heavygod",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396945,
+  "pA": 0.5164527987200708,
+  "pred_winner": "MOUZ",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Ancient",
+   "Nuke"
+  ],
+  "pred_mvp": "xelex",
+  "truth_mvp": "xelex",
+  "points": 25,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396946,
+  "pA": 0.6784831816996229,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "zywoo",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397057,
+  "pA": 0.8607377944395604,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "dwushka",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397058,
+  "pA": 0.6302388957682513,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "ayuki",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397059,
+  "pA": 0.5935304019548229,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "nafany",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397060,
+  "pA": 0.6107128584469604,
+  "pred_winner": "Color",
+  "truth_winner": "Color",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "lattykk",
+  "truth_mvp": "lattykk",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397154,
+  "pA": 0.5986653215550803,
+  "pred_winner": "Imperial",
+  "truth_winner": "Imperial",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "chelo",
+  "truth_mvp": "decenty",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397202,
+  "pA": 0.5925109619268794,
+  "pred_winner": "Metizport",
+  "truth_winner": "ASTRAL",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Anubis",
+   "Nuke"
+  ],
+  "pred_mvp": "forsyy",
+  "truth_mvp": "neqy",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397397,
+  "pA": 0.5673807998885375,
+  "pred_winner": "SportsBetExpert",
+  "truth_winner": "LAG",
+  "pred_score": [
+   3,
+   0
+  ],
+  "truth_score": [
+   2,
+   3
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Nuke",
+   "Mirage"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "cryptic",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2396738,
+  "pA": 0.8610468242624771,
+  "pred_winner": "Nemesis",
+  "truth_winner": "Nemesis",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Nuke",
+   "Mirage"
+  ],
+  "pred_mvp": "r3salt",
+  "truth_mvp": "mag1k3y",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2396740,
+  "pA": 0.6246391177381199,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "ax1le",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396741,
+  "pA": 0.611888796191418,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "senka",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397061,
+  "pA": 0.5077759670454983,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Mirage",
+   "Cache"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "ax1le",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397062,
+  "pA": 0.6385014796396896,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Anubis",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Cache"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "mizu",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397155,
+  "pA": 0.6323321536885055,
+  "pred_winner": "Imperial",
+  "truth_winner": "Imperial",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Anubis",
+   "Dust2",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "chelo",
+  "truth_mvp": "noway",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397205,
+  "pA": 0.6125676728837075,
+  "pred_winner": "Eternal Fire",
+  "truth_winner": "Eternal Fire",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "jottaaa",
+  "truth_mvp": "kvem",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396743,
+  "pA": 0.5101010699455093,
+  "pred_winner": "1win",
+  "truth_winner": "Nemesis",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "tex1y",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396744,
+  "pA": 0.6231069322313454,
+  "pred_winner": "INFINITE",
+  "truth_winner": "INFINITE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Cache"
+  ],
+  "pred_mvp": "sl3nd",
+  "truth_mvp": "dytor",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396745,
+  "pA": 0.5291215280326385,
+  "pred_winner": "3DMAX",
+  "truth_winner": "3DMAX",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Inferno",
+   "Ancient"
+  ],
+  "pred_mvp": "misutaaa",
+  "truth_mvp": "maka",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397207,
+  "pA": 0.570643678745581,
+  "pred_winner": "SINNERS",
+  "truth_winner": "SINNERS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Ancient"
+  ],
+  "pred_mvp": "shock",
+  "truth_mvp": "stressarn",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397209,
+  "pA": 0.4964692822693684,
+  "pred_winner": "Walczaki",
+  "truth_winner": "Metizport",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Inferno",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Anubis",
+   "Ancient"
+  ],
+  "pred_mvp": "olimp",
+  "truth_mvp": "mail09",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397210,
+  "pA": 0.6910867888574791,
+  "pred_winner": "Iberian Soul",
+  "truth_winner": "9INE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Cache",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Cache",
+   "Mirage"
+  ],
+  "pred_mvp": "sausol",
+  "truth_mvp": "raalz",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397246,
+  "pA": 0.7495887297349227,
+  "pred_winner": "ex-Zero Tenacity",
+  "truth_winner": "ex-Zero Tenacity",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "vldn",
+  "truth_mvp": "vldn",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397247,
+  "pA": 0.6528745053317833,
+  "pred_winner": "INOX Division",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Anubis"
+  ],
+  "pred_mvp": "fenomen",
+  "truth_mvp": "k0s",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397248,
+  "pA": 0.5650988869487105,
+  "pred_winner": "EAC",
+  "truth_winner": "EAC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Nuke",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Anubis",
+   "Mirage"
+  ],
+  "pred_mvp": "fessor",
+  "truth_mvp": "ssen",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397299,
+  "pA": 0.6899281427666198,
+  "pred_winner": "TYLOO",
+  "truth_winner": "TYLOO",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "jamyoung",
+  "truth_mvp": "jamyoung",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397307,
+  "pA": 0.63330194791612,
+  "pred_winner": "MIBR",
+  "truth_winner": "Eternal Fire",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "nqz",
+  "truth_mvp": "soulfly",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397308,
+  "pA": 0.6358100117917341,
+  "pred_winner": "HEROIC",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "nilo",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397309,
+  "pA": 0.7061793002927058,
+  "pred_winner": "magic",
+  "truth_winner": "magic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "tenzy",
+  "truth_mvp": "tenzy",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397311,
+  "pA": 0.634989951843534,
+  "pred_winner": "BIG",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Cache",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "xant3r",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397312,
+  "pA": 0.6529027841410803,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Dust2"
+  ],
+  "pred_mvp": "mizu",
+  "truth_mvp": "frontales",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397313,
+  "pA": 0.5901957411483726,
+  "pred_winner": "EYEBALLERS",
+  "truth_winner": "EYEBALLERS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Inferno",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "maxster",
+  "truth_mvp": "krimz",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397314,
+  "pA": 0.6095083990061227,
+  "pred_winner": "B8",
+  "truth_winner": "B8",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "npl",
+  "truth_mvp": "npl",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397315,
+  "pA": 0.6217115418014151,
+  "pred_winner": "HEROIC",
+  "truth_winner": "Eternal Fire",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "jottaaa",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397316,
+  "pA": 0.6012893440452886,
+  "pred_winner": "magic",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Ancient",
+   "Inferno"
+  ],
+  "pred_mvp": "tenzy",
+  "truth_mvp": "z1k4",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397317,
+  "pA": 0.6328618636289275,
+  "pred_winner": "MIBR",
+  "truth_winner": "MIBR",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Inferno"
+  ],
+  "pred_mvp": "nqz",
+  "truth_mvp": "insani",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397318,
+  "pA": 0.6221261898376598,
+  "pred_winner": "GamerLegion",
+  "truth_winner": "K27",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "fl4mus",
+  "truth_mvp": "clax",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397319,
+  "pA": 0.687436703794643,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Anubis",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Cache",
+   "Anubis"
+  ],
+  "pred_mvp": "mizu",
+  "truth_mvp": "n0rb3r7",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397320,
+  "pA": 0.6138639258079076,
+  "pred_winner": "B8",
+  "truth_winner": "B8",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "npl",
+  "truth_mvp": "kensizor",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397321,
+  "pA": 0.6637724773607145,
+  "pred_winner": "BIG",
+  "truth_winner": "BIG",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Cache",
+   "Mirage"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "gr1ks",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397322,
+  "pA": 0.5531001567039134,
+  "pred_winner": "DENDELE",
+  "truth_winner": "Color",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Cache",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Cache",
+   "Mirage"
+  ],
+  "pred_mvp": "koala",
+  "truth_mvp": "reyoz",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396746,
+  "pA": 0.5790885302777086,
+  "pred_winner": "3DMAX",
+  "truth_winner": "3DMAX",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Cache",
+   "Ancient"
+  ],
+  "pred_mvp": "misutaaa",
+  "truth_mvp": "graviti",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396747,
+  "pA": 0.6279752015557087,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "dwushka",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2396748,
+  "pA": 0.705225657673226,
+  "pred_winner": "HOTU",
+  "truth_winner": "3DMAX",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Cache",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Anubis"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "lucky",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397211,
+  "pA": 0.5675355992266653,
+  "pred_winner": "Phantom",
+  "truth_winner": "Phantom",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Inferno",
+   "Nuke"
+  ],
+  "pred_mvp": "nicoodoz",
+  "truth_mvp": "kei",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397212,
+  "pA": 0.586538481080348,
+  "pred_winner": "Sashi",
+  "truth_winner": "Sashi",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Cache",
+   "Nuke",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Nuke",
+   "Cache"
+  ],
+  "pred_mvp": "zyphon",
+  "truth_mvp": "mistr",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397213,
+  "pA": 0.5472490402524003,
+  "pred_winner": "Rune Eaters",
+  "truth_winner": "Rune Eaters",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "noni",
+  "truth_mvp": "noni",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397214,
+  "pA": 0.43073651838501315,
+  "pred_winner": "QUAZAR",
+  "truth_winner": "QUAZAR",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "newt",
+  "truth_mvp": "newt",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397302,
+  "pA": 0.6693202232177721,
+  "pred_winner": "Lynn Vision",
+  "truth_winner": "DEPO",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "starry",
+  "truth_mvp": "shoxs",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397304,
+  "pA": 0.701468232732763,
+  "pred_winner": "FlyQuest",
+  "truth_winner": "FlyQuest",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Cache",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "vexite",
+  "truth_mvp": "vexite",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397323,
+  "pA": 0.6471867947504122,
+  "pred_winner": "MIBR",
+  "truth_winner": "MIBR",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "insani",
+  "truth_mvp": "insani",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397324,
+  "pA": 0.5934367778243199,
+  "pred_winner": "K27",
+  "truth_winner": "K27",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Mirage"
+  ],
+  "pred_mvp": "qw1nk1",
+  "truth_mvp": "x5g7v",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397325,
+  "pA": 0.5916519438101411,
+  "pred_winner": "BIG",
+  "truth_winner": "magic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Cache",
+   "Inferno"
+  ],
+  "pred_mvp": "blamef",
+  "truth_mvp": "aw",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397326,
+  "pA": 0.5912611932590002,
+  "pred_winner": "HEROIC",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "nilo",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397327,
+  "pA": 0.6314085884041835,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Anubis",
+   "Inferno"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "ayuki",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397328,
+  "pA": 0.5179929377096499,
+  "pred_winner": "B8",
+  "truth_winner": "B8",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Cache",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "npl",
+  "truth_mvp": "npl",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397329,
+  "pA": 0.6619150679710606,
+  "pred_winner": "MIBR",
+  "truth_winner": "K27",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "insani",
+  "truth_mvp": "kashl1d",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397330,
+  "pA": 0.6655295054530674,
+  "pred_winner": "magic",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "tenzy",
+  "truth_mvp": "martinezsa",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397331,
+  "pA": 0.6002580060651554,
+  "pred_winner": "K27",
+  "truth_winner": "Eternal Fire",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Cache",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Cache",
+   "Mirage"
+  ],
+  "pred_mvp": "qw1nk1",
+  "truth_mvp": "soulfly",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397412,
+  "pA": 0.5385664848846675,
+  "pred_winner": "Nemiga",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Anubis",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "pred_mvp": "khan",
+  "truth_mvp": "kair0n",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397413,
+  "pA": 0.5766570554396435,
+  "pred_winner": "FOKUS",
+  "truth_winner": "FOKUS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "banjo",
+  "truth_mvp": "banjo",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397415,
+  "pA": 0.5153443520180626,
+  "pred_winner": "fnatic",
+  "truth_winner": "fnatic",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Anubis",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Cache",
+   "Dust2"
+  ],
+  "pred_mvp": "mazay",
+  "truth_mvp": "jackasmo",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2396947,
+  "pA": 0.6623411708669191,
+  "pred_winner": "Falcons",
+  "truth_winner": "Falcons",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "m0nesy",
+  "truth_mvp": "niko",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396948,
+  "pA": 0.6507483388300495,
+  "pred_winner": "Vitality",
+  "truth_winner": "Vitality",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Nuke",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "zywoo",
+  "points": 35,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397215,
+  "pA": 0.5022659619973201,
+  "pred_winner": "SINNERS",
+  "truth_winner": "QUAZAR",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Cache"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "pred_mvp": "stressarn",
+  "truth_mvp": "ne1xxx",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397216,
+  "pA": 0.5290384186087645,
+  "pred_winner": "9INE",
+  "truth_winner": "9INE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "rim3",
+  "truth_mvp": "rim3",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397217,
+  "pA": 0.5947216075961272,
+  "pred_winner": "Sashi",
+  "truth_winner": "Metizport",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Cache",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Cache",
+   "Nuke"
+  ],
+  "pred_mvp": "zyphon",
+  "truth_mvp": "forsyy",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397218,
+  "pA": 0.5816043354225584,
+  "pred_winner": "INFINITE",
+  "truth_winner": "INFINITE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "sl3nd",
+  "truth_mvp": "dytor",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397255,
+  "pA": 0.6071552414666858,
+  "pred_winner": "UNiTY",
+  "truth_winner": "UNiTY",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Inferno",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Anubis",
+   "Inferno"
+  ],
+  "pred_mvp": "fnl",
+  "truth_mvp": "2high",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397333,
+  "pA": 0.574181497882006,
+  "pred_winner": "B8",
+  "truth_winner": "B8",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Mirage",
+   "Ancient"
+  ],
+  "pred_mvp": "npl",
+  "truth_mvp": "kensizor",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397334,
+  "pA": 0.5874365773453031,
+  "pred_winner": "HEROIC",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Mirage",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Inferno",
+   "Dust2"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "martinezsa",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397335,
+  "pA": 0.5619671696501412,
+  "pred_winner": "HEROIC",
+  "truth_winner": "HEROIC",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Inferno",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "pred_mvp": "nilo",
+  "truth_mvp": "brollan",
+  "points": 35,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 10
+ },
+ {
+  "id": 2397416,
+  "pA": 0.6841188346517872,
+  "pred_winner": "Nuclear TigeRES",
+  "truth_winner": "Nuclear TigeRES",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "flouzer",
+  "truth_mvp": "flouzer",
+  "points": 30,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397417,
+  "pA": 0.6731213899024098,
+  "pred_winner": "HOTU",
+  "truth_winner": "HOTU",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Cache",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Cache",
+   "Anubis"
+  ],
+  "pred_mvp": "n0rb3r7",
+  "truth_mvp": "dwushka",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 10
+ },
+ {
+  "id": 2397419,
+  "pA": 0.6843384191095349,
+  "pred_winner": "Nemesis",
+  "truth_winner": "Nemesis",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Ancient",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Ancient",
+   "Cache"
+  ],
+  "pred_mvp": "r3salt",
+  "truth_mvp": "mag1k3y",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397538,
+  "pA": 0.5847104903885962,
+  "pred_winner": "BC.Game",
+  "truth_winner": "BC.Game",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   8
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke"
+  ],
+  "pred_mvp": "senzu",
+  "truth_mvp": "s1mple",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397540,
+  "pA": 0.7588127362438228,
+  "pred_winner": "JiJieHao",
+  "truth_winner": "BET-M",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   9,
+   13
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis"
+  ],
+  "pred_mvp": "cacanito",
+  "truth_mvp": "z1nny",
+  "points": 0,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 0,
+  "score_points": 0
+ },
+ {
+  "id": 2397541,
+  "pA": 0.6275105425636301,
+  "pred_winner": "1win",
+  "truth_winner": "1win",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   13,
+   11
+  ],
+  "pred_maps": [
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Dust2"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "artfr0st",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397543,
+  "pA": 0.5754990313321826,
+  "pred_winner": "Betclic",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   11,
+   13
+  ],
+  "pred_maps": [
+   "Anubis"
+  ],
+  "truth_maps": [
+   "Anubis"
+  ],
+  "pred_mvp": "prism",
+  "truth_mvp": "kair0n",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397544,
+  "pA": 0.6571897504517749,
+  "pred_winner": "fnatic",
+  "truth_winner": "ASTRAL",
+  "pred_score": [
+   1,
+   0
+  ],
+  "truth_score": [
+   8,
+   13
+  ],
+  "pred_maps": [
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient"
+  ],
+  "pred_mvp": "mazay",
+  "truth_mvp": "neqy",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397545,
+  "pA": 0.5277695415544846,
+  "pred_winner": "BC.Game",
+  "truth_winner": "FOKUS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Mirage",
+   "Dust2"
+  ],
+  "pred_mvp": "senzu",
+  "truth_mvp": "banjo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397547,
+  "pA": 0.5687062511809732,
+  "pred_winner": "1win",
+  "truth_winner": "BRUTE",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Mirage",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Anubis",
+   "Dust2",
+   "Cache"
+  ],
+  "pred_mvp": "ax1le",
+  "truth_mvp": "aidkit",
+  "points": 5,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2397548,
+  "pA": 0.6457789035864446,
+  "pred_winner": "Nemiga",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Dust2",
+   "Ancient"
+  ],
+  "pred_mvp": "khan",
+  "truth_mvp": "kair0n",
+  "points": 25,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 15,
+  "score_points": 0
+ },
+ {
+  "id": 2397549,
+  "pA": 0.7086288588710392,
+  "pred_winner": "FOKUS",
+  "truth_winner": "BET-M",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Inferno",
+   "Nuke",
+   "Ancient"
+  ],
+  "pred_mvp": "banjo",
+  "truth_mvp": "raijin",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397550,
+  "pA": 0.5238289062023523,
+  "pred_winner": "Nemiga",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Anubis",
+   "Dust2"
+  ],
+  "pred_mvp": "khan",
+  "truth_mvp": "kair0n",
+  "points": 15,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 5,
+  "score_points": 0
+ },
+ {
+  "id": 2396949,
+  "pA": 0.6461433556964448,
+  "pred_winner": "Spirit",
+  "truth_winner": "Spirit",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Mirage"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "donk",
+  "truth_mvp": "sh1ro",
+  "points": 30,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2396950,
+  "pA": 0.4732454534785013,
+  "pred_winner": "Vitality",
+  "truth_winner": "MOUZ",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Dust2",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "zywoo",
+  "truth_mvp": "spinx",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397219,
+  "pA": 0.497496131438495,
+  "pred_winner": "QUAZAR",
+  "truth_winner": "INFINITE",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Mirage",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Mirage",
+   "Dust2"
+  ],
+  "pred_mvp": "newt",
+  "truth_mvp": "volt",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397220,
+  "pA": 0.5524174579915496,
+  "pred_winner": "Metizport",
+  "truth_winner": "Metizport",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Nuke",
+   "Cache",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Nuke",
+   "Ancient",
+   "Mirage"
+  ],
+  "pred_mvp": "forsyy",
+  "truth_mvp": "forsyy",
+  "points": 40,
+  "mvp_points": 10,
+  "winner_points": 10,
+  "maps_points": 10,
+  "score_points": 10
+ },
+ {
+  "id": 2397260,
+  "pA": 0.49136826892873353,
+  "pred_winner": "ex-Zero Tenacity",
+  "truth_winner": "INOX Division",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Inferno",
+   "Nuke",
+   "Dust2"
+  ],
+  "truth_maps": [
+   "Cache",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "vldn",
+  "truth_mvp": "k1slll",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397420,
+  "pA": 0.46413401780816166,
+  "pred_winner": "BBL",
+  "truth_winner": "fnatic",
+  "pred_score": [
+   0,
+   2
+  ],
+  "truth_score": [
+   2,
+   1
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Ancient",
+   "Inferno"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Inferno",
+   "Cache"
+  ],
+  "pred_mvp": "",
+  "truth_mvp": "jackasmo",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397421,
+  "pA": 0.685157253697878,
+  "pred_winner": "HOTU",
+  "truth_winner": "FOKUS",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   1,
+   2
+  ],
+  "pred_maps": [
+   "Dust2",
+   "Cache",
+   "Ancient"
+  ],
+  "truth_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "pred_mvp": "dwushka",
+  "truth_mvp": "jocab",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ },
+ {
+  "id": 2397422,
+  "pA": 0.5541771844004896,
+  "pred_winner": "Ninjas in Pyjamas",
+  "truth_winner": "Ninjas in Pyjamas",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   2,
+   0
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Anubis",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "pred_mvp": "xkacpersky",
+  "truth_mvp": "stavn",
+  "points": 20,
+  "mvp_points": 0,
+  "winner_points": 10,
+  "maps_points": 0,
+  "score_points": 10
+ },
+ {
+  "id": 2397423,
+  "pA": 0.6246122307917448,
+  "pred_winner": "Nemesis",
+  "truth_winner": "Nemiga",
+  "pred_score": [
+   2,
+   0
+  ],
+  "truth_score": [
+   0,
+   2
+  ],
+  "pred_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "truth_maps": [
+   "Mirage",
+   "Ancient",
+   "Dust2"
+  ],
+  "pred_mvp": "r3salt",
+  "truth_mvp": "syph0",
+  "points": 10,
+  "mvp_points": 0,
+  "winner_points": 0,
+  "maps_points": 10,
+  "score_points": 0
+ }
+]

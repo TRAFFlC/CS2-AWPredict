@@ -1,0 +1,33 @@
+MIT License
+
+Copyright (c) 2026 CS2-AWPredict contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+数据来源与许可
+--------------
+* `data/csapi_*.jsonl` —— 来自 [csapi.de](https://csapi.de) 公开 API 的比赛/统计数据。
+* `data/rankings/`     —— 派生自 [HLTV 排名归档](https://www.hltv.org/ranking/teams/)，
+  已剥离 players/logo 等无关字段，仅保留 name/rank/points。
+* `data/vrs_rank_*.json` —— Valve Regional Standings (VRS) 排名快照，由用户手工提供。
+* `data/groundtruth/`  —— 各赛事公开赛果（裂变天地 / StarLadder / Logitech G / EPL S24 等）。
+
+使用这些数据时请遵守各自来源网站的使用条款。

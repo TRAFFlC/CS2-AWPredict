@@ -1,0 +1,463 @@
+{
+  "split": {
+    "train": 2087,
+    "valid": 242,
+    "test": 321
+  },
+  "winner_C": 0.1,
+  "winner_features": [
+    "d_elo",
+    "d_elom",
+    "d_rank",
+    "d_h2h",
+    "d_lineup",
+    "d_games"
+  ],
+  "fit_on": "train+valid",
+  "score_rule_final": "always_win0",
+  "maps_features": "v2",
+  "maps_C": 0.1,
+  "maps_valid_points": 2205,
+  "winner_cv_top": [
+    {
+      "name": "...+games",
+      "C": 0.1,
+      "cv": 0.6233040702314445
+    },
+    {
+      "name": "...+games",
+      "C": 0.3,
+      "cv": 0.62170790103751
+    },
+    {
+      "name": "...+games",
+      "C": 0.05,
+      "cv": 0.6209098164405427
+    },
+    {
+      "name": "...+poolperf+best",
+      "C": 0.3,
+      "cv": 0.6209098164405427
+    },
+    {
+      "name": "...+poolperf+best",
+      "C": 1.0,
+      "cv": 0.6209098164405427
+    },
+    {
+      "name": "...+poolperf",
+      "C": 0.1,
+      "cv": 0.6201117318435754
+    },
+    {
+      "name": "...+games",
+      "C": 1.0,
+      "cv": 0.6201117318435754
+    },
+    {
+      "name": "...+form+games",
+      "C": 0.1,
+      "cv": 0.6201117318435754
+    }
+  ],
+  "winner_cv_se": 0.013694408570279464,
+  "thresh": [
+    0.55,
+    0.8
+  ],
+  "score_rule": "always_win0",
+  "gap_model": {
+    "n": 2081,
+    "pos": 904,
+    "keys": [
+      "d_elo",
+      "d_elom",
+      "d_poolwr"
+    ],
+    "coef": [
+      0.34300805112790567,
+      -0.3479508115021997,
+      -0.01785395278791494,
+      0.1014500103742307
+    ],
+    "intercept": -0.265780804667749
+  },
+  "modal": {
+    "3": [
+      2,
+      0
+    ],
+    "5": [
+      3,
+      0
+    ]
+  },
+  "results": {
+    "train": {
+      "full": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 7130,
+        "maps": 19370,
+        "mvp": 3540,
+        "total": 43230,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 354
+      },
+      "score_modal": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 7260,
+        "maps": 19370,
+        "mvp": 3540,
+        "total": 43360,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 354
+      },
+      "score_always_win0": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 7260,
+        "maps": 19370,
+        "mvp": 3540,
+        "total": 43360,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 354
+      },
+      "score_thresh": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 7130,
+        "maps": 19370,
+        "mvp": 3540,
+        "total": 43230,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 354
+      },
+      "score_gap_logit": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 6650,
+        "maps": 19370,
+        "mvp": 3540,
+        "total": 42750,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 354
+      },
+      "no_mvp": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 7130,
+        "maps": 19370,
+        "mvp": 0,
+        "total": 39690,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 0
+      },
+      "oracle": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 20870,
+        "score": 10560,
+        "maps": 19370,
+        "mvp": 5550,
+        "total": 56350,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 2087,
+        "mvp_hit": 555
+      },
+      "picked": {
+        "n": 2087,
+        "max": 90095,
+        "winner": 13190,
+        "score": 7260,
+        "maps": 19370,
+        "mvp": 3540,
+        "total": 43360,
+        "winner_max": 20870,
+        "score_max": 18750,
+        "maps_max": 29605,
+        "mvp_max": 20870,
+        "winner_hit": 1319,
+        "mvp_hit": 354
+      }
+    },
+    "valid": {
+      "full": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 670,
+        "maps": 2205,
+        "mvp": 550,
+        "total": 4975,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 55
+      },
+      "score_modal": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 640,
+        "maps": 2205,
+        "mvp": 550,
+        "total": 4945,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 55
+      },
+      "score_always_win0": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 640,
+        "maps": 2205,
+        "mvp": 550,
+        "total": 4945,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 55
+      },
+      "score_thresh": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 670,
+        "maps": 2205,
+        "mvp": 550,
+        "total": 4975,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 55
+      },
+      "score_gap_logit": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 730,
+        "maps": 2205,
+        "mvp": 550,
+        "total": 5035,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 55
+      },
+      "no_mvp": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 670,
+        "maps": 2205,
+        "mvp": 0,
+        "total": 4425,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 0
+      },
+      "oracle": {
+        "n": 242,
+        "max": 10210,
+        "winner": 2420,
+        "score": 990,
+        "maps": 2205,
+        "mvp": 840,
+        "total": 6455,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 242,
+        "mvp_hit": 84
+      },
+      "picked": {
+        "n": 242,
+        "max": 10210,
+        "winner": 1550,
+        "score": 640,
+        "maps": 2205,
+        "mvp": 550,
+        "total": 4945,
+        "winner_max": 2420,
+        "score_max": 2060,
+        "maps_max": 3310,
+        "mvp_max": 2420,
+        "winner_hit": 155,
+        "mvp_hit": 55
+      }
+    },
+    "test": {
+      "full": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1100,
+        "maps": 2765,
+        "mvp": 700,
+        "total": 6695,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 70
+      },
+      "score_modal": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1130,
+        "maps": 2765,
+        "mvp": 700,
+        "total": 6725,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 70
+      },
+      "score_always_win0": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1130,
+        "maps": 2765,
+        "mvp": 700,
+        "total": 6725,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 70
+      },
+      "score_thresh": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1100,
+        "maps": 2765,
+        "mvp": 700,
+        "total": 6695,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 70
+      },
+      "score_gap_logit": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1120,
+        "maps": 2765,
+        "mvp": 700,
+        "total": 6715,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 70
+      },
+      "no_mvp": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1100,
+        "maps": 2765,
+        "mvp": 0,
+        "total": 5995,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 0
+      },
+      "oracle": {
+        "n": 317,
+        "max": 13540,
+        "winner": 3170,
+        "score": 1640,
+        "maps": 2765,
+        "mvp": 960,
+        "total": 8535,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 317,
+        "mvp_hit": 96
+      },
+      "picked": {
+        "n": 317,
+        "max": 13540,
+        "winner": 2130,
+        "score": 1130,
+        "maps": 2765,
+        "mvp": 700,
+        "total": 6725,
+        "winner_max": 3170,
+        "score_max": 2800,
+        "maps_max": 4400,
+        "mvp_max": 3170,
+        "winner_hit": 213,
+        "mvp_hit": 70
+      }
+    }
+  }
+}

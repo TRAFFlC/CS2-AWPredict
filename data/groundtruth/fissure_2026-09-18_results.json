@@ -1,0 +1,116 @@
+[
+ {
+  "A": "FURIA",
+  "B": "MIBR",
+  "winner": "FURIA",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Inferno",
+   "Nuke",
+   "Cache"
+  ],
+  "mvp": "kscerato",
+  "my_winner": "FURIA",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Inferno",
+   "Mirage",
+   "Nuke"
+  ],
+  "my_mvp": "kscerato",
+  "my_p": 66.3,
+  "my_rank": {
+   "A": 7,
+   "B": 21
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 10
+  },
+  "total": 30
+ },
+ {
+  "A": "MOUZ",
+  "B": "Natus Vincere",
+  "winner": "MOUZ",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Cache",
+   "Inferno",
+   "Mirage"
+  ],
+  "mvp": "xertion",
+  "my_winner": "MOUZ",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "xelex",
+  "my_p": 64.8,
+  "my_rank": {
+   "A": 2,
+   "B": 11
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "magic",
+  "B": "MIBR",
+  "winner": "MIBR",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "mvp": "insani",
+  "my_winner": "magic",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "tenzy",
+  "my_p": 61.3,
+  "my_rank": {
+   "A": 23,
+   "B": 21
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ }
+]

@@ -1,0 +1,74 @@
+{
+  "opponents": 20,
+  "noise": 0.25,
+  "valid": {
+    "n": 242,
+    "variance_lever_D_over_2sigma": -1.4483427892673404,
+    "realized_points_score_plan": 4945,
+    "realized_max": 10210,
+    "score_objective": {
+      "exp_points": 5471.31035384946,
+      "sd": 134.9819775302833,
+      "exp_rank": 1.87599021888217
+    },
+    "rank_objective": {
+      "exp_points": 5480.105855612283,
+      "sd": 135.17667483924433,
+      "exp_rank": 1.804027601546044
+    },
+    "field": {
+      "n_opponents": 20,
+      "mean": 5080.310006175396,
+      "best": 5269.383600686871
+    },
+    "differing_matches": 9,
+    "clone_field": {
+      "score_objective": {
+        "exp_points": 5471.31035384946,
+        "sd": 134.9819775302833,
+        "exp_rank": 1.0
+      },
+      "rank_objective": {
+        "exp_points": 5394.884088067954,
+        "sd": 134.30371530656697,
+        "exp_rank": 1.0
+      },
+      "differing_matches": 32
+    }
+  },
+  "test": {
+    "n": 317,
+    "variance_lever_D_over_2sigma": -1.5949385331744317,
+    "realized_points_score_plan": 6725,
+    "realized_max": 13540,
+    "score_objective": {
+      "exp_points": 7100.3241749203635,
+      "sd": 155.01682761411794,
+      "exp_rank": 1.6946603332043488
+    },
+    "rank_objective": {
+      "exp_points": 7119.054900035609,
+      "sd": 155.3963237773522,
+      "exp_rank": 1.5874043919575898
+    },
+    "field": {
+      "n_opponents": 20,
+      "mean": 6605.8395516159335,
+      "best": 6847.815829862187
+    },
+    "differing_matches": 15,
+    "clone_field": {
+      "score_objective": {
+        "exp_points": 7100.3241749203635,
+        "sd": 155.01682761411794,
+        "exp_rank": 1.0
+      },
+      "rank_objective": {
+        "exp_points": 7022.055885138628,
+        "sd": 154.58791220336946,
+        "exp_rank": 1.0
+      },
+      "differing_matches": 37
+    }
+  }
+}

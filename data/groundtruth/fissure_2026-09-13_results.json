@@ -1,0 +1,44 @@
+[
+ {
+  "A": "Legacy",
+  "B": "G2",
+  "winner": "Legacy",
+  "score": [
+   3,
+   0
+  ],
+  "maps": [
+   "Dust2",
+   "Mirage",
+   "Anubis",
+   "Inferno",
+   "Cache"
+  ],
+  "mvp": "latto",
+  "my_winner": "Legacy",
+  "my_score": [
+   3,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Cache",
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "try",
+  "my_p": 57.4,
+  "my_rank": {
+   "A": 6,
+   "B": 8
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 20,
+   "mvp": 0
+  },
+  "total": 40
+ }
+]

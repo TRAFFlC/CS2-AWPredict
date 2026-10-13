@@ -1,0 +1,724 @@
+[
+ {
+  "A": "Johnny Speeds",
+  "B": "Virtus.pro",
+  "winner": "Virtus.pro",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Anubis",
+   "Mirage"
+  ],
+  "mvp": "draken",
+  "my_winner": "Virtus.pro",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "my_mvp": "b1st",
+  "my_p": 53.0,
+  "my_rank": {
+   "A": 108,
+   "B": 42
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "Johnny Speeds",
+  "B": "BBL",
+  "winner": "BBL",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Mirage",
+   "Nuke",
+   "Cache"
+  ],
+  "mvp": "salazar",
+  "my_winner": "BBL",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "leakz",
+  "my_p": 55.2,
+  "my_rank": {
+   "A": 108,
+   "B": 53
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 25
+ },
+ {
+  "A": "fnatic",
+  "B": "Phantom",
+  "winner": "Phantom",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Inferno",
+   "Anubis",
+   "Mirage"
+  ],
+  "mvp": "nicoodoz",
+  "my_winner": "fnatic",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Anubis",
+   "Dust2"
+  ],
+  "my_mvp": "jackasmo",
+  "my_p": 64.1,
+  "my_rank": {
+   "A": 32,
+   "B": 62
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 5
+ },
+ {
+  "A": "100 Thieves",
+  "B": "EAC",
+  "winner": "100 Thieves",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Mirage",
+   "Inferno",
+   "Nuke"
+  ],
+  "mvp": "rain",
+  "my_winner": "100 Thieves",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Anubis",
+   "Nuke"
+  ],
+  "my_mvp": "poiii",
+  "my_p": 62.2,
+  "my_rank": {
+   "A": 29,
+   "B": 81
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 25
+ },
+ {
+  "A": "EAC",
+  "B": "fnatic",
+  "winner": "fnatic",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Mirage",
+   "Anubis",
+   "Dust2"
+  ],
+  "mvp": "jambo",
+  "my_winner": "fnatic",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Anubis",
+   "Mirage"
+  ],
+  "my_mvp": "fessor",
+  "my_p": 56.5,
+  "my_rank": {
+   "A": 81,
+   "B": 32
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "100 Thieves",
+  "B": "Phantom",
+  "winner": "100 Thieves",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Nuke",
+   "Mirage",
+   "Inferno"
+  ],
+  "mvp": "sirah",
+  "my_winner": "100 Thieves",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "poiii",
+  "my_p": 65.3,
+  "my_rank": {
+   "A": 29,
+   "B": 62
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 15
+ },
+ {
+  "A": "Phantom",
+  "B": "fnatic",
+  "winner": "fnatic",
+  "score": [
+   1,
+   1
+  ],
+  "maps": [
+   "Dust2",
+   "Anubis",
+   "Inferno"
+  ],
+  "mvp": "jambo",
+  "my_winner": "fnatic",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Anubis",
+   "Dust2"
+  ],
+  "my_mvp": "nicoodoz",
+  "my_p": 50.4,
+  "my_rank": {
+   "A": 62,
+   "B": 32
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "JiJieHao",
+  "B": "Eternal Fire",
+  "winner": "JiJieHao",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Anubis",
+   "Mirage",
+   "Dust2"
+  ],
+  "mvp": "m1n1",
+  "my_winner": "JiJieHao",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "my_mvp": "cacanito",
+  "my_p": 61.8,
+  "my_rank": {
+   "A": 30,
+   "B": 69
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "betclic",
+  "B": "ASTRAL",
+  "winner": "betclic",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Nuke",
+   "Dust2",
+   "Mirage"
+  ],
+  "mvp": "prism",
+  "my_winner": "betclic",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "（无选手数据）",
+  "my_p": 52.7,
+  "my_rank": {
+   "A": 31,
+   "B": 77
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "JiJieHao",
+  "B": "betclic",
+  "winner": "JiJieHao",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Mirage",
+   "Anubis",
+   "Dust2"
+  ],
+  "mvp": "0samas",
+  "my_winner": "JiJieHao",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "my_mvp": "cacanito",
+  "my_p": 71.2,
+  "my_rank": {
+   "A": 30,
+   "B": 31
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "Eternal Fire",
+  "B": "ASTRAL",
+  "winner": "Eternal Fire",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Inferno",
+   "Anubis",
+   "Cache"
+  ],
+  "mvp": "jottaaa",
+  "my_winner": "Eternal Fire",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Cache",
+   "Mirage"
+  ],
+  "my_mvp": "jottaaa",
+  "my_p": 63.7,
+  "my_rank": {
+   "A": 69,
+   "B": 77
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 10
+  },
+  "total": 35
+ },
+ {
+  "A": "Eternal Fire",
+  "B": "betclic",
+  "winner": "betclic",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Anubis",
+   "Dust2"
+  ],
+  "mvp": "prism",
+  "my_winner": "Eternal Fire",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "my_mvp": "jottaaa",
+  "my_p": 66.6,
+  "my_rank": {
+   "A": 69,
+   "B": 31
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 5
+ },
+ {
+  "A": "HEROIC",
+  "B": "fnatic",
+  "winner": "HEROIC",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Cache",
+   "Mirage",
+   "Inferno"
+  ],
+  "mvp": "nilo",
+  "my_winner": "HEROIC",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "my_mvp": "martinezsa",
+  "my_p": 63.3,
+  "my_rank": {
+   "A": 24,
+   "B": 32
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 15
+ },
+ {
+  "A": "100 Thieves",
+  "B": "BBL",
+  "winner": "100 Thieves",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Cache",
+   "Mirage",
+   "Anubis"
+  ],
+  "mvp": "rain",
+  "my_winner": "100 Thieves",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Inferno"
+  ],
+  "my_mvp": "poiii",
+  "my_p": 55.3,
+  "my_rank": {
+   "A": 29,
+   "B": 53
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 0,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "Astralis",
+  "B": "betclic",
+  "winner": "Astralis",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Nuke",
+   "Dust2",
+   "Cache"
+  ],
+  "mvp": "phzy",
+  "my_winner": "Astralis",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Inferno",
+   "Nuke"
+  ],
+  "my_mvp": "staehr",
+  "my_p": 74.3,
+  "my_rank": {
+   "A": 20,
+   "B": 31
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 15
+ },
+ {
+  "A": "JiJieHao",
+  "B": "Sangal",
+  "winner": "Sangal",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Dust2",
+   "Mirage"
+  ],
+  "mvp": "bnox",
+  "my_winner": "JiJieHao",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Mirage"
+  ],
+  "my_mvp": "cacanito",
+  "my_p": 70.4,
+  "my_rank": {
+   "A": 30,
+   "B": 190
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "100 Thieves",
+  "B": "Astralis",
+  "winner": "100 Thieves",
+  "score": [
+   1,
+   1
+  ],
+  "maps": [
+   "Anubis",
+   "Dust2",
+   "Inferno"
+  ],
+  "mvp": "rain",
+  "my_winner": "Astralis",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Ancient",
+   "Dust2",
+   "Nuke"
+  ],
+  "my_mvp": "poiii",
+  "my_p": 54.2,
+  "my_rank": {
+   "A": 29,
+   "B": 20
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 5
+ },
+ {
+  "A": "HEROIC",
+  "B": "Sangal",
+  "winner": "HEROIC",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Cache",
+   "Anubis",
+   "Mirage"
+  ],
+  "mvp": "brollan",
+  "my_winner": "HEROIC",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Dust2",
+   "Mirage",
+   "Nuke"
+  ],
+  "my_mvp": "martinezsa",
+  "my_p": 74.7,
+  "my_rank": {
+   "A": 24,
+   "B": 190
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 15
+ },
+ {
+  "A": "100 Thieves",
+  "B": "HEROIC",
+  "winner": "HEROIC",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Anubis",
+   "Dust2",
+   "Inferno"
+  ],
+  "mvp": "brollan",
+  "my_winner": "HEROIC",
+  "my_score": [
+   0,
+   2
+  ],
+  "my_maps": [
+   "Dust2",
+   "Inferno",
+   "Nuke"
+  ],
+  "my_mvp": "poiii",
+  "my_p": 50.1,
+  "my_rank": {
+   "A": 29,
+   "B": 24
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ }
+]

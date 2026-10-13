@@ -1,0 +1,22 @@
+# 统一换行：仓库内存 LF，检出时按平台转换。
+# 不加这个，Windows 上每次 add 都会刷一屏
+# "LF will be replaced by CRLF the next time Git touches it" 警告，
+# 且不同平台 checkout 的差异会污染 diff。
+* text=auto eol=lf
+
+*.py   text diff=python
+*.md   text
+*.json text
+*.jsonl text
+*.html text
+*.toml text
+*.txt  text
+
+# 二进制：一律不做换行/文本处理
+*.pkl  binary
+*.npy  binary
+*.npz  binary
+*.png  binary
+*.jpg  binary
+*.svg  binary
+*.woff2 binary

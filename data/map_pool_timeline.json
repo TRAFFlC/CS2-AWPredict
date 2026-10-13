@@ -1,0 +1,559 @@
+{
+  "kind": "map_pool_timeline",
+  "veto_span": [
+    "2025-10-14",
+    "2026-09-05"
+  ],
+  "n_veto_ok": 1437,
+  "pool_size_expected": 7,
+  "eras": [
+    {
+      "index": 0,
+      "start": "2025-10-14",
+      "end": "2026-01-12",
+      "pool": [
+        "Ancient",
+        "Dust2",
+        "Inferno",
+        "Mirage",
+        "Nuke",
+        "Overpass",
+        "Train"
+      ],
+      "maps": 7,
+      "n_veto": 351,
+      "n_minority": 0,
+      "n_dates": 75,
+      "suspect_size": false
+    },
+    {
+      "index": 1,
+      "start": "2026-01-14",
+      "end": "2026-06-25",
+      "pool": [
+        "Ancient",
+        "Anubis",
+        "Dust2",
+        "Inferno",
+        "Mirage",
+        "Nuke",
+        "Overpass"
+      ],
+      "maps": 7,
+      "n_veto": 817,
+      "n_minority": 10,
+      "n_dates": 150,
+      "suspect_size": false
+    },
+    {
+      "index": 2,
+      "start": "2026-07-21",
+      "end": "2026-09-05",
+      "pool": [
+        "Ancient",
+        "Anubis",
+        "Cache",
+        "Dust2",
+        "Inferno",
+        "Mirage",
+        "Nuke"
+      ],
+      "maps": 7,
+      "n_veto": 257,
+      "n_minority": 0,
+      "n_dates": 43,
+      "suspect_size": false
+    }
+  ],
+  "band": {
+    "first": "2026-01-13",
+    "last": "2026-02-03",
+    "dates": [
+      "2026-01-13",
+      "2026-01-16",
+      "2026-01-17",
+      "2026-01-18",
+      "2026-01-19",
+      "2026-01-24",
+      "2026-01-29",
+      "2026-02-03"
+    ],
+    "n_dates": 8,
+    "n_minority_matches": 10,
+    "n_transition_dates": 8
+  },
+  "transitions": [
+    {
+      "date": "2026-01-13",
+      "pools": {
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 1,
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 1
+      }
+    },
+    {
+      "date": "2026-01-16",
+      "pools": {
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 7,
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 1
+      }
+    },
+    {
+      "date": "2026-01-17",
+      "pools": {
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 7,
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 2
+      }
+    },
+    {
+      "date": "2026-01-18",
+      "pools": {
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 3,
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 5
+      }
+    },
+    {
+      "date": "2026-01-19",
+      "pools": {
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 1,
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 2
+      }
+    },
+    {
+      "date": "2026-01-24",
+      "pools": {
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 1,
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 9
+      }
+    },
+    {
+      "date": "2026-01-29",
+      "pools": {
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 1,
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 6
+      }
+    },
+    {
+      "date": "2026-02-03",
+      "pools": {
+        "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train": 1,
+        "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass": 6
+      }
+    }
+  ],
+  "boundary_spans": [
+    {
+      "old_pool": "Ancient/Dust2/Inferno/Mirage/Nuke/Overpass/Train",
+      "new_pool": "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass",
+      "old_hi": "2026-01-12",
+      "new_lo": "2026-01-14",
+      "gap_matches": 1,
+      "gap_dates": [
+        "2026-01-13",
+        "2026-01-13"
+      ],
+      "veto_evidence_dates": 3
+    },
+    {
+      "old_pool": "Ancient/Anubis/Dust2/Inferno/Mirage/Nuke/Overpass",
+      "new_pool": "Ancient/Anubis/Cache/Dust2/Inferno/Mirage/Nuke",
+      "old_hi": "2026-06-25",
+      "new_lo": "2026-07-21",
+      "gap_matches": 0,
+      "gap_dates": null,
+      "veto_evidence_dates": 2
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "start": "2025-12-04",
+      "end": "2025-12-04",
+      "days": 1
+    },
+    {
+      "start": "2025-12-15",
+      "end": "2025-12-15",
+      "days": 1
+    },
+    {
+      "start": "2025-12-17",
+      "end": "2025-12-17",
+      "days": 1
+    },
+    {
+      "start": "2025-12-29",
+      "end": "2025-12-29",
+      "days": 1
+    },
+    {
+      "start": "2026-04-20",
+      "end": "2026-04-21",
+      "days": 2
+    },
+    {
+      "start": "2026-04-23",
+      "end": "2026-04-23",
+      "days": 1
+    },
+    {
+      "start": "2026-05-06",
+      "end": "2026-05-07",
+      "days": 2
+    },
+    {
+      "start": "2026-05-25",
+      "end": "2026-05-25",
+      "days": 1
+    },
+    {
+      "start": "2026-06-02",
+      "end": "2026-06-02",
+      "days": 1
+    },
+    {
+      "start": "2026-06-10",
+      "end": "2026-06-10",
+      "days": 1
+    },
+    {
+      "start": "2026-06-17",
+      "end": "2026-06-17",
+      "days": 1
+    },
+    {
+      "start": "2026-06-22",
+      "end": "2026-06-22",
+      "days": 1
+    },
+    {
+      "start": "2026-08-12",
+      "end": "2026-08-12",
+      "days": 1
+    },
+    {
+      "start": "2026-08-18",
+      "end": "2026-08-18",
+      "days": 1
+    }
+  ],
+  "map_windows": {
+    "Ancient": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1073
+    },
+    "Anubis": {
+      "first": "2026-01-14",
+      "last": "2026-09-04",
+      "played": 416
+    },
+    "Cache": {
+      "first": "2026-08-20",
+      "last": "2026-09-05",
+      "played": 70
+    },
+    "Dust2": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1258
+    },
+    "Inferno": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 780
+    },
+    "Mirage": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1065
+    },
+    "Nuke": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 957
+    },
+    "Overpass": {
+      "first": "2025-10-14",
+      "last": "2026-06-25",
+      "played": 589
+    },
+    "Train": {
+      "first": "2025-10-14",
+      "last": "2026-01-24",
+      "played": 204
+    }
+  },
+  "vanished": {
+    "Ancient": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1073,
+      "rate": 0.3836,
+      "rate_n": 464,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        "2026-09-05",
+        null
+      ],
+      "left_pool": false
+    },
+    "Train": {
+      "first": "2025-10-14",
+      "last": "2026-01-24",
+      "played": 204,
+      "rate": 0.189,
+      "rate_n": 365,
+      "n_other": 1951,
+      "expected": 368.82,
+      "p_zero": 6.666012731832248e-161,
+      "window": [
+        "2026-01-24",
+        "2026-01-25"
+      ],
+      "left_pool": true
+    },
+    "Nuke": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 957,
+      "rate": 0.3427,
+      "rate_n": 464,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        "2026-09-05",
+        null
+      ],
+      "left_pool": false
+    },
+    "Overpass": {
+      "first": "2025-10-14",
+      "last": "2026-06-25",
+      "played": 589,
+      "rate": 0.2554,
+      "rate_n": 509,
+      "n_other": 464,
+      "expected": 118.51,
+      "p_zero": 3.412853032107785e-52,
+      "window": [
+        "2026-06-25",
+        "2026-07-21"
+      ],
+      "left_pool": true
+    },
+    "Inferno": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 780,
+      "rate": 0.3039,
+      "rate_n": 464,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        "2026-09-05",
+        null
+      ],
+      "left_pool": false
+    },
+    "Dust2": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1258,
+      "rate": 0.4784,
+      "rate_n": 464,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        "2026-09-05",
+        null
+      ],
+      "left_pool": false
+    },
+    "Mirage": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1065,
+      "rate": 0.3276,
+      "rate_n": 464,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        "2026-09-05",
+        null
+      ],
+      "left_pool": false
+    },
+    "Anubis": {
+      "first": "2026-01-14",
+      "last": "2026-09-04",
+      "played": 416,
+      "rate": 0.2374,
+      "rate_n": 455,
+      "n_other": 9,
+      "expected": 2.14,
+      "p_zero": 0.1180952547800647,
+      "window": [
+        "2026-09-04",
+        "2026-09-05"
+      ],
+      "left_pool": false
+    },
+    "Cache": {
+      "first": "2026-08-20",
+      "last": "2026-09-05",
+      "played": 70,
+      "rate": 0.1509,
+      "rate_n": 464,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        "2026-09-05",
+        null
+      ],
+      "left_pool": false
+    }
+  },
+  "entered": {
+    "Ancient": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1073,
+      "rate": 0.3575,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Train": {
+      "first": "2025-10-14",
+      "last": "2026-01-24",
+      "played": 204,
+      "rate": 0.277,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Nuke": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 957,
+      "rate": 0.3317,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Overpass": {
+      "first": "2025-10-14",
+      "last": "2026-06-25",
+      "played": 589,
+      "rate": 0.2319,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Inferno": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 780,
+      "rate": 0.2882,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Dust2": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1258,
+      "rate": 0.3704,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Mirage": {
+      "first": "2025-10-14",
+      "last": "2026-09-05",
+      "played": 1065,
+      "rate": 0.3559,
+      "rate_n": 621,
+      "n_other": 0,
+      "expected": 0.0,
+      "p_zero": 1.0,
+      "window": [
+        null,
+        "2025-10-14"
+      ],
+      "new_entry": false
+    },
+    "Anubis": {
+      "first": "2026-01-14",
+      "last": "2026-09-04",
+      "played": 416,
+      "rate": 0.2062,
+      "rate_n": 737,
+      "n_other": 723,
+      "expected": 149.11,
+      "p_zero": 1.74265937006706e-65,
+      "window": [
+        "2026-01-13",
+        "2026-01-14"
+      ],
+      "new_entry": true
+    },
+    "Cache": {
+      "first": "2026-08-20",
+      "last": "2026-09-05",
+      "played": 70,
+      "rate": 0.3226,
+      "rate_n": 217,
+      "n_other": 2583,
+      "expected": 833.23,
+      "p_zero": 0.0,
+      "window": [
+        "2026-08-19",
+        "2026-08-20"
+      ],
+      "new_entry": true
+    }
+  }
+}

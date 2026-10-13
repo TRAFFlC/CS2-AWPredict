@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# 运行时产物
+*.log
+*.out
+*.err
+*.tmp
+*.bak
+*.bak[0-9]*
+gui.out
+gui.err
+predict_gui.log
+predict_gui.err.log
+
+# 临时/抓取中间产物（不入库）
+cache/
+csapi_cache/
+fixtures/
+*.html.json
+stier.html
+valvetier1.html
+
+# 上游第三方归档（体积大、且非本项目产物）
+# ⚠ 必须写成 `/rankings/`（前导斜杠 = 仅根目录）。写成 `rankings/` 会匹配
+#   **任意层级**，连我们要发布的 `data/rankings/` 精简档（0.7MB）一起排掉——
+#   而 pool_experiment 顶层就 `Ranks()` 实例化，缺了它 import 直接 FileNotFoundError。
+#   要复现时序排名请用 data/rankings/（精简版），上游 103MB 原档不入库。
+/rankings/
+/ranking/
+
+# 私有/敏感
+hltv_cookies.tmp
+hltv_dates_cookies.tmp
+.env
+*.key
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store

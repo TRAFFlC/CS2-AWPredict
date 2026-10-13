@@ -1,0 +1,78 @@
+[
+ {
+  "A": "FURIA",
+  "B": "G2",
+  "winner": "G2",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Dust2",
+   "Anubis",
+   "Mirage"
+  ],
+  "mvp": "heavygod",
+  "my_winner": "FURIA",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "kscerato",
+  "my_p": 64.4,
+  "my_rank": {
+   "A": 7,
+   "B": 8
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "MIBR",
+  "B": "Alliance",
+  "winner": "MIBR",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Inferno",
+   "Cache",
+   "Dust2"
+  ],
+  "mvp": "nqz",
+  "my_winner": "MIBR",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Ancient",
+   "Inferno",
+   "Nuke"
+  ],
+  "my_mvp": "insani",
+  "my_p": 53.9,
+  "my_rank": {
+   "A": 21,
+   "B": 22
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 25
+ }
+]

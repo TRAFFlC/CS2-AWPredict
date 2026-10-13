@@ -1,0 +1,116 @@
+[
+ {
+  "A": "MOUZ",
+  "B": "NRG",
+  "winner": "NRG",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Cache",
+   "Inferno",
+   "Anubis"
+  ],
+  "mvp": "nitr0",
+  "my_winner": "MOUZ",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Inferno",
+   "Mirage",
+   "Nuke"
+  ],
+  "my_mvp": "xelex",
+  "my_p": 77.9,
+  "my_rank": {
+   "A": 2,
+   "B": 50
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 5
+ },
+ {
+  "A": "Vitality",
+  "B": "magic",
+  "winner": "Vitality",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Mirage",
+   "Anubis",
+   "Inferno"
+  ],
+  "mvp": "apex",
+  "my_winner": "Vitality",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Dust2",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "zywoo",
+  "my_p": 68.1,
+  "my_rank": {
+   "A": 4,
+   "B": 23
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "Natus Vincere",
+  "B": "Aurora",
+  "winner": "Aurora",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Nuke",
+   "Mirage",
+   "Cache"
+  ],
+  "mvp": "jimpphat",
+  "my_winner": "Natus Vincere",
+  "my_score": [
+   2,
+   0
+  ],
+  "my_maps": [
+   "Anubis",
+   "Inferno",
+   "Mirage"
+  ],
+  "my_mvp": "w0nderful",
+  "my_p": 64.3,
+  "my_rank": {
+   "A": 11,
+   "B": 12
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 5
+ }
+]

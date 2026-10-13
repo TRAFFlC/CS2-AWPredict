@@ -1,0 +1,242 @@
+[
+ {
+  "A": "Legacy",
+  "B": "magic",
+  "winner": "Legacy",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Dust2",
+   "Anubis",
+   "Mirage"
+  ],
+  "mvp": "dumau",
+  "my_winner": "Legacy",
+  "my_score": "2:0",
+  "my_maps": "Ancient / Dust2 / Mirage",
+  "my_mvp": "try",
+  "my_rank": {
+   "A": 6,
+   "B": 23
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "9z",
+  "B": "5star",
+  "winner": "9z",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Cache",
+   "Nuke",
+   "Inferno"
+  ],
+  "mvp": "dgt",
+  "my_winner": "9z",
+  "my_score": "2:0",
+  "my_maps": "Cache / Dust2 / Nuke",
+  "my_mvp": "luchov",
+  "my_rank": {
+   "A": 9,
+   "B": 116
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 30
+ },
+ {
+  "A": "The MongolZ",
+  "B": "MIBR",
+  "winner": "MIBR",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "mvp": "venomzera",
+  "my_winner": "The MongolZ",
+  "my_score": "2:0",
+  "my_maps": "Inferno / Mirage / Nuke",
+  "my_mvp": "910",
+  "my_rank": {
+   "A": 19,
+   "B": 21
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "FaZe",
+  "B": "Alliance",
+  "winner": "Alliance",
+  "score": [
+   0,
+   2
+  ],
+  "maps": [
+   "Dust2",
+   "Nuke",
+   "Anubis"
+  ],
+  "mvp": "twist",
+  "my_winner": "FaZe",
+  "my_score": "2:0",
+  "my_maps": "Ancient / Dust2 / Nuke",
+  "my_mvp": "frozen",
+  "my_rank": {
+   "A": 10,
+   "B": 22
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "BetBoom",
+  "B": "BIG",
+  "winner": "BetBoom",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Cache",
+   "Nuke",
+   "Dust2"
+  ],
+  "mvp": "d1ledez",
+  "my_winner": "BIG",
+  "my_score": "0:2",
+  "my_maps": "Ancient / Cache / Dust2",
+  "my_mvp": "blamef",
+  "my_rank": {
+   "A": 14,
+   "B": 15
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ },
+ {
+  "A": "PARIVISION",
+  "B": "TYLOO",
+  "winner": "PARIVISION",
+  "score": [
+   2,
+   0
+  ],
+  "maps": [
+   "Inferno",
+   "Dust2",
+   "Anubis"
+  ],
+  "mvp": "fl1t",
+  "my_winner": "PARIVISION",
+  "my_score": "2:0",
+  "my_maps": "Ancient / Inferno / Mirage",
+  "my_mvp": "jame",
+  "my_rank": {
+   "A": 17,
+   "B": 26
+  },
+  "pts": {
+   "winner": 10,
+   "score": 10,
+   "maps": 5,
+   "mvp": 0
+  },
+  "total": 25
+ },
+ {
+  "A": "FURIA",
+  "B": "GamerLegion",
+  "winner": "FURIA",
+  "score": [
+   2,
+   1
+  ],
+  "maps": [
+   "Cache",
+   "Mirage",
+   "Anubis"
+  ],
+  "mvp": "molodoy",
+  "my_winner": "FURIA",
+  "my_score": "2:0",
+  "my_maps": "Cache / Mirage / Nuke",
+  "my_mvp": "kscerato",
+  "my_rank": {
+   "A": 7,
+   "B": 28
+  },
+  "pts": {
+   "winner": 10,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 20
+ },
+ {
+  "A": "G2",
+  "B": "Astralis",
+  "winner": "Astralis",
+  "score": [
+   1,
+   2
+  ],
+  "maps": [
+   "Dust2",
+   "Mirage",
+   "Inferno"
+  ],
+  "mvp": "jabbi",
+  "my_winner": "G2",
+  "my_score": "2:0",
+  "my_maps": "Ancient / Dust2 / Inferno",
+  "my_mvp": "heavygod",
+  "my_rank": {
+   "A": 8,
+   "B": 20
+  },
+  "pts": {
+   "winner": 0,
+   "score": 0,
+   "maps": 10,
+   "mvp": 0
+  },
+  "total": 10
+ }
+]
