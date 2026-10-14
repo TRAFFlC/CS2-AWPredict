@@ -396,12 +396,14 @@ $('btnReload').onclick=function(){
   });
   function poll(){
     return fetch('/api/status').then(r=>r.json()).then(j=>{
-      if(j.busy || j.reloads===undefined && !j.ready) return new Promise(s=>setTimeout(s,800)).then(poll);
-      if(!j.ready) return new Promise(s=>setTimeout(s,800)).then(poll);
+      if(!j.ready || j.busy) return new Promise(s=>setTimeout(s,800)).then(poll);
       TEAMS=j.teams; $('go').disabled=false;
       $('st').textContent=stText(j);
-      $('la') && $('la').innerHTML = $('la').innerHTML;   // 重建下拉选项
-      $('lb') && $('lb').innerHTML = $('lb').innerHTML;
+      // 下拉不用重建：bind() 的 draw() 在 onfocus/oninput 时实时读 TEAMS 画。
+      // ⚠ 这里曾写 `$('la') && $('la').innerHTML = $('la').innerHTML;` ——
+      //   JS 里 `a && b = c` 是**语法错误**（= 左边必须可赋值），一处错就干掉
+      //   整个 <script> 块，连初始 /api/status 都发不出去，页面永远停在
+      //   「正在加载模型，约 10 秒」。构建期已有 node --check 自检拦截此类错误。
     });
   }
 };
