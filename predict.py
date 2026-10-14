@@ -78,8 +78,12 @@ class Predictor:
         # 入库等于白做。常数漂移由 from_blob() 当场报错（硬坑 B），不回退。
         self.snapshot = None
         self.snapshot_note = None
-        snap = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            "state_2026-10.pkl")
+        # ⚠ 2026-10-14 修：这里原本**内联**写 `os.path.dirname(os.path.abspath(__file__))`，
+        #   既不是 HERE 也不是局部 here ⇒ 构建脚本的路径重定向完全命中不到。
+        #   仓库把数据放 data/ ⇒ snap 指向不存在的 <repo>/state_2026-10.pkl
+        #   ⇒ 快照静默不加载 ⇒ 仓库版退化成 2026-09-05 基线，**增量数据一条都没进去**。
+        #   改用模块级 HERE 后与仓库其余文件口径一致。
+        snap = os.path.join(DATA, "state_2026-10.pkl")
         if os.path.exists(snap) and os.environ.get("ISSUE014_NO_SNAPSHOT") != "1":
             import pickle
             import state_snapshot as SS
