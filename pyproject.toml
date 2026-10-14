@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cs2-awpredict"
-version = "1.0.0a0"
+version = "1.0.1a0"
 description = "CS2 赛前预测：胜方 / 选图 / 比分 / MVP，含各项可达上限与已知局限"
 readme = "README.md"
 requires-python = ">=3.10"

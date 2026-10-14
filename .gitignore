@@ -35,6 +35,9 @@ valvetier1.html
 /rankings/
 /ranking/
 
+# 构建产物（每次 _build_repo.py 重新生成，内容随源码变，不入库）
+_build_report.json
+
 # 私有/敏感
 hltv_cookies.tmp
 hltv_dates_cookies.tmp

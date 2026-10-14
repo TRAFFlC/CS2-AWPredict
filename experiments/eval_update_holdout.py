@@ -21,13 +21,14 @@ import sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 import model_v2 as M
 import record_schema as RS
 import state_snapshot as SS
 import veto_model as VM
 
-NEW = os.path.join(HERE, "new_records_2026-09.jsonl")
+NEW = os.path.join(DATA, "groundtruth", "new_records_2026-09.jsonl")
 HOLD_FRAC = 0.30
 
 

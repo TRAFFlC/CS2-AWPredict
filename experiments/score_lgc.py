@@ -22,12 +22,34 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 import scorer as SC
 
-ZH2EN = {"遗迹": "Dust2", "迷城": "Mirage", "沙二": "Anubis", "阿努比斯": "Anubis",
-         "死城": "Cache", "核子": "Nuke", "小镇": "Inferno", "远古": "Ancient"}
+# ⚠⚠ 这张表原先是错的（主理人 2026-10-14 纠正），且错得**很贵**：
+#     遗迹→Dust2（应为 Ancient）、沙二→Anubis（应为 Dust2）、
+#     「远古」这个中文名根本不存在（正确的是「遗迹」）。
+#   后果：30 场 bo1 里有 **11 场**选图判分用了错图名，5 场 bo3/bo5 全错。
+#   之所以总分没怎么动，是因为预测侧也常常错在同样的两张图上，**互相抵消**。
+ZH2EN = {"沙二": "Dust2", "迷城": "Mirage", "小镇": "Inferno",
+         "遗迹": "Ancient", "阿努比斯": "Anubis", "死城": "Cache",
+         "核子": "Nuke"}
+
+# 逐图比分（主理人 2026-10-14 提供）。键 = (队伍A, 队伍B)，值为
+#   [(图名, A的分数, B的分数), ...]，顺序即读法 B 的出场顺序。
+#   bo3 打成 2:0 时只有 2 条（第三张决胜图未进行，不入逐图）。
+LGC_BYMAP = {
+    ("Luminosity", "BBL"): [("Nuke", 13, 6), ("Mirage", 13, 5)],
+    ("3DMAX", "M80"): [("Inferno", 16, 14), ("Ancient", 14, 16),
+                       ("Dust2", 13, 8)],
+    ("Luminosity", "B8"): [("Inferno", 13, 10), ("Ancient", 13, 9)],
+    ("3DMAX", "Inner Circle"): [("Ancient", 7, 13), ("Dust2", 13, 8),
+                                ("Cache", 13, 3)],
+    ("3DMAX", "Luminosity"): [("Cache", 13, 11), ("Dust2", 16, 19),
+                              ("Ancient", 19, 15), ("Inferno", 8, 13),
+                              ("Nuke", 16, 13)],
+}
 
 # bo1: (A, B, 胜方, 图, MVP) —— bo1 无比分
 BO1 = [
@@ -65,9 +87,12 @@ BO1 = [
 
 # bo3/bo5: (A, B, 胜方, sa, sb, [图], MVP)
 REST = [
-    ("Luminosity", "BBL", "Luminosity", 2, 0, ["核子", "迷城", "遗迹"], "afro", 3),
+    # ⚠ 主理人 2026-10-14 纠正：#1 与 #3 是 bo3 **2:0**，第三张决胜图未进行，
+    #   故图集只有 2 张（原先都多写了第三张）。
+    #   选图顺序正确，只是中文译名被 ZH2EN 弄错。
+    ("Luminosity", "BBL", "Luminosity", 2, 0, ["核子", "迷城"], "afro", 3),
     ("3DMAX", "M80", "3DMAX", 2, 1, ["小镇", "遗迹", "沙二"], "lucky", 3),
-    ("Luminosity", "B8", "Luminosity", 2, 0, ["小镇", "遗迹", "沙二"], "afro", 3),
+    ("Luminosity", "B8", "Luminosity", 2, 0, ["小镇", "遗迹"], "afro", 3),
     ("3DMAX", "Inner Circle", "3DMAX", 2, 1, ["遗迹", "沙二", "死城"], "graviti", 3),
     ("3DMAX", "Luminosity", "3DMAX", 3, 2, ["死城", "沙二", "遗迹", "小镇", "核子"], "maka", 5),
 ]
@@ -75,7 +100,7 @@ REST = [
 
 def main():
     pred = {(p["A"], p["B"]): p for p in
-            json.load(io.open(os.path.join(HERE, "lgc_predictions.json"),
+            json.load(io.open(os.path.join(DATA, "groundtruth", "lgc_predictions.json"),
                               encoding="utf-8"))}
     tot = {"winner": 0, "score": 0, "maps": 0, "mvp": 0}
     per_bo = {}
@@ -160,7 +185,7 @@ def main():
             g, f2 = per_bo[bo]
             print("    bo%d  实得 %3d / %3d = %5.1f%%" % (bo, g, f2, 100 * g / f2))
     json.dump({"total": T, "max": full, "breakdown": tot,
-               "per_bo": per_bo}, open(os.path.join(HERE, "lgc_score.json"), "w",
+               "per_bo": per_bo}, open(os.path.join(DATA, "groundtruth", "lgc_score.json"), "w",
                                        encoding="utf-8"), ensure_ascii=False, indent=1)
     print("\n已写 lgc_score.json")
     return 0

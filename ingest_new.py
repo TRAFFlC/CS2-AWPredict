@@ -35,7 +35,7 @@ import model_v2 as M
 import record_schema as RS
 import state_snapshot as SS
 
-NEW = os.path.join(HERE, "new_records_2026-09.jsonl")
+NEW = os.path.join(DATA, "groundtruth", "new_records_2026-09.jsonl")
 OUT = os.path.join(DATA, "state_2026-10.pkl")
 OUT_MH = os.path.join(HERE, "mh_2026-10.pkl")
 OUT_CUR = os.path.join(HERE, "cursor_2026-10.json")

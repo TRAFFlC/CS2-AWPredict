@@ -37,6 +37,7 @@ import numpy as np
 from scipy.stats import binomtest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 
@@ -49,7 +50,7 @@ import predict as PR            # noqa: E402
 import record_schema as RS      # noqa: E402
 import state_snapshot as SS     # noqa: E402
 
-NEW = os.path.join(HERE, "new_records_2026-09.jsonl")
+NEW = os.path.join(DATA, "groundtruth", "new_records_2026-09.jsonl")
 
 
 def load():

@@ -15,6 +15,7 @@
 import io, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 import scorer as SC
@@ -39,7 +40,7 @@ def load():
             if (x["A"], x["B"]) == BO5_KEY:
                 continue          # 决赛交给 bo5 重测那份
             res.append(x)
-    p = os.path.join(HERE, "fissure_2026-09-20-bo5_results.json")
+    p = os.path.join(DATA, "groundtruth", "fissure_2026-09-20-bo5_results.json")
     if os.path.exists(p):
         res += json.load(io.open(p, encoding="utf-8"))
     return res

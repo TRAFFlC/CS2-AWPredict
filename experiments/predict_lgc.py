@@ -26,6 +26,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 from predict_fissure import ALIAS, coverage, resolve   # noqa: E402
 
@@ -112,7 +113,7 @@ def main():
               % (date, A, "vs", B, float(w.group(2)),
                  out[-1]["score"] if bo > 1 else "-", out[-1]["maps"],
                  out[-1]["mvp"], exp, ("⚠ " + ";".join(flags)) if flags else ""))
-    json.dump(out, open(os.path.join(HERE, "lgc_predictions.json"), "w",
+    json.dump(out, open(os.path.join(DATA, "groundtruth", "lgc_predictions.json"), "w",
                         encoding="utf-8"), ensure_ascii=False, indent=1)
     tot = sum(o["exp"] for o in out)
     full = sum(mx[o["bo"]] for o in out)

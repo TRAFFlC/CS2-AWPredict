@@ -8,7 +8,7 @@ H2 MVP × 地图交互：真值是「胜方系列 rating 最高者」，但真�
 import io, json, collections, math
 
 HERE = "."
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 MAPS7 = ["Ancient", "Anubis", "Cache", "Dust2", "Inferno", "Mirage", "Nuke"]
 
 matches = [json.loads(l) for l in io.open("csapi_matches_all.jsonl", encoding="utf-8")]

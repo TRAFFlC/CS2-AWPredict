@@ -16,6 +16,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 import record_schema as RS
 
@@ -145,7 +146,7 @@ def main():
     print("\n  日期覆盖：%s .. %s（%d 个不同日期）" % (dates[0], dates[-1], len(dates)))
     teams = sorted({t["name"] for r in recs for t in (r["team1"], r["team2"])})
     print("  涉及队伍 %d 支" % len(teams))
-    out = os.path.join(HERE, "new_records_2026-09.jsonl")
+    out = os.path.join(DATA, "groundtruth", "new_records_2026-09.jsonl")
     with io.open(out, "w", encoding="utf-8", newline="\n") as f:
         for r in recs:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")

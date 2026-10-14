@@ -119,7 +119,12 @@ def to_ingest_row(rec):
             # veto_rec 的构造见 veto_rec_build.build_veto_rec —— bo3 的第 3 张图
             # 是 decider（ban,ban,pick,pick,ban,ban 之后剩下的），**不是 pick**。
             "_maps": rec.get("maps_full_B") or [],
-            "_veto": _veto_of(rec)}
+            "_veto": _veto_of(rec),
+            # ── 2026-10-14：图序溯源闸门 ──────────────────────────────
+            # 只有**显式**带 `maps_verified: false` 的记录才跳过选图训练。
+            # 用 `is False` 而非 `not`：老的 truths 表（truth_maps_B.jsonl）
+            # 没有这个字段，若按缺省 false 处理会把整个选图模型的数据清空。
+            "_skip_veto": rec.get("maps_verified") is False}
 
 
 def selftest():

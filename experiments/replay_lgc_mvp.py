@@ -13,6 +13,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 import decide as D                                     # noqa: E402
@@ -35,7 +36,7 @@ def main():
 
     # 冻结的预测（胜负/选图不变，只换 MVP）
     pred = {(p["A"], p["B"]): p for p in
-            json.load(io.open(os.path.join(HERE, "lgc_predictions.json"),
+            json.load(io.open(os.path.join(DATA, "groundtruth", "lgc_predictions.json"),
                               encoding="utf-8"))}
 
     print("== Logitech G Connect 35 场 · MVP 规则回放 ==\n")

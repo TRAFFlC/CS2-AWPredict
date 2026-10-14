@@ -78,7 +78,8 @@ class Predictor:
         # 入库等于白做。常数漂移由 from_blob() 当场报错（硬坑 B），不回退。
         self.snapshot = None
         self.snapshot_note = None
-        snap = os.path.join(DATA, "state_2026-10.pkl")
+        snap = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "state_2026-10.pkl")
         if os.path.exists(snap) and os.environ.get("ISSUE014_NO_SNAPSHOT") != "1":
             import pickle
             import state_snapshot as SS
@@ -289,7 +290,7 @@ class Predictor:
 
     def _build_rank(self):
         """加载 VRS 排名：新快照优先，csapi 快照仅作兜底填补。"""
-        here = DATA  # 仓库布局：VRS 排名与 csapi 兜底档都在 data/
+        here = os.path.dirname(os.path.abspath(__file__))
         idx, src = {}, {}
         # ---- 1) VRS 用户快照（越新越优先）----
         best_date = ""

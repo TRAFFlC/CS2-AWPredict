@@ -11,7 +11,7 @@
 import collections, io, json, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 
 ALIAS = {"pvision": "PARIVISION", "parivision": "PARIVISION",
          "mongolz": "The MongolZ", "gamelegion": "GamerLegion",

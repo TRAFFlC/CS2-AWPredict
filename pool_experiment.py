@@ -59,7 +59,7 @@ from scorer import Prediction, Truth, score_match  # noqa: E402
 
 MATCHES = os.path.join(DATA, "csapi_matches_all.jsonl")
 TRUTH = os.path.join(DATA, "truth_maps_B.jsonl")
-RANKINGS = os.path.join(DATA, "rankings")  # 精简归档（仓库内 0.7MB），非上游 103MB 原档
+RANKINGS = os.path.join(HERE, "rankings")
 TIMELINE = os.path.join(DATA, "map_pool_timeline.json")
 OUT_JSON = os.path.join(DATA, "pool_experiment_results.json")
 EXCLUDE = os.path.join(HERE, "exclude_band_unknown_ids.txt")  # Q-011 裁决：过渡带无法定池的场次剔除
@@ -69,8 +69,25 @@ LAPLACE = 1.0           # 胜率平滑
 
 
 # --------------------------------------------------------------------- 排名归档
+def _rankings_root(root=RANKINGS):
+    """定位排名归档目录。
+
+    scratch 里是 `<HERE>/rankings/`，仓库里是 `<HERE>/data/rankings/`
+    （103 MB 全量不进 git，仓库只带 data/ 下的精简档）。
+    """
+    if root and os.path.isdir(root):
+        return root
+    for cand in (os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              "data", "rankings"),
+                 os.path.join(HERE, "data", "rankings")):
+        if os.path.isdir(cand):
+            return cand
+    return root
+
+
 def list_snapshots(root=RANKINGS):
     """返回按日期升序的周更快照日期列表。"""
+    root = _rankings_root(root)
     snaps = []
     for year in os.listdir(root):
         d = os.path.join(root, year)
@@ -88,8 +105,10 @@ class Ranks:
     """按「比赛日前最近一期」取排名/积分（时序安全）。"""
 
     def __init__(self, root=RANKINGS):
-        self.root = root
-        self.dates = list_snapshots(root)
+        # ⚠ root 必须和 list_snapshots 用的是**同一个**解析结果，否则 dates 取自
+        # data/rankings 而 _load 又去拼 <root>/… 直接 FileNotFoundError。
+        self.root = _rankings_root(root)
+        self.dates = list_snapshots(self.root)
         self._cache = {}
 
     def _load(self, snap):

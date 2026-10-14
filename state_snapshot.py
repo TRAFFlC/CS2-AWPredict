@@ -176,6 +176,7 @@ def ingest(state, mh, rows, ctx, cursor=None):
         order = [r for r in order
                  if (r["date"], r["id"]) > (ld, li if li is not None else -1)]
     n = 0
+    skipped_veto = 0
     i = 0
     while i < len(order):
         d = order[i]["date"]
@@ -202,9 +203,17 @@ def ingest(state, mh, rows, ctx, cursor=None):
             vr = r.get("_veto")
             if vr is None:
                 vr = ctx["veto"].get(r["id"])
+            # 2026-10-14：`maps_verified=false` 的记录图序是脚本猜的
+            # （Ancient/Anubis/Dust2 曾反复记错），**不进选图训练**，
+            # 避免污染 veto 模型。其余维度（胜负/比分/图池统计）照常更新。
+            if r.get("_skip_veto"):
+                skipped_veto += 1
+                ms, vr = [], None
             mh.observe_match(tA, tB, ctx["pool_of"](r), ms, vr, mres)
             n += 1
     new_cursor = {"last_date": order[-1]["date"], "last_id": order[-1]["id"]} if order else cursor
+    if skipped_veto:
+        print("  [veto 闸门] %d 场因 maps_verified=false 未进选图训练" % skipped_veto)
     return n, new_cursor
 
 

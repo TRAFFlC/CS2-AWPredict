@@ -21,7 +21,7 @@ import io, json, os, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
 sys.path.insert(0, HERE)
 
 from sklearn.linear_model import LogisticRegression
@@ -41,7 +41,7 @@ def load_real():
             if (x["A"], x["B"]) == BO5_KEY:
                 continue
             res.append(x)
-    p = os.path.join(HERE, "fissure_2026-09-20-bo5_results.json")
+    p = os.path.join(DATA, "groundtruth", "fissure_2026-09-20-bo5_results.json")
     if os.path.exists(p):
         res += json.load(io.open(p, encoding="utf-8"))
     return res
