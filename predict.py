@@ -289,12 +289,18 @@ class Predictor:
         return "".join(ch for ch in str(t).lower() if ch.isalnum())
 
     def _build_rank(self):
-        """加载 VRS 排名：新快照优先，csapi 快照仅作兜底填补。"""
-        here = os.path.dirname(os.path.abspath(__file__))
+        """加载 VRS 排名：新快照优先，csapi 快照仅作兜底填补。
+
+        ⚠ 2026-10-14 修：这里原本用**局部小写 `here`**（遮蔽模块级 HERE）。
+          构建脚本 `_build_repo.py` 的路径重定向只认字面量 `HERE`，大小写不匹配
+          ⇒ 这两行没被改成 DATA/，而仓库把数据放 data/ ⇒ 两个文件都找不到
+          ⇒ idx 为空 ⇒ `rank_pick()` 永远 (None, ok=False)，rank 兜底静默全死。
+          现直接复用模块级 `HERE`，与仓库其余文件口径一致。
+        """
         idx, src = {}, {}
         # ---- 1) VRS 用户快照（越新越优先）----
         best_date = ""
-        for vf in sorted(glob.glob(os.path.join(here, "vrs_rank_*.json"))):
+        for vf in sorted(glob.glob(os.path.join(DATA, "vrs_rank_*.json"))):
             try:
                 d = json.load(open(vf, encoding="utf-8"))
             except Exception:                              # noqa: BLE001
@@ -312,7 +318,7 @@ class Predictor:
                     src[self._norm(nm)] = "VRS " + date
         n_vrs = len(idx)
         # ---- 2) csapi 兜底（只填空位，绝不覆盖新榜）----
-        p = os.path.join(here, "csapi_matches_all.jsonl")
+        p = os.path.join(DATA, "csapi_matches_all.jsonl")
         if os.path.exists(p):
             rows = []
             mx = ""

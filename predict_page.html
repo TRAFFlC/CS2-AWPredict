@@ -53,7 +53,17 @@ body::after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;
 .wrap{position:relative;z-index:4;max-width:920px;margin:0 auto;padding:26px 18px 70px}
 
 /* —— 页头 —— */
-.masthead{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.masthead{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+/* ⚠ 加了刷新按钮后，masthead 里的文本容器必须显式 flex:1 + min-width:0。
+   否则 flex 会把 h1/.sub 压到按钮的剩余宽度里，长句被逐字折断成竖排。 */
+.masthead > div{flex:1 1 260px;min-width:0}
+/* 刷新模型按钮：margin-left:auto 顶到最右；窄屏时 flex-wrap 让它独占一行 */
+.reload{margin-left:auto;flex:0 0 auto;font:inherit;font-size:12px;letter-spacing:.02em;
+  color:var(--dim);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;padding:7px 13px;cursor:pointer;transition:.15s;white-space:nowrap}
+.reload:hover:not(:disabled){color:var(--ink);background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.32)}
+.reload:disabled{opacity:.5;cursor:progress}
 .mark{display:grid;grid-template-columns:repeat(3,7px);grid-gap:2px;flex:0 0 auto}
 .mark i{display:block;width:7px;height:7px;background:var(--line-2)}
 .mark i:nth-child(1),.mark i:nth-child(5),.mark i:nth-child(9){background:var(--acc);
@@ -63,7 +73,8 @@ h1{font-family:var(--mono);font-size:21px;font-weight:700;letter-spacing:.10em;
 h1::after{content:"";display:inline-block;width:9px;height:16px;margin-left:8px;
   background:var(--acc);vertical-align:-2px;animation:caret 1.15s steps(1,end) infinite}
 @keyframes caret{0%,55%{opacity:1}56%,100%{opacity:.15}}
-.sub{color:var(--dim);font-size:12px;letter-spacing:.02em;margin:0 0 20px}
+.sub{color:var(--dim);font-size:12px;letter-spacing:.02em;margin:0 0 20px;
+  line-height:1.65;overflow-wrap:anywhere}
 .pixbar{display:flex;gap:3px;margin:0 0 18px;height:4px}
 .pixbar i{display:block;height:4px;flex:1 1 auto;background:var(--line);
   animation:flow 3.6s linear infinite}
@@ -199,6 +210,10 @@ padding-left:6px}
   .wrap{padding:20px 12px 56px}
   h1{font-size:18px}
   .win{font-size:25px}
+  /* 窄屏：按钮换行独占，标题区拿满整行 */
+  .masthead{gap:10px}
+  .masthead > div{flex:1 1 100%;order:2}
+  .reload{margin-left:auto;order:1}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
@@ -215,6 +230,7 @@ padding-left:6px}
 <h1>CS2 预测器</h1>
 <div class="sub">胜方取 rank 热门（模型 argmax 实测不优于它）· MVP 按数据丰度标定 · bo1 不计比分</div>
   </div>
+  <button id="btnReload" class="reload" title="重新读取 state_2026-10.pkl 与 rank 索引">刷新模型</button>
 </div>
 <div class="pixbar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
@@ -355,10 +371,44 @@ bind('a','la');bind('b','lb');
 //   所以点「预测」毫无反应——唯一能跑通的两条路是输入框回车 / 点下拉里的队名。
 //   这也是最容易漏的一类 bug：静态检查「按钮存在」是通的，只有真点一下才暴露。
 $('go').onclick=go;
+// ---- 刷新模型（2026-10-14）----------------------------------
+// 起因：Predictor 在服务端**启动时**把 state_2026-10.pkl 读进内存，跑
+// `ingest_new.py --rebuild` 之后不重启就一直用旧账本。实测症状是选图概率
+// 明显偏低（Legacy vs PARIVISION 的 Ancient 0.60 vs 重载后 0.75），
+// 但页面没有任何提示，极易误判成"模型没导入新数据"。
+function stText(j){
+  return `就绪 · ${j.teams.length} 支队伍 · 模型加载 ${j.load_s}s`
+    + (j.last_date?` · 账本 ${j.last_date}`:'')
+    + (j.rank_teams?` · rank ${j.rank_teams} 队`:' · ⚠ rank 索引为空')
+    + (j.reloads?` · 已刷新 ${j.reloads} 次${j.last_reload?'（'+j.last_reload+'）':''}`:'');
+}
+$('btnReload').onclick=function(){
+  var b=this; b.disabled=true; b.textContent='刷新中…';
+  $('st').textContent='正在重新读取 state 与 rank 索引，约 10~20 秒…';
+  fetch('/api/reload').then(r=>r.json()).then(j=>{
+    if(!j.ok) throw new Error(j.error||'失败');
+    return poll();
+  }).then(()=>{
+    b.disabled=false; b.textContent='刷新模型';
+  }).catch(e=>{
+    b.disabled=false; b.textContent='刷新模型';
+    $('st').textContent='刷新失败：'+e.message;
+  });
+  function poll(){
+    return fetch('/api/status').then(r=>r.json()).then(j=>{
+      if(j.busy || j.reloads===undefined && !j.ready) return new Promise(s=>setTimeout(s,800)).then(poll);
+      if(!j.ready) return new Promise(s=>setTimeout(s,800)).then(poll);
+      TEAMS=j.teams; $('go').disabled=false;
+      $('st').textContent=stText(j);
+      $('la') && $('la').innerHTML = $('la').innerHTML;   // 重建下拉选项
+      $('lb') && $('lb').innerHTML = $('lb').innerHTML;
+    });
+  }
+};
 fetch('/api/status').then(r=>r.json()).then(j=>{
   if(j.error){$('st').textContent='加载失败：'+j.error;return;}
   TEAMS=j.teams;$('go').disabled=false;
-  $('st').textContent=`就绪 · ${TEAMS.length} 支队伍 · 模型加载 ${j.load_s}s`;
+  $('st').textContent=stText(j);
 }).catch(()=>{$('st').textContent='无法连接服务';});
 </script>
 <script>

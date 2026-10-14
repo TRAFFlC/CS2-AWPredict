@@ -78,7 +78,43 @@ ALIAS = {
 }
 
 _STATE = {"ready": False, "error": None, "pred": None, "teams": [],
-          "t0": time.time()}
+          "t0": time.time(), "reloads": 0, "last_reload": None}
+
+# 2026-10-14：Predictor 在**启动时**把 state_2026-10.pkl / rank 索引一次性读进内存。
+# 数据重建（ingest_new.py --rebuild）后不重启就永远用旧账本 —— 实测表现为选图
+# 概率明显偏低（Legacy vs PARIVISION 的 Ancient 0.60 vs 重载后 0.75）。
+# 故提供 /api/reload 重新构造 Predictor，并显式重建 rank 索引。
+_RELOAD_LOCK = threading.Lock()
+
+
+def reload_model():
+    """重新加载模型 + rank 索引 + 队伍清单。返回给前端的状态摘要。"""
+    import predict as PR
+    with _RELOAD_LOCK:
+        old = _STATE["pred"]
+        pr = PR.Predictor(quiet=True)
+        # ⚠ _build_rank() 只在首次调用时建表；已有 Predictor 不会自动感知
+        #   磁盘上新的 vrs_rank_*.json，故显式重建。
+        if hasattr(pr, "_build_rank"):
+            try:
+                pr._build_rank()
+            except Exception as e:                       # noqa: BLE001
+                return {"ok": False, "error": "_build_rank: %s" % e,
+                        "reloads": _STATE["reloads"]}
+        _STATE["pred"] = pr
+        _STATE["teams"] = build_teams(pr)
+        _STATE["ready"] = True
+        _STATE["error"] = None
+        _STATE["reloads"] += 1
+        _STATE["last_reload"] = time.strftime("%Y-%m-%d %H:%M:%S")
+        if old is not None:
+            del old
+        rk = getattr(pr, "_rank_idx", None) or {}
+        return {"ok": True, "reloads": _STATE["reloads"],
+                "last_reload": _STATE["last_reload"],
+                "teams": len(_STATE["teams"]),
+                "rank_teams": len(rk),
+                "last_date": getattr(getattr(pr, "state", None), "last_date", None)}
 
 
 # ------------------------------------------------------------------ 队伍清单
@@ -467,9 +503,35 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, {"error": _STATE["error"]})
             if not _STATE["ready"]:
                 return self._send(200, {"ready": False})
+            rk = getattr(_STATE["pred"], "_rank_idx", None) or {}
             return self._send(200, {"ready": True,
                                     "teams": _STATE["teams"],
-                                    "load_s": round(time.time() - _STATE["t0"], 1)})
+                                    "load_s": round(time.time() - _STATE["t0"], 1),
+                                    "rank_teams": len(rk),
+                                    "reloads": _STATE["reloads"],
+                                    "last_reload": _STATE["last_reload"],
+                                    "last_date": getattr(
+                                        getattr(_STATE["pred"], "state", None),
+                                        "last_date", None)})
+        if u.path == "/api/reload":
+            if q.get("sync", ["0"])[0] == "1":
+                try:
+                    r = reload_model()
+                except Exception as e:                   # noqa: BLE001
+                    r = {"ok": False, "error": "%s: %s" % (type(e).__name__, e)}
+                return self._send(200 if r.get("ok") else 500, r)
+            # 默认异步：重建 Predictor 要十几秒，同步会撞浏览器/urllib 默认超时
+            if _STATE.get("_reloading"):
+                return self._send(200, {"ok": True, "busy": True})
+            _STATE["_reloading"] = True
+
+            def _bg():
+                try:
+                    reload_model()
+                finally:
+                    _STATE["_reloading"] = False
+            threading.Thread(target=_bg, daemon=True).start()
+            return self._send(200, {"ok": True, "started": True})
         if u.path == "/api/predict":
             if not _STATE["ready"]:
                 return self._send(503, {"error": "模型仍在加载"})
@@ -552,11 +614,7 @@ def main():
         return 1
 
     def boot():
-        import predict as PR
-        pr = PR.Predictor(quiet=True)
-        _STATE["teams"] = build_teams(pr)
-        _STATE["pred"] = pr
-        _STATE["ready"] = True
+        reload_model()
 
     def run():
         try:
