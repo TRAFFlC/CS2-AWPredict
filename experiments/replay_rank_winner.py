@@ -15,7 +15,7 @@
 import io, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.0）
+DATA = os.path.join(HERE, "../data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.1）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 import scorer as SC
