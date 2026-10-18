@@ -199,7 +199,10 @@ padding-left:6px}
 #hist a{color:var(--acc);text-decoration:none;margin-right:12px;display:inline-block;
   cursor:pointer;transition:color .12s}
 #hist a:hover{text-decoration:underline;color:var(--acc-2)}
-.err{color:var(--bad);padding:12px 2px;font-family:var(--mono)}
+/* 错误提示卡：只着色，**不覆盖** .card 的 padding 与正文字体。
+   ⚠ 旧写法 padding:12px 2px;font-family:var(--mono) 与 .card 同优先级且声明在后，
+   把卡片内边距 18px 压成 2px（文字贴边框）并换成等宽字体（2026-10-17 用户反馈）。 */
+.err{color:var(--bad)}
 .hint{color:var(--dim);font-size:12px;margin-top:8px;letter-spacing:.01em}
 #st{font-family:var(--mono);color:var(--fg-2)}
 #st::before{content:"●";color:var(--acc);margin-right:7px;font-size:10px;
@@ -341,6 +344,15 @@ async function go(){
 
 function render(j){
   const mp=Object.entries(j.map_probs||{}).sort((a,b)=>b[1]-a[1]);
+  const pm=Object.fromEntries(mp);
+  // 选图按**概率降序**，每张图自带概率；池内未选的单列一行。
+  // ⚠ 绝不能用 j.maps —— 它是字母规范序（计划身份/计分用，scorer 按集合判分），
+  // 直接 join 会把 Mirage 74% 排在 Dust2 57% 后面，看着像首选小镇。
+  const picked=(j.maps_ranked&&j.maps_ranked.length?j.maps_ranked.slice():j.maps.slice());
+  picked.sort((a,b)=>(pm[b]||0)-(pm[a]||0));
+  const pickedTxt=picked.map(m=>`${esc(m)} ${pm[m]!=null?Math.round(pm[m]*100)+'%':''}`).join('  ·  ');
+  const restTxt=mp.filter(([m])=>picked.indexOf(m)<0)
+                 .map(([m,v])=>`${esc(m)} ${Math.round(v*100)}%`).join('  ');
   const vp=Object.entries(j.mvp_probs||{}).sort((a,b)=>b[1]-a[1]).slice(0,4);
   const wins=j.warnings.length?`<ul class="w">${j.warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul>`:'';
   const st=j.rank_stale_days;
@@ -359,8 +371,8 @@ function render(j){
       <div><b>预测 MVP</b><span>${esc(j.mvp||'—')}</span></div>
       <div><b>模型倾向</b><span>${esc(j.model_winner||'—')}${j.disagreement?' ⚠':''}</span></div>
     </div>
-    <div style="margin-top:14px"><b style="font-size:12px;color:var(--dim)">选图 ${esc(j.maps.join(' / '))}</b></div>
-    <div style="margin-top:6px">${mp.map(([m,p])=>`<span class="pill">${esc(m)} ${(p*100).toFixed(0)}%</span>`).join('')}</div>
+    <div style="margin-top:14px"><b style="font-size:12px;color:var(--dim)">选图（按概率降序） ${pickedTxt}</b></div>
+    ${restTxt?`<div style="font-size:11px;color:var(--dim);margin-top:3px">池内未选 ${esc(restTxt)}</div>`:''}
     ${vp.length?`<div style="margin-top:12px"><b style="font-size:12px;color:var(--dim)">MVP 概率（未标定）</b></div>
     <div style="margin-top:6px">${vp.map(([m,p])=>`<span class="pill">${esc(m)} ${(p*100).toFixed(0)}%</span>`).join('')}</div>`:''}
     ${wins}

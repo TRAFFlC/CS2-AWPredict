@@ -44,7 +44,7 @@ import random
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 
@@ -398,14 +398,23 @@ def crowd_plan(md, strategy, rng, noise):
     fav = A if md.p_win[A] >= 0.5 else B
     rows = s["map_rows"]
     plan = {"winner": fav}
+    # ⚠ `maps` 保持**字母规范序**：它是计划的**身份**（_plans 去重靠它，
+    # scorer 默认 maps_order_matters=False 按集合判分，顺序不影响得分）。
+    # 但**给人看的顺序是另一回事** —— 模型明明排出了 Mirage 74% > Nuke 65% >
+    # Dust2 57%，显示层却按字母排成 "Dust2 / Mirage / Nuke"，让人以为小镇是第一顺位。
+    # 2026-10-19 主理人当场抓到这个问题。所以另开 `maps_ranked`（概率降序）专供显示，
+    # `maps` 一个字节都不改 ⇒ 计分与历史结果逐位不变。
     if strategy == "popular":          # 只看全局流行度
-        plan["maps"] = tuple(sorted(f["map"] for f in sorted(rows, key=lambda f: (-f["g_app"], f["map"]))[:md.k]))
+        _rank = [f["map"] for f in sorted(rows, key=lambda f: (-f["g_app"], f["map"]))[:md.k]]
+        plan["maps_ranked"] = tuple(_rank)
     elif strategy == "affinity":       # 只看两队亲和
-        plan["maps"] = tuple(sorted(f["map"] for f in sorted(rows, key=lambda f: (-(f["a_app"] + f["b_app"]), f["map"]))[:md.k]))
+        _rank = [f["map"] for f in sorted(rows, key=lambda f: (-(f["a_app"] + f["b_app"]), f["map"]))[:md.k]]
+        plan["maps_ranked"] = tuple(_rank)
     elif strategy == "model_maps":     # 用了 veto 模型（强对手）
-        plan["maps"] = tuple(sorted(md.picked))
+        plan["maps_ranked"] = tuple(md.picked)
     else:
-        plan["maps"] = tuple(sorted(md.picked))
+        plan["maps_ranked"] = tuple(md.picked)
+    plan["maps"] = tuple(sorted(plan["maps_ranked"]))
     mrows = s["player_rows"].get(fav) or []
     if strategy == "raw_star" and mrows:
         plan["mvp"] = max(mrows, key=lambda r: r["raw"])["player"]
@@ -530,10 +539,12 @@ def choose_score(md):
         sl = (1, 0) if w == A else (0, 1)
     else:
         sl = max(md.score_true[w], key=lambda k: md.score_true[w][k])
-    ms = tuple(sorted(md.picked))
     mvp_probs = md.mvp_true.get(w) or {}
     mvp = max(mvp_probs, key=lambda p: mvp_probs[p]) if mvp_probs else ""
-    return {"winner": w, "score": sl, "maps": ms, "mvp": mvp}
+    return {"winner": w, "score": sl,
+            "maps": tuple(sorted(md.picked)),      # 规范序＝计划身份（计分用）
+            "maps_ranked": tuple(md.picked),        # 概率降序＝给人看
+            "mvp": mvp}
 
 
 def retarget(md, plan, winner):

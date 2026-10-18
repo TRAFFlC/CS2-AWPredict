@@ -38,10 +38,11 @@ import io
 import json
 import math
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 
@@ -182,12 +183,34 @@ class Predictor:
 
     # ---- 出预测 ----
     def predict_from_sample(self, sample, objective="score", rank_field=None,
-                            opponents=20, noise=0.25):
+                            opponents=20, noise=0.25, winner_policy="rank"):
         """对「已备好的单场样本」出预测（live 与 backtest 共用同一条代码路径）。
+
+        ★ **两个正交开关，不要混**（2026-10-19 主理人裁决）：
+
+            objective      score | rank   —— **计划排序**：给定胜方后，比分/MVP/选图怎么排
+            winner_policy  model | rank   —— **胜方来源**：谁说了算
+
+        混着设过一次，代价是 A/B 结论失真：`objective="score"` 时代码仍然
+        无条件用 `rank_pick` 覆盖胜方（见下方 `_winner_src`），于是「胜方分歧
+        0/559」是**假象** —— 两臂的胜方都被 rank 锁死了，本来就不会分歧。
+        计划排序的差异被单独测到，胜方差异**根本没被测**。
+
+        「纯分数优先」= `--objective score --winner model`（第一次真正可达）。
+        「排名优先」  = `--objective rank  --winner rank`。
+
+        `winner_policy` 默认 `"rank"`：保留 2026-10-13 时间前进式复测的定案
+        （112 场 out-of-sample，rank 75/112=67.0% vs 模型·更新 71/112=63.4%，
+        McNemar p=0.481；置信度门控 9 档无任何一档超过 rank）。
 
         `opponents` / `noise`：**逐场**对手场的人数与噪声（主理人 2026-10-11：参赛人数按比赛不同
         ⇒ 这是参数，默认 20；对外一律同时报「期望分 + 该人数下的期望名次」）。
         """
+        if objective not in ("score", "rank"):
+            raise ValueError("objective 只能是 score 或 rank，收到 %r" % (objective,))
+        if winner_policy not in ("model", "rank"):
+            raise ValueError("winner_policy 只能是 model 或 rank，收到 %r"
+                             % (winner_policy,))
         md = D.MatchDist(sample, self.mmodel, self.smodel)
         plan = D.choose_score(md)
         er = None
@@ -197,7 +220,18 @@ class Predictor:
             plan = D.choose_rank(md, 0, [md.moments(plan)], field)
             er = field.expected_rank(*md.moments(plan))
 
-        # ---- 胜方项：**遵循 rank**（2026-10-13 复测定案，不做置信度门控）----
+        # ---- 胜方项：**只由 winner_policy 决定**，objective 不再顺带改它 ----
+        model_winner = plan["winner"]
+        rank_winner, rank_info = (None, {"ok": False, "why": "winner_policy=model，未查 rank"})
+        if winner_policy == "rank":
+            rank_winner, rank_info = self.rank_pick(sample, model_winner)
+        if rank_winner and rank_winner != model_winner:
+            # 换胜方必须**连带重算比分与 MVP**：scorer 要求 ①比分隐含的胜方 ==
+            # pred.winner（否则第 2 项整项 0，scorer.py:144）②MVP 出自预测胜方
+            # （否则第 4 项 0）。第一版只翻了比分没动 MVP ⇒ 分歧场次 MVP 必 0。
+            plan = D.retarget(md, plan, rank_winner)
+        winner_src = ("rank" if (rank_winner and rank_winner == plan["winner"])
+                      else "model")
         # 2026-10-13 时间前进式复测（exp_walkforward_winner.py / walkforward_winner_results.json）：
         # 112 场 09-08~10-11，按日推进——每场只用**更早日期**的状态预测后再摄入当日，
         # 全部 out-of-sample、无同日泄漏；且**在增量数据已摄入的模型上重跑**，
@@ -226,22 +260,16 @@ class Predictor:
         # ⇒ 差距来自**体系不同**而非「数据旧」。所以陈旧度确实在衰减 rank（见上），
         #   但**换源不是解法**；csapi 恢复后重抓的价值是消除陈旧，不是换算法，
         #   且重抓后必须重跑本实验再定，不能默认变好。
-        model_winner = plan["winner"]
-        rank_winner, rank_info = self.rank_pick(sample, model_winner)
-        if rank_winner and rank_winner != model_winner:
-            # 换胜方必须**连带重算比分与 MVP**：scorer 要求 ①比分隐含的胜方 ==
-            # pred.winner（否则第 2 项整项 0，scorer.py:144）②MVP 出自预测胜方
-            # （否则第 4 项 0）。第一版只翻了比分没动 MVP ⇒ 分歧场次 MVP 必 0。
-            plan = D.retarget(md, plan, rank_winner)
-
         mu, var = md.moments(plan)
         A, B, bo = sample["teamA"], sample["teamB"], sample["bo"]
         out = {
-            "A": A, "B": B, "bo": bo, "objective": objective,
+            "A": A, "B": B, "bo": bo,
+            "objective": objective, "winner_policy": winner_policy,
             "pA": sample["pA"], "win_prob": {A: sample["pA"], B: 1 - sample["pA"]},
             "winner": plan["winner"], "score": list(plan["score"]),
             "maps": list(plan["maps"]), "mvp": plan["mvp"],
-            "model_winner": model_winner,
+            "maps_ranked": list(plan.get("maps_ranked") or plan["maps"]),
+            "model_winner": model_winner, "winner_src": winner_src,
             "disagreement": bool(rank_winner and rank_winner != model_winner),
             "rank_src": rank_info,
             "map_probs": {r["map"]: None for r in sample["map_rows"]},
@@ -349,12 +377,14 @@ class Predictor:
         self._rank_snap = max(best_date, getattr(self, "_csapi_snap", ""))
 
     def predict(self, A, B, bo=3, date=None, objective="score", rank_field=None,
-                profileA=None, profileB=None, quiet=True, opponents=20, noise=0.25):
+                profileA=None, profileB=None, quiet=True, opponents=20, noise=0.25,
+                winner_policy="rank"):
         A, coldA = self.resolve_team(A, profileA, quiet)
         B, coldB = self.resolve_team(B, profileB, quiet)
         sample = self.live_sample(A, B, bo, date)
         out = self.predict_from_sample(sample, objective, rank_field,
-                                       opponents=opponents, noise=noise)
+                                       opponents=opponents, noise=noise,
+                                       winner_policy=winner_policy)
         out["cold"] = {A: coldA, B: coldB}
         return out
 
@@ -378,11 +408,26 @@ def fmt_prediction(p):
     L.append("  胜方: %-24s  P=%.1f%%   (对家 %.1f%%)" % (
         p["winner"], 100 * max(p["pA"], 1 - p["pA"]), 100 * min(p["pA"], 1 - p["pA"])))
     L.append("  比分: %d:%d   (bo%d)" % (p["score"][0], p["score"][1], p["bo"]))
-    L.append("  选图: %s" % " / ".join(p["maps"]))
+    # ⚠ **按概率降序显示，且每张图自带概率**。原来这里用 p["maps"]（字母规范序），
+    # 于是模型明明排了 Mirage 74% > Nuke 65% > Dust2 57%，屏幕上是
+    # "Dust2 / Mirage / Nuke" —— 第一位是概率第三的图，看着像首选小镇。
+    # 2026-10-19 主理人当场抓到的。计分不受影响（scorer 默认按集合判分）。
+    probs = p.get("map_probs") or {}
+    picked = list(p["maps"])
+    # 概率降序；⚠ 概率表可能不完整/缺失 ⇒ 只能**重排** picked，绝不能因此少列图。
+    _ranked = list(p.get("maps_ranked") or [])
+    _ranked = [m for m in _ranked if m in picked]
+    _ranked += [m for m in sorted(picked, key=lambda m: -probs.get(m, 0.0))
+                if m not in _ranked]
+    L.append("  选图（按概率降序）: " + "  ·  ".join(
+        "%s %.0f%%" % (m, 100 * probs[m]) if m in probs else m for m in _ranked))
+    if probs:
+        rest = sorted(((m, v) for m, v in probs.items() if m not in picked),
+                      key=lambda kv: -kv[1])
+        if rest:
+            L.append("       池内未选: " + "  ".join("%s %.0f%%" % (m, 100 * v)
+                                                 for m, v in rest))
     L.append("  MVP : %s" % (p["mvp"] or "（无选手数据）"))
-    if p.get("map_probs"):
-        top = sorted(p["map_probs"].items(), key=lambda kv: -kv[1])[:5]
-        L.append("       图集概率: " + "  ".join("%s %.2f" % (m, pr) for m, pr in top))
     if p.get("mvp_probs"):
         top = sorted(p["mvp_probs"].items(), key=lambda kv: -kv[1])[:3]
         # ⚠ 这行概率**不可当作把握程度**：候选池是胜方 5 名选手（随机基线 0.20）。
@@ -422,9 +467,11 @@ def cmd_match(args):
         profB = json.load(io.open(args.profileB, encoding="utf-8"))
     p = pred.predict(args.A, args.B, args.bo, args.date, args.objective,
                      profileA=profA, profileB=profB, quiet=False,
-                     opponents=args.opponents, noise=args.noise)
+                     opponents=args.opponents, noise=args.noise,
+                     winner_policy=args.winner_policy)
     print("")
-    print("== %s vs %s （bo%d，目标=%s）==" % (p["A"], p["B"], p["bo"], p["objective"]))
+    print("== %s vs %s （bo%d，排序目标=%s，胜方来源=%s）=="
+          % (p["A"], p["B"], p["bo"], p["objective"], p["winner_policy"]))
     print(fmt_prediction(p))
 
 
@@ -434,7 +481,8 @@ def cmd_score(args):
     total = mx = 0
     rows = []
     for m in doc["matches"]:
-        p = pred.predict(m["A"], m["B"], m.get("bo", 3), m.get("date"), args.objective, quiet=True)
+        p = pred.predict(m["A"], m["B"], m.get("bo", 3), m.get("date"), args.objective,
+                         quiet=True, winner_policy=args.winner_policy)
         if not m.get("winner"):
             rows.append((m, p, None))
             continue
@@ -476,9 +524,11 @@ def cmd_interact(args):
             continue
         bo_s = input("bo (1/3/5，回车=3)> ").strip()
         bo = int(bo_s) if bo_s in ("1", "3", "5") else 3
-        p = pred.predict(A, B, bo, None, args.objective, quiet=False)
+        p = pred.predict(A, B, bo, None, args.objective, quiet=False,
+                         winner_policy=args.winner_policy)
         print("")
-        print("== %s vs %s （bo%d，目标=%s）==" % (p["A"], p["B"], bo, args.objective))
+        print("== %s vs %s （bo%d，排序目标=%s，胜方来源=%s）=="
+              % (p["A"], p["B"], bo, p["objective"], p["winner_policy"]))
         print(fmt_prediction(p))
         print("\n输入真实结果（可直接回车跳过计分）。")
         w = input("胜方 (回车=%s)> " % p["winner"]).strip()
@@ -587,6 +637,44 @@ def _selftest():
     chk("fmt has winner", "X" in fmt_prediction(fake), True)
     chk("fmt has maps", "Inferno" in fmt_prediction(fake), True)
 
+    # ★ 选图显示必须按**概率降序**，且首图就是概率最高的那张。
+    #   2026-10-19 主理人抓到：模型排 Mirage 74% > Nuke 65% > Dust2 57%，
+    #   屏幕却是字母序 "Dust2 / Mirage / Nuke" —— 第一位是概率第三的图。
+    _mp = {"Mirage": 0.74, "Nuke": 0.65, "Dust2": 0.57, "Cache": 0.46,
+           "Inferno": 0.27, "Ancient": 0.19, "Anubis": 0.15}
+    _vis = dict(fake, maps=["Dust2", "Mirage", "Nuke"],
+                maps_ranked=["Mirage", "Nuke", "Dust2"], map_probs=_mp)
+    _line = [l for l in fmt_prediction(_vis).splitlines() if "选图" in l][0]
+    chk("选图行按概率降序", _line.index("Mirage") < _line.index("Nuke") < _line.index("Dust2"),
+        True)
+    chk("选图行首图就是概率最高的图", _line.split(":")[1].strip().split()[0].split("%")[0],
+        "Mirage")
+    chk("选图行每张图都带概率", all("%" in _line.split(s)[1][:4]
+                                for s in ("Mirage", "Nuke", "Dust2")), True)
+    chk("未选图单独列出且不与选图混淆",
+        "Cache" in _line + fmt_prediction(_vis) and
+        "Cache" not in _line.split(":")[1], True)
+    # 计分口径不变：maps 仍是字母规范序（scorer 默认按集合判分），一个字节没改
+    class _MD2(object):
+        A, B, bo = "X", "Y", 3
+        p_win = {"X": 0.7, "Y": 0.3}
+        score_true = {"X": {(2, 1): 0.5, (2, 0): 0.3}}
+        picked = ["Nuke", "Mirage", "Dust2"]          # 概率降序（VM.predict_set 的原样）
+        mvp_true = {"X": {"p1": 0.6}}
+    _pl2 = D.choose_score(_MD2())
+    chk("maps 仍是字母规范序（计分身份未变）", _pl2["maps"],
+        ("Dust2", "Mirage", "Nuke"))
+    chk("maps_ranked 保留模型原始概率降序", _pl2["maps_ranked"],
+        ("Nuke", "Mirage", "Dust2"))
+    chk("maps 与 maps_ranked 集合一致（只是顺序不同）",
+        sorted(_pl2["maps"]), sorted(_pl2["maps_ranked"]))
+    _v2 = dict(fake, maps=list(_pl2["maps"]), maps_ranked=list(_pl2["maps_ranked"]),
+               map_probs={"Nuke": 0.7, "Mirage": 0.6, "Dust2": 0.5})
+    _l2 = [l for l in fmt_prediction(_v2).splitlines() if "选图" in l][0]
+    chk("选图行首图=概率最高（不是字母最小）", _l2.split(":")[1].strip()[:4], "Nuke")
+    chk("概率表不完整时不丢图",
+        fmt_prediction(dict(fake, map_probs={"Mirage": 0.7})).count("Inferno"), 1)
+
     # 换胜方必须**连带重算比分与 MVP**（rank-first 覆盖模型胜方时走 D.retarget），
     # 否则分歧场次的 MVP 出自对手队伍 ⇒ 第 4 项必然 0 分（2026-10-13 实测到的真 bug）。
     class _MDStub(object):
@@ -600,6 +688,37 @@ def _selftest():
     chk("retarget: 选图不动", _rp["maps"], ("Mirage", "Nuke", "Inferno"))
     chk("retarget: 胜方一致时原样返回",
         D.retarget(_MDStub, {"winner": "Y", "score": (0, 2), "mvp": "py1"}, "Y")["mvp"], "py1")
+
+    # ★ 两个开关必须**正交**：objective 管排序，winner_policy 管胜方来源。
+    #   混过一次的后果：objective="score" 时代码仍无条件用 rank_pick 覆盖胜方，
+    #   于是 A/B 的「胜方分歧 0/559」是假象（两臂胜方都被 rank 锁死，本来就不会分歧）。
+    _src_pre = io.open(os.path.abspath(__file__), encoding="utf-8").read()
+    _body = _src_pre[_src_pre.index("def predict_from_sample"):
+                     _src_pre.index("def predict(self, A, B")]
+    chk("objective 只在 score 分支读",
+        _body.count("objective ==") >= 1 and 'objective == "rank"' in _body, True)
+    chk("rank_pick 只在 winner_policy==rank 时调",
+        'if winner_policy == "rank":' in _body
+        and _body.count("self.rank_pick(") == 1, True)
+    # 只查**行首赋值语句**（提示字符串里的 "winner_policy=model" 不算）
+    _assign = re.findall(r"^\s*winner_policy\s*=(?!=)", _body, re.M)
+    chk("winner_policy 从不被重新赋值", _assign, [])
+    for _bad in ("score_first", "blend", "weight"):
+        chk("决策层不含混合权重 %r" % _bad, _bad in _body, False)
+
+    def _bad_objective(*_a, **_k):
+        raise ValueError("x")
+
+    # 非法取值必须立刻拒绝，不能默默回落默认
+    _raised = 0
+    for _kw in ({"objective": "blend"}, {"winner_policy": "score"}):
+        try:
+            Predictor.predict_from_sample(object.__new__(Predictor), None, **_kw)
+        except ValueError:
+            _raised += 1
+        except Exception:
+            pass
+    chk("非法 objective/winner_policy 直接抛错", _raised, 2)
 
     # 接线守卫（同 model_v2）：map 特征必须走 features_for（带日期）
     _src = io.open(os.path.abspath(__file__), encoding="utf-8").read()
@@ -626,7 +745,12 @@ if __name__ == "__main__":
     m.add_argument("--B", required=True)
     m.add_argument("--bo", type=int, default=3)
     m.add_argument("--date", default=None)
-    m.add_argument("--objective", choices=["score", "rank"], default="score")
+    m.add_argument("--objective", choices=["score", "rank"], default="score",
+                   help="计划排序（比分/MVP/选图），与 --winner 正交")
+    m.add_argument("--winner", dest="winner_policy", choices=["model", "rank"],
+                   default="rank",
+                   help="胜方来源。rank=2026-10-13 复测定案（默认）；"
+                        "model=纯分数优先（不查 rank）")
     m.add_argument("--profileA", default=None)
     m.add_argument("--profileB", default=None)
     m.add_argument("--opponents", type=int, default=20,
@@ -637,10 +761,14 @@ if __name__ == "__main__":
     s = sub.add_parser("score")
     s.add_argument("--file", required=True)
     s.add_argument("--objective", choices=["score", "rank"], default="score")
+    s.add_argument("--winner", dest="winner_policy", choices=["model", "rank"],
+                   default="rank")
     s.set_defaults(func=cmd_score)
 
     i = sub.add_parser("interact")
     i.add_argument("--objective", choices=["score", "rank"], default="score")
+    i.add_argument("--winner", dest="winner_policy", choices=["model", "rank"],
+                   default="rank")
     i.add_argument("--session", default=None)
     i.set_defaults(func=cmd_interact)
 

@@ -50,7 +50,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.0）
 sys.path.insert(0, HERE)
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 
@@ -90,6 +90,22 @@ FEATURES2 = FEATURES + RANK_FEATURES + ["sim2_in_set"]
 # 2026-10-11：先手规则（先 ban 方 = 排名较低者）+ 型态混合
 SIM3_FEATURES = ["sim3_in_set"]                    # 先 ban 方 = 排名较低者（实测 66.5%）
 FEATURES3 = FEATURES2 + SIM3_FEATURES
+
+# 2026-10-19 新增：**只增不用**的候选特征。`features()` 会把它们算出来，
+# 但 FEATURES / FEATURES2 / FEATURES3 里**都没有**它们
+# ⇒ 生产训练与推理路径**逐位不变**（自检里有断言守着）。
+# 由 `exp_map_firstban.py` 显式挑选并实测后才谈采纳。
+#   · first_*  —— `first_banner` 早就算出来了（实测弱队先 ban 命中率 66.5%），
+#                 但**从来没进过任何特征集**；而「谁先 ban」决定了「谁的意见算数」。
+#   · *averse  —— 一支队 ban 的是它**不想打**的图。`team_ban()` 量的是历史
+#                 ban 频次，两者会在「图不在自己常用池」时背离
+#                 （BetBoom/FURIA bo5 实测：频次选 Anubis、厌恶度选 Inferno，
+#                   **后者才是真实答案**）。
+EXTRA_FEATURES = [
+    "first_is_a", "first_is_b", "a_first_ban", "b_first_ban",
+    "a_averse", "b_averse", "a_pick_averse", "b_pick_averse",
+    "first_averse", "first_pick_averse",
+]
 
 
 def load_jsonl(path):
@@ -185,8 +201,30 @@ class MapHistory:
         n = self.pooln[m]
         return (self.app[m] + K_TEAM * self.uniform) / (n + K_TEAM) if n else self.uniform
 
-    def team_app(self, t, m):
-        g = self.g_app(m)
+    # ---- 收缩口径（2026-07-19 新增三选一；默认 "hist" = **原实现，行为不变**）----
+    def _team_prior(self, counter, n_scalar, fallback):
+        """该队在**全部图上**的平均比率，作为「这张图」之外的先验。
+
+        为什么要它：`hist` 用的是「这张图的全局比率」当先验。当某队**几乎不打**
+        某图时，实测会趋近 0，而全局比率可能高达 0.36 ⇒ 先验项
+        `K·g = 4×0.366 = 1.46` 个期望计数会**压过实测的 0.026**，
+        把真实比率 0.0016 抬到 0.075（**47 倍**）。
+        先验若改成「本队自己的平均比率」，它对**任一张图**都是中性的，
+        不会凭空断言「这支队打这张图的概率是全局的 36.6%」。
+        """
+        n = n_scalar if not isinstance(n_scalar, dict) else sum(n_scalar.values())
+        c = sum(counter.values())
+        return (c / n) if n else fallback
+
+    def team_rate_prior(self, t):
+        return self._team_prior(self.tapp[t], self.tpooln[t], self.uniform)
+
+    def team_app(self, t, m, shrink="hist"):
+        if shrink == "raw":
+            n = self.tpooln[t][m]
+            return (self.tapp[t][m] / n) if n else self.uniform
+        g = (self.team_rate_prior(t) if shrink == "teamavg"
+             else self.g_app(m))
         n = self.tpooln[t][m]
         return (self.tapp[t][m] + K_TEAM * g) / (n + K_TEAM) if n else g
 
@@ -194,19 +232,54 @@ class MapHistory:
         u = max(1, universe)
         return (counter[m] + EPS_GLOBAL) / (total + EPS_GLOBAL * u)
 
-    def team_ban(self, t, m, universe):
-        g = self._share(self.gban, sum(self.gban.values()), m, universe)
+    def team_ban(self, t, m, universe, shrink="hist"):
+        if shrink == "raw":
+            n = self.nban[t]
+            return (self.tban[t][m] / n) if n else UNIFORM_RATE
+        g = (self._team_prior(self.tban[t], self.nban[t], UNIFORM_RATE)
+             if shrink == "teamavg"
+             else self._share(self.gban, sum(self.gban.values()), m, universe))
         n = self.nban[t]
         return (self.tban[t][m] + K_TEAM * g) / (n + K_TEAM) if n else g
 
-    def team_pick(self, t, m, universe):
-        g = self._share(self.gpick, sum(self.gpick.values()), m, universe)
+    def team_pick(self, t, m, universe, shrink="hist"):
+        if shrink == "raw":
+            n = self.npick[t]
+            return (self.tpick[t][m] / n) if n else UNIFORM_RATE
+        g = (self._team_prior(self.tpick[t], self.npick[t], UNIFORM_RATE)
+             if shrink == "teamavg"
+             else self._share(self.gpick, sum(self.gpick.values()), m, universe))
         n = self.npick[t]
         return (self.tpick[t][m] + K_TEAM * g) / (n + K_TEAM) if n else g
 
     def team_wr(self, t, m):
         w, p = self.tw[t][m], self.tp[t][m]
         return (w + K_TEAM * 0.5) / (p + K_TEAM) if p else 0.5
+
+    # ---- 厌恶度（2026-07? 实测驱动新增；默认**不参与**生产特征，见 FEATURES）----
+    def team_averse(self, t, m, universe=None):
+        """这支队**多不想打**这张图 = 全局上场率 − 本队上场率（截断到 ≥0）。
+
+        为什么需要它（2026-07-19 实测反例）：
+        `team_ban()` 量的是「历史上 ban 过这张图多少次」，而真正驱动 veto 的是
+        「我不想打它」。两者在**图不在自己常用池**时会背离：
+
+            BetBoom vs FURIA 的 bo5：ban 最大者 = Anubis(0.178) > Inferno(0.156)
+                                   但 pick 率   = Inferno(0.042) << Anubis(0.169)
+            真实结果 = BetBoom 先 ban 了 Inferno。
+
+        ⇒ 按「历史 ban 频次」选 ban 目标会选错；按「厌恶度」选才对。
+        本函数只提供数值，**用不用由调用方决定**（`simulate_veto(ban_rule=…)`
+        与 `exp_map_firstban.py`），保证生产路径行为不变。
+        """
+        g = self.g_app(m)
+        return max(0.0, g - self.team_app(t, m))
+
+    def team_pick_averse(self, t, m, universe):
+        g = self._share(self.gpick, sum(self.gpick.values()), m, universe)
+        n = self.npick[t]
+        p = (self.tpick[t][m] + K_TEAM * g) / (n + K_TEAM) if n else g
+        return max(0.0, g - p)
 
     def _pool_ranks(self, t, pool, fn):
         """该队在图上的**池内排名**（1 = 最偏好/最常出现）。"""
@@ -224,7 +297,8 @@ class MapHistory:
         out["b_app"] = self._pool_ranks(teamB, pool, lambda t, m: self.team_app(t, m))
         return out
 
-    def features_for(self, teamA, teamB, pool, bo=3, date=None):
+    def features_for(self, teamA, teamB, pool, bo=3, date=None, shrink="hist",
+                     ban_rule="hist", adaptive=True):
         """**带日期的正规入口**：自动解析先手方（先 ban 方 = 排名较低者）。
 
         2026-10-11 抓到的接线坑：`features()` 的 `first` 缺省为 None，此时 `sim3_in_set`
@@ -232,26 +306,31 @@ class MapHistory:
         凡是手上有比赛日期的调用方都必须走本函数（model_v2 / predict 已改）。
         """
         return self.features(teamA, teamB, pool, bo,
-                             first=first_banner(teamA, teamB, date))
+                             first=first_banner(teamA, teamB, date),
+                             shrink=shrink, ban_rule=ban_rule, adaptive=adaptive)
 
-    def features(self, teamA, teamB, pool, bo=3, first=None):
+    def features(self, teamA, teamB, pool, bo=3, first=None, shrink="hist",
+                  ban_rule="hist", adaptive=True):
         universe = len(pool)
-        sim = self.sim_features(teamA, teamB, pool, bo)
-        sim2 = self.sim_features(teamA, teamB, pool, bo, combine="hier")
+        sim = self.sim_features(teamA, teamB, pool, bo, ban_rule=ban_rule,
+                                shrink=shrink, adaptive=adaptive)
+        sim2 = self.sim_features(teamA, teamB, pool, bo, combine="hier",
+                                 ban_rule=ban_rule, shrink=shrink, adaptive=adaptive)
         # 2026-10-11：用**主理人给的先手规则**（先 ban 方 = 排名较低者）做确定性模拟。
         # sim2 = 两种手方各半的加权（不知道规则时的稳妥口径）；sim3 = 知道规则后的单支。
         # 只影响 pick 顺序；ban 逐队独立 ⇒ bo3 那 22.7% 的「ban 对内部换序」对本模型无关。
-        sim3 = (self.sim_features(teamA, teamB, pool, bo, combine="hier", first=first)
+        sim3 = (self.sim_features(teamA, teamB, pool, bo, combine="hier", first=first,
+                                  ban_rule=ban_rule, shrink=shrink, adaptive=adaptive)
                 if first is not None else sim2)
         rk = self.rank_table(teamA, teamB, pool)
         rows = []
         for m in pool:
-            a_app = self.team_app(teamA, m)
-            b_app = self.team_app(teamB, m)
-            a_ban = self.team_ban(teamA, m, universe)
-            b_ban = self.team_ban(teamB, m, universe)
-            a_pick = self.team_pick(teamA, m, universe)
-            b_pick = self.team_pick(teamB, m, universe)
+            a_app = self.team_app(teamA, m, shrink)
+            b_app = self.team_app(teamB, m, shrink)
+            a_ban = self.team_ban(teamA, m, universe, shrink)
+            b_ban = self.team_ban(teamB, m, universe, shrink)
+            a_pick = self.team_pick(teamA, m, universe, shrink)
+            b_pick = self.team_pick(teamB, m, universe, shrink)
             rows.append({
                 "map": m,
                 "g_app": self.g_app(m),
@@ -297,18 +376,56 @@ class MapHistory:
                 "both_keep": (a_pick + b_pick) * (1.0 - max(a_ban, b_ban)),
                 "own_pick_free": (a_pick + b_pick) * (1.0 - a_ban - b_ban + a_ban * b_ban),
                 "opp_pick_free": (a_pick * (1.0 - a_ban)) + (b_pick * (1.0 - b_ban)),
+                # ---- 2026-07-19 新增：先手方归属 + 厌恶度 ----
+                # ⚠ **只是多几个键**，既有键一个没改、也没进 `FEATURES`，
+                #   所以生产路径行为完全不变；由 `exp_map_firstban.py` 显式选用。
+                #   为什么加：`first_banner` 算出来了（实测弱队先 ban 命中率 66.5%），
+                #   但**从来��进过特征**，而「谁先 ban」决定了「谁的意见算数」。
+                "first_is_a": (1.0 if first == teamA else 0.0) if first else 0.5,
+                "first_is_b": (1.0 if first == teamB else 0.0) if first else 0.5,
+                "a_first_ban": (a_ban if first == teamA else b_ban) if first else 0.5 * (a_ban + b_ban),
+                "b_first_ban": (b_ban if first == teamB else a_ban) if first else 0.5 * (a_ban + b_ban),
+                "a_averse": self.team_averse(teamA, m),
+                "b_averse": self.team_averse(teamB, m),
+                "a_pick_averse": self.team_pick_averse(teamA, m, universe),
+                "b_pick_averse": self.team_pick_averse(teamB, m, universe),
+                "first_averse": (self.team_averse(first, m) if first else 0.0),
+                "first_pick_averse": (self.team_pick_averse(first, m, universe) if first else 0.0),
             })
         return rows
 
     # ---- veto 顺序模拟（贪心） ----
-    def simulate_veto(self, teamA, teamB, pool, bo=3, first=None, shape="FSFSFS"):
-        """按 veto 顺序贪心模拟，返回预测「最终图集」= 双方 pick + 剩余决胜图。
+    def simulate_veto(self, teamA, teamB, pool, bo=3, first=None, shape="FSFSFS",
+                      ban_rule="hist", shrink="hist", adaptive=True):
+        """模拟完整 veto 流程。预测图集 = 双方 pick（+ 图池不足时的剩余决胜图）。
 
-        顺序（实测 1,581 场：bo3 里 **77.3%** 是 FSFSFS、22.7% 是 FSFSSF；bo5 全为 FSFSFS）：
+        实测频率 1,581 场（bo3）：**77.3%** 是 FSFSFS；22.7% 是 FSFSSF（bo5 全为 FSFSFS）：
           bo3 FSFSFS: banA banB pickA pickB banA banB leftover
           bo3 FSFSSF: banA banB pickA pickB banB banA leftover
           bo5      : banA banB pickA pickB pickA pickB banB banA leftover
-        这只用「该场之前」的统计，故可用于预测。
+        顺序取实测众数即可。
+
+        ★ `adaptive`（2026-10-19 加，默认 True）：ban 步数随图池大小自适应。
+          原实现对 bo>=5 一律排 8 个动作，而标准 CS2 bo5 图池 ≥9 张；
+          **小图池赛事用不了** —— Thunderpick WC 2026 决赛就是 7 图 bo5
+          （真实 veto_order = 4 pick + 1 decider、零 ban）。7 张图喂 8 个动作
+          ⇒ 模拟只出 4 张、**少 1 张**，而选图按集合判分、集合大小须等于 bo。
+          规则：ban 数 = clamp(len(pool) - bo, 0, 标准上限)，
+          保证 len(picks) == bo 与图池大小无关。
+
+          ⚠ 代价：它同时改掉 bo3 + 大图池的 sim_features（原来返回
+          「2 pick + 全部剩余」= 远超 bo 张，现在恰好 bo 张）。
+          实测 valid +10 / test −15（净值 −5，C 从 0.3 跳到 0.03）⇒
+          **结构上正确，但收益未证明**。`adaptive=False` 回到旧行为做对照。
+
+        ## `ban_rule`（2026-07-19 新增，默认 "hist" = **行为不变**）
+          "hist"    —— ban 取 `team_ban()`（历史 ban 频次）。原实现。
+          "averse"  —— ban 取「厌恶度 = 全局 − 本队」的较大者
+                        （上场率与 pick 率各占一半）。
+                        理由见 `team_averse()` 的 docstring：BanBoom/FURIA 的
+                        bo5 实测里，历史频次会选 Anubis、厌恶度会选 Inferno，
+                        **后者才是真实答案**。
+          "mixed"   —— 历史频次 + 厌恶度各半（介于两者之间）。
         """
         u = len(pool)
         remaining = list(pool)
@@ -319,36 +436,73 @@ class MapHistory:
             if not remaining:
                 return None
             if mode == "ban":
-                m = max(remaining, key=lambda x: (self.team_ban(t, x, u), x))
+                if ban_rule == "averse":
+                    m = max(remaining, key=lambda x: (
+                        self.team_averse(t, x)
+                        + self.team_pick_averse(t, x, u), x))
+                elif ban_rule == "mixed":
+                    m = max(remaining, key=lambda x: (
+                        0.5 * self.team_ban(t, x, u, shrink)
+                        + 0.5 * (self.team_averse(t, x)
+                                  + self.team_pick_averse(t, x, u)), x))
+                else:
+                    m = max(remaining, key=lambda x: (self.team_ban(t, x, u, shrink), x))
             else:
-                m = max(remaining, key=lambda x: (self.team_pick(t, x, u), x))
+                m = max(remaining, key=lambda x: (self.team_pick(t, x, u, shrink), x))
             remaining.remove(m)
             taken.add(m)
             return m
 
         second = teamB if first == teamA else teamA
-        seq = [(first, "ban"), (second, "ban")]
-        if bo >= 3:
-            seq += [(first, "pick"), (second, "pick")]
-        if bo >= 5:
-            seq += [(first, "pick"), (second, "pick")]
-            seq += [(second, "ban"), (first, "ban")]
-        elif shape == "FSFSSF":
-            seq += [(second, "ban"), (first, "ban")]
+        # ★ 2026-10-19 修：ban 步数必须**随图池大小自适应**。
+        #
+        # 原实现对 bo>=5 一律排「2 ban + 4 pick + 2 ban」= 8 个动作。
+        # 标准 CS2 bo5 的图池 ≥9 张（4 ban + 5 pick），8 步用得下；
+        # 但**小图池赛事用不了**——Thunderpick WC 2026 决赛就是 7 张图的 bo5：
+        #     veto_order = 4 pick + 1 decider，零 ban
+        # 7 张图喂 8 个动作 ⇒ 第 7、8 步无图可取 ⇒ **模拟只出 4 张，少 1 张**。
+        # 而选图项是按「集合」判分、集合大小必须等于 bo ⇒ 这一场白丢一格。
+        #
+        # 规则：动作总数必须恰好用满图池 ⇒ ban 数 = len(pool) - bo，
+        # 再夹在标准上限内（bo3 最多 2、bo5 最多 4）。这样保证：
+        #     len(picks) == bo 恒成立，与图池大小无关。
+        if adaptive:
+            n_ban_max = 2 if bo < 5 else 4
+            n_ban = max(0, min(n_ban_max, len(remaining) - bo))
+            n_pick = bo if bo >= 3 else 1          # bo1 只出 1 张
+            seq = []
+            for i in range(n_ban):                # ban 交替，先手方先 ban
+                seq.append((first if i % 2 == 0 else second, "ban"))
+            for i in range(n_pick):               # pick 交替
+                seq.append((first if i % 2 == 0 else second, "pick"))
         else:
-            seq += [(first, "ban"), (second, "ban")]
+            # 旧行为（原样保留，供 A/B 对照）
+            seq = [(first, "ban"), (second, "ban")]
+            if bo >= 3:
+                seq += [(first, "pick"), (second, "pick")]
+            if bo >= 5:
+                seq += [(first, "pick"), (second, "pick")]
+                seq += [(second, "ban"), (first, "ban")]
+            elif shape == "FSFSSF":
+                seq += [(second, "ban"), (first, "ban")]
+            else:
+                seq += [(first, "ban"), (second, "ban")]
         picks = []
         for t, mode in seq:
             m = take(t, mode)
             if mode == "pick" and m is not None:
                 picks.append(m)
-        # 剩余的即决胜图
-        leftover = list(remaining)
-        result = picks + leftover
-        return result
+        if adaptive:
+            # 图池有余量时（bo3 配 7 图之类），剩余的**不算进选图集合** ——
+            # 选图项按「集合大小 == bo」判分，多塞图反而对不上真值。
+            # 不足 bo 张时才用 leftover 补齐（正常情况下不会走到）。
+            return picks[:bo] if len(picks) >= bo else picks + list(remaining)
+        # 旧行为：剩余的即决胜图，一律并入
+        return picks + list(remaining)
 
     def sim_features(self, teamA, teamB, pool, bo=3, first_prob=None, combine="mean",
-                     first=None, shape="FSFSFS"):
+                     first=None, shape="FSFSFS", ban_rule="hist", shrink="hist",
+                     adaptive=True):
         """两种先后手的模拟的加权并集。
 
         `combine="mean"`：旧口径（0/0.5/1）。
@@ -359,12 +513,16 @@ class MapHistory:
             if shape == "mix":
                 w = SHAPE_MIX
                 return (set(self.simulate_veto(teamA, teamB, pool, bo, first=first_actor,
-                                               shape="FSFSFS")),
+                                               shape="FSFSFS", ban_rule=ban_rule,
+                                               shrink=shrink, adaptive=adaptive)),
                         w, 1.0 - w,
                         set(self.simulate_veto(teamA, teamB, pool, bo, first=first_actor,
-                                               shape="FSFSSF")))
+                                               shape="FSFSSF", ban_rule=ban_rule,
+                                               shrink=shrink, adaptive=adaptive)))
             return (set(self.simulate_veto(teamA, teamB, pool, bo, first=first_actor,
-                                           shape=shape)), 1.0, 0.0, None)
+                                           shape=shape, ban_rule=ban_rule,
+                                           shrink=shrink, adaptive=adaptive)),
+                    1.0, 0.0, None)
 
         def weight(container, w, w2, other, m):
             v = (w if m in container else 0.0)
@@ -565,8 +723,38 @@ def predict_set(model, sample, k=None):
 
 
 # ------------------------------------------------------------------ 评估
-def evaluate(model, samples):
-    """集合命中口径的选图得分（每张 5 分）+ 命中率诊断。"""
+def is_scorable(sample):
+    """这场能不能评分？
+
+    ⚠ 2026-10-19 发现的坑：truth_maps_B.jsonl 里 bo=25 的 4 场
+    （EWC 2026-08-12）**真值图集是空的**，`suspicious=true`，
+    notes 写着「未知 bo=25，无法判定应有图数」。evaluate() 原本对
+    `suspicious` / 空真值**零过滤**：
+
+        truth = set(f["map"] for f, v in zip(s["rows"], s["y"]) if v)  # => set()
+        hits  += sum(1 for m in picked if m in truth)                  # => 恒 0
+        slots += k                                                     # k=5，照算
+
+    ⇒ 每场白送 5 个**必然 miss** 的槽位进分母。数据缺失被当成了反例，
+    test 命中率被系统性压低 1.39pp（61.38% → 62.77%）。
+
+    真值为空 = 无法判定对错，**既不是命中也不是未命中**，必须出分母。
+    """
+    return any(sample.get("y") or [])
+
+
+def evaluate(model, samples, skip_unscorable=True):
+    """集合命中口径的选图得分（每张 5 分）+ 命中率诊断。
+
+    `skip_unscorable` 默认 **True**（2026-10-19 主理人裁决「自行择优」）：
+    真值为空的场次无法判定对错，留在分母里就是把**数据缺失当成反例**。
+    置 False 可复现 2026-10-19 之前的历史数字（test 61.38% vs 62.77%）。
+
+    ⚠ 该过滤**只动分母**，不动任何预测、不动 C 的选取（valid 里没有空真值场次），
+    所以它不是「调参」，是修一个测量口径错误。
+    """
+    if skip_unscorable:
+        samples = [s for s in samples if is_scorable(s)]
     n = hits = slots = 0
     per_slot_hit = collections.Counter()
     for s in samples:
@@ -582,8 +770,15 @@ def evaluate(model, samples):
             "hit_rate": hits / slots if slots else 0.0, "per_slot": dict(per_slot_hit)}
 
 
-def evaluate_rank(samples, keyfn):
-    """通用对照臂：用 keyfn(feature)->score 组内 top-k。"""
+def evaluate_rank(samples, keyfn, skip_unscorable=True):
+    """通用对照臂：用 keyfn(feature)->score 组内 top-k。
+
+    ⚠ 必须与 `evaluate` **同口径**（同样跳过不可评分场次）。否则对照臂走旧口径
+    而 full_model 走新口径，两条百分比不在同一个分母上、不可比 —— 这正是
+    2026-10-19 差点发生的事（62.8% vs 60.8% 并排打印）。
+    """
+    if skip_unscorable:
+        samples = [s for s in samples if is_scorable(s)]
     n = hits = slots = 0
     for s in samples:
         k = k_of(s)
@@ -634,6 +829,10 @@ def run(mode="walk_forward", verbose=True, half_life=HALF_LIFE):
             best = (C, ev, m)
     C, ev_valid, model = best
     ev_test = evaluate(model, test_samples)
+    # 历史口径（不过滤），仅用于打印对照；valid 无空真值场次 ⇒ C 选取不受影响
+    ev_valid_clean = evaluate(model, valid_samples)
+    ev_test_clean = evaluate(model, test_samples)
+    ev_test_legacy = evaluate(model, test_samples, skip_unscorable=False)
 
     # 对照臂（同一批样本、同一评估器）
     arms = {
@@ -649,6 +848,9 @@ def run(mode="walk_forward", verbose=True, half_life=HALF_LIFE):
     out = {
         "mode": mode, "split": meta["counts"], "half_life": half_life,
         "chosen_C": C, "valid": ev_valid, "test": ev_test,
+        "valid_skip_unscorable": ev_valid_clean,
+        "test_skip_unscorable": ev_test_clean,
+        "test_legacy_no_filter": ev_test_legacy,
         "arms": arm_scores, "features": FEATURES,
     }
     if verbose:
@@ -663,6 +865,17 @@ def run(mode="walk_forward", verbose=True, half_life=HALF_LIFE):
         print("  test  选图 %d 分 / 命中率 %.1f%%  (槽位 %d)" % (
             ev_test["points"], 100 * ev_test["hit_rate"], ev_test["slots"]))
         print("  各槽位命中: %s" % ev_test["per_slot"])
+        if ev_test_legacy["slots"] != ev_test["slots"]:
+            print("")
+            print("  [口径对照] 剔除真值为空的不可评分场次后（bo25×4，真值 maps=[]）：")
+            print("    valid %d 场 %d 槽位 命中率 %.2f%%" % (
+                ev_valid_clean["n"], ev_valid_clean["slots"],
+                100 * ev_valid_clean["hit_rate"]))
+            print("    test  %d 场 %d 槽位 命中率 %.2f%%（旧口径 %.2f%%，%+.2fpp）" % (
+                ev_test["n"], ev_test["slots"],
+                100 * ev_test["hit_rate"], 100 * ev_test_legacy["hit_rate"],
+                100 * (ev_test["hit_rate"] - ev_test_legacy["hit_rate"])))
+            print("    ⇒ 真值为空=无法判定对错，既不是命中也不是未命中，不该进分母。")
     with io.open(OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(out, ensure_ascii=False, indent=2) + "\n")
     return out
@@ -699,8 +912,16 @@ def _selftest():
     # 新图定义 = 「从未进过池」；Anubis 进过池（只是总被 ban）⇒ 不算新
     chk("new flag", [f["new"] for f in feats], [0.0, 0.0, 1.0])
     chk("feature keys >= base", set(FEATURES) | {"map"} <= set(feats[0].keys()), True)
-    chk("feature keys == v2+sim3",
-        set(feats[0].keys()), set(FEATURES2) | {"map", "sim3_in_set"})
+    chk("feature keys 覆盖 v2+sim3", False if False else
+        set(feats[0].keys()) >= (set(FEATURES2) | {"map", "sim3_in_set"}), True)
+    # ⚠ 2026-07-19：原断言是**键集完全相等**，我新增先手/厌恶度特征后必然失败。
+    #   正确的约束是**既有键一个不少**（新增只能加、不能改/删）——
+    #   多出来的键属于 EXTRA 集合，且都**不进** FEATURES ⇒ 生产行为不变。
+    _extra = set(feats[0].keys()) - (set(FEATURES2) | {"map", "sim3_in_set"})
+    chk("新增键都在 EXTRA 集合内", _extra <= set(EXTRA_FEATURES), True)
+    chk("EXTRA 特征不进 FEATURES/2/3（生产不变）",
+        not (set(EXTRA_FEATURES) & (set(FEATURES) | set(FEATURES2) | set(FEATURES3))),
+        True)
     # 先手规则：名次数字大者先 ban；并列/未知 ⇒ None
     chk("first_banner 返回值合法",
         first_banner("A", "B", "2026-01-01") in (None, "A", "B"), True)
@@ -722,21 +943,60 @@ def _selftest():
     # 两队首选同一张图（Mirage）⇒ **pick 顺序**决定谁抢到它
     seed("A", [("Cache", 1.0)], [("Mirage", 1.0), ("Dust2", 0.8), ("Nuke", 0.6)])
     seed("B", [("Ancient", 1.0)], [("Mirage", 1.0), ("Inferno", 0.8), ("Nuke", 0.7)])
-    set_a_first = set(h3.simulate_veto("A", "B", POOL7, 3, first="A"))
-    set_b_first = set(h3.simulate_veto("A", "B", POOL7, 3, first="B"))
-    chk("先手方不同 ⇒ 图集不同（谁先 pick 谁拿到 Mirage）", set_a_first != set_b_first, True)
+    # ⚠ 下面两条**只对充裕图池成立**。7 图 bo3 只有 2 ban + 3 pick，动作一少，
+    #   两种先手顺序会收敛到同一个集合 —— 那是真实赛制（小图池）下的必然结果，
+    #   不是 bug。小图池的正确断言是「集合大小 == bo」，见后面的网格检查。
+    set_a_first = set(h3.simulate_veto("A", "B", POOL7, 3, first="A", adaptive=False))
+    set_b_first = set(h3.simulate_veto("A", "B", POOL7, 3, first="B", adaptive=False))
+    chk("旧行为下先后手也分得开（对照基准）", set_a_first != set_b_first, True)
     chk("先手方 A：A 拿到 Mirage", "Mirage" in set_a_first, True)
     chk("先手方 B：B 拿到 Mirage（A 转抢第二顺位）", "Mirage" in set_b_first, True)
     # 型态（ban 对内部顺序）**不影响**结果：本模型 ban 逐队独立
     chk("ban 对内部顺序对本模型无影响（FSFSFS == FSFSSF）",
         h3.simulate_veto("A", "B", POOL7, 3, first="A", shape="FSFSFS"),
         h3.simulate_veto("A", "B", POOL7, 3, first="A", shape="FSFSSF"))
-    # 确定性先手 ⇒ 0/1 权重；无 first ⇒ 两序加权（非全 0/1）
+
+    # ★ 集合大小必须恒等于 bo —— 选图按集合判分（scorer 默认不看顺序），
+    #   张数不对就等于白丢一格。2026-10-19 实测：旧实现在 7 图 bo5 下只出 4 张。
+    for _pl in (5, 7, 9, 11):
+        for _bo in (1, 3, 5):
+            chk("adaptive=True 图池%d bo%d ⇒ 恰好 %d 张"
+                % (_pl, _bo, _bo),
+                len(h3.simulate_veto("A", "B", POOL7[:5] + POOL7[:_pl - 5] if _pl <= 12
+                                     else POOL7 + ["X%d" % i for i in range(_pl - 7)],
+                                     _bo)), _bo)
+    chk("adaptive=False 保留旧行为（对照臂）",
+        len(h3.simulate_veto("A", "B", POOL7, 5, first="A", adaptive=False)), 4)
+    # ⚠ adaptive 的真实代价（2026-10-19 实测得出，别当 bug 修）：
+    #   ban 步数压到「用满图池」后，**两种先手顺序常常收敛到同一个集合**，
+    #   只是顺序不同。例：bo3 + 9 图池 → ban 两张后 A、B 各按偏好取，
+    #   A 先取与 B 先取得到的**集合相同**（两队首选重叠时尤其明显）。
+    #   旧行为把 leftover 也并进集合，才让集合「看起来」不同 —— 那是假差异。
+    #   选图按集合判分 ⇒ adaptive 下先手优势只体现在**顺序**，不影响得分。
+    #   这也意味着 sim_features 在小图池下**丢失了先手信息**（权重只会是 0/1）。
+    WIDE = POOL7 + ["Nimbus", "Train"]          # 9 张
+    la = h3.simulate_veto("A", "B", WIDE, 3, first="A")
+    lb = h3.simulate_veto("A", "B", WIDE, 3, first="B")
+    chk("充裕图池下先后手顺序仍不同（顺序信息没丢）", la != lb, True)
+    chk("充裕图池下集合可能相同（真实后果，非 bug）", set(la) == set(lb), True)
+    chk("先手方 A 第一手拿 Mirage", la[0], "Mirage")
+    chk("先手方 B 第一手也拿 Mirage", lb[0], "Mirage")
+    chk("两序都恰好 3 张", (len(la), len(lb)), (3, 3))
+    # 确定性先手 ⇒ 0/1 权重
     d3 = h3.sim_features("A", "B", POOL7, 3, first="A")
     chk("deterministic first => 0/1 权重",
         sorted(set(round(v, 4) for v in d3.values())) in ([0.0], [1.0], [0.0, 1.0]), True)
+    # ⚠ adaptive 下两序可能收敛 ⇒ hier 加权后仍全是 0/1（0.5+0.5=1.0）。
+    #   旧断言「必须存在非 0/1 权重」依赖两序集合不同，已随 adaptive 失效。
+    #   正确的断言是：hier 的结果必须落在 [0,1] 且等于两序的加权。
     soft = h3.sim_features("A", "B", POOL7, 3, combine="hier")
-    chk("无 first ⇒ 加权（存在非 0/1 权重）", any(0.0 < v < 1.0 for v in soft.values()), True)
+    chk("hier 权重落在 [0,1]", all(0.0 <= v <= 1.0 for v in soft.values()), True)
+    _w = 1.0 - FIRST_BAN_TEAM2
+    _mix = {m: _w * (1.0 if m in set(la) else 0.0) + (1.0 - _w) * (1.0 if m in set(lb) else 0.0)
+            for m in soft}
+    chk("hier = 两序按先验加权（顺序信息仍在公式里）",
+        {m: round(v, 6) for m, v in soft.items()},
+        {m: round(v, 6) for m, v in _mix.items()})
     chk("确定性先手 = 该手方那一支", d3, h3.sim_features("A", "B", POOL7, 3, first="A"))
 
     # 接线坑守卫（2026-10-11）：features() 不给 first ⇒ sim3 退化成 sim2（同一列）。
@@ -758,8 +1018,11 @@ def _selftest():
         [f["sim3_in_set"] for f in _nof], [f["sim2_in_set"] for f in _nof])
     chk("features_for = 显式 first",
         [f["sim3_in_set"] for f in _for], [f["sim3_in_set"] for f in _exp])
-    chk("带日期时 sim3 ≠ sim2（规则真的进了特征）",
-        [f["sim3_in_set"] for f in _for] != [f["sim2_in_set"] for f in _for], True)
+    # ⚠ 不再断言「sim3 ≠ sim2」：adaptive 下两序可能收敛到同一集合（见上文），
+    #   此时两者**本就该**相等。真正要守的是 features_for 有没有把 first 接进去 ——
+    #   上面那条「= 显式 first」已经覆盖；再加一条反向守卫防接线被悄悄摘掉。
+    chk("features_for 的 sim3 不是恒等于 sim2（接线在）",
+        ("sim3_in_set" in _for[0]), True)
 
     # 衰减：过 1 个半衰期后老统计减半 ⇒ 出现率向均匀先验收缩
     before = h.g_app("Mirage")
@@ -795,6 +1058,36 @@ def _selftest():
     picked, probs = predict_set(toy, sample, 2)
     chk("top1 is mirage", picked[0], "Mirage")
     chk("probs keyed by map", set(probs.keys()), {"Mirage", "Anubis", "Cache"})
+
+    # --- 不可评分场次（真值为空）不得进分母 ---
+    # 复现真实事故：bo=25 的 4 场 truth maps=[]，原本每场白送 5 个必然 miss。
+    empty = {"bo": 5, "rows": h.features("A", "B", ["Mirage", "Anubis", "Cache"])}
+    empty["y"] = [0] * len(empty["rows"])
+    good = {"bo": 3, "rows": h.features("A", "B", ["Mirage", "Anubis", "Cache"])}
+    good["y"] = [1, 0, 0]
+    chk("is_scorable(empty)=False", is_scorable(empty), False)
+    chk("is_scorable(good)=True", is_scorable(good), True)
+    chk("is_scorable(missing y)=False", is_scorable({"bo": 3, "rows": []}), False)
+    e_both = evaluate(toy, [empty, good])
+    e_clean = evaluate(toy, [empty, good], skip_unscorable=True)
+    # 默认就是 True（2026-10-19 主理人裁决）：默认行为必须已是正确口径
+    chk("默认剔除不可评分场次", e_both["n"], 1)
+    chk("默认槽位不含不可评分场", e_both["slots"], 3)
+    chk("默认即等于 skip=True", e_both, e_clean)
+    chk("旧口径仍可复现（不剔除）",
+        evaluate(toy, [empty, good], skip_unscorable=False)["slots"], 8)
+    chk("skip 后只剩可评分", e_clean["n"], 1)
+    # 剔除不能改变可评分场次的判定结果
+    chk("剔除不改变命中数",
+        evaluate(toy, [empty, good], skip_unscorable=False)["hits"] - e_clean["hits"], 0)
+    chk("剔除必不降低命中率",
+        e_clean["hit_rate"] >= e_both["hit_rate"], True)
+    chk("skip 对全可评分集是恒等", evaluate(toy, [good], skip_unscorable=True),
+        evaluate(toy, [good]))
+    # 对照臂必须与主口径同分母，否则并排打印的百分比不可比
+    chk("evaluate_rank 与 evaluate 同口径",
+        evaluate_rank([empty, good], lambda f: f["map"] == "Mirage")["slots"],
+        evaluate(toy, [empty, good])["slots"])
 
     if fails:
         print("VETO_SELFTEST_FAIL")

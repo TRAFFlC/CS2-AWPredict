@@ -50,8 +50,12 @@ import sys
 from collections import defaultdict, Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "data")  # 仓库布局：数据与代码分目录（Alpha 1.1.0）
 sys.path.insert(0, HERE)
+# ⚠ scorer.py **不在本目录**，在同级的 014-scorer/。原注释写「与本模块同目录」
+# 是错的，且这行原本还重复插了两次 HERE、漏了 014-scorer ——
+# 于是本模块只有在 veto_model 先把路径加好之后才能被 import，
+# 单独 `python pool_experiment.py` 直接 ModuleNotFoundError（隐藏的顺序依赖）。
 sys.path.insert(0, HERE)  # scorer.py 与本模块同目录（仓库布局）
 
 import split as SPLIT  # noqa: E402

@@ -39,7 +39,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.0）
+DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.0）
 sys.path.insert(0, HERE)
 
 # ---- rank 快照陈旧度阈值（实测标定，见下方注释）----
@@ -255,6 +255,10 @@ def predict(pr, a, b, bo):
         "rank_src": src, "rank_stale_days": stale,
         "score": "%d:%d" % (p["score"][0], p["score"][1]),
         "maps": p["maps"], "map_probs": p.get("map_probs") or {},
+        # ⚠ 概率降序专供显示。`maps` 是字母规范序（= 计划身份，计分用，
+        # scorer 默认按集合判分不看顺序）。前端若直接 join(maps)，
+        # 会把 Mirage 74% 显示在 Dust2 57% 后面 —— 2026-10-19 主理人当场抓到过。
+        "maps_ranked": list(p.get("maps_ranked") or p["maps"]),
         "mvp": p.get("mvp"), "mvp_probs": p.get("mvp_probs") or {},
         "exp_points": round(p["exp_points"], 1),
         "sd": round(p.get("sd", 0), 1),
@@ -320,7 +324,8 @@ background:#0e1117;border:1px solid var(--line);color:var(--dim);margin-right:6p
 #hist a{color:var(--acc);text-decoration:none;margin-right:10px;
 cursor:pointer}
 #hist a:hover{text-decoration:underline}
-.err{color:var(--bad);padding:10px 0}
+/* 错误提示卡：只着色，不覆盖 .card 的 padding（旧 padding:10px 0 会把内边距压成 0） */
+.err{color:var(--bad)}
 .hint{color:var(--dim);font-size:12px;margin-top:6px}
 </style></head><body><div class="wrap">
 <h1>CS2 预测器</h1>
@@ -404,6 +409,15 @@ async function go(){
 
 function render(j){
   const mp=Object.entries(j.map_probs||{}).sort((a,b)=>b[1]-a[1]);
+  const pm=Object.fromEntries(mp);
+  // 选图按**概率降序**，每张图自带概率；池内未选的单列一行。
+  // ⚠ 绝不能用 j.maps —— 它是字母规范序（计划身份/计分用），
+  // 直接 join 会把 Mirage 74% 排在 Dust2 57% 后面，看着像首选小镇。
+  const picked=(j.maps_ranked&&j.maps_ranked.length?j.maps_ranked:j.maps).slice();
+  picked.sort((a,b)=>(pm[b]||0)-(pm[a]||0));
+  const pickedTxt=picked.map(m=>`${esc(m)} ${pm[m]!=null?Math.round(pm[m]*100)+'%':''}`).join('  ·  ');
+  const restTxt=mp.filter(([m])=>picked.indexOf(m)<0)
+                 .map(([m,v])=>`${esc(m)} ${Math.round(v*100)}%`).join('  ');
   const vp=Object.entries(j.mvp_probs||{}).sort((a,b)=>b[1]-a[1]).slice(0,4);
   const wins=j.warnings.length?`<ul class="w">${j.warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul>`:'';
   const st=j.rank_stale_days;
@@ -422,8 +436,8 @@ function render(j){
       <div><b>预测 MVP</b><span>${esc(j.mvp||'—')}</span></div>
       <div><b>模型倾向</b><span>${esc(j.model_winner||'—')}${j.disagreement?' ⚠':''}</span></div>
     </div>
-    <div style="margin-top:14px"><b style="font-size:12px;color:var(--dim)">选图 ${esc(j.maps.join(' / '))}</b></div>
-    <div style="margin-top:6px">${mp.map(([m,p])=>`<span class="pill">${esc(m)} ${(p*100).toFixed(0)}%</span>`).join('')}</div>
+    <div style="margin-top:14px"><b style="font-size:12px;color:var(--dim)">选图（按概率降序） ${pickedTxt}</b></div>
+    ${restTxt?`<div style="font-size:11px;color:var(--dim);margin-top:3px">池内未选 ${esc(restTxt)}</div>`:''}
     ${vp.length?`<div style="margin-top:12px"><b style="font-size:12px;color:var(--dim)">MVP 概率（未标定）</b></div>
     <div style="margin-top:6px">${vp.map(([m,p])=>`<span class="pill">${esc(m)} ${(p*100).toFixed(0)}%</span>`).join('')}</div>`:''}
     ${wins}
