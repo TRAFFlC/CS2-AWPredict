@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import glob
 import io
 import json
 import os
@@ -78,13 +79,87 @@ ALIAS = {
 }
 
 _STATE = {"ready": False, "error": None, "pred": None, "teams": [],
-          "t0": time.time(), "reloads": 0, "last_reload": None}
+          "t0": time.time(), "reloads": 0, "last_reload": None,
+          "rank_syncs": 0, "last_rank_sync": None, "_rank_fp": None}
 
 # 2026-10-14：Predictor 在**启动时**把 state_2026-10.pkl / rank 索引一次性读进内存。
 # 数据重建（ingest_new.py --rebuild）后不重启就永远用旧账本 —— 实测表现为选图
 # 概率明显偏低（Legacy vs PARIVISION 的 Ancient 0.60 vs 重载后 0.75）。
 # 故提供 /api/reload 重新构造 Predictor，并显式重建 rank 索引。
 _RELOAD_LOCK = threading.Lock()
+
+# ⚠ 2026-10-19：rank 索引**不再**只能靠手动刷新。
+#   起因——把新的 `data/vrs_rank_<日期>.json` 丢进目录后，页面排名纹丝不动，
+#   而日志里没有任何报错：`Predictor._build_rank()` 只在构造时跑一次，
+#   常驻进程永远不会重新看磁盘。旧快照是全服务共用的单例状态，
+#   修法不能是「让调用方记得刷新」。
+#   这里改成**每个请求前比对 rank 数据的 (mtime, size) 指纹**，变了就地重建：
+#   只读一份几十 KB 的 JSON + 1.2MB 兜底文件，毫秒级完成，
+#   不触发重建 Predictor 那 10~20 秒。指纹相同则完全不做事，零常态开销。
+#   独立于 _RELOAD_LOCK：完整重载要十几秒，不能让查状态的请求跟它排队。
+_SYNC_LOCK = threading.Lock()
+
+
+def rank_fingerprint():
+    """rank 数据的指纹：所有 `vrs_rank_*.json` + csapi 兜底文件的 (名, mtime_ns, size)。
+
+    只认这三个属性而不认内容哈希：这些文件是几 MB~几十 KB 级的小 JSON，
+    请求路径上一次 stat 就够；真去读内容哈希反而把「毫秒级」变成「百毫秒级」。
+    """
+    fps = []
+    for p in sorted(glob.glob(os.path.join(DATA, "vrs_rank_*.json"))):
+        try:
+            stt = os.stat(p)
+        except OSError:                                # 并发删除/替换中
+            continue
+        fps.append((os.path.basename(p), stt.st_mtime_ns, stt.st_size))
+    p = os.path.join(DATA, "csapi_matches_all.jsonl")
+    try:
+        stt = os.stat(p)
+        fps.append((os.path.basename(p), stt.st_mtime_ns, stt.st_size))
+    except OSError:
+        pass
+    return tuple(fps)
+
+
+def sync_rank():
+    """磁盘上的 rank 数据变了就自动重建索引。返回变化摘要，没变返回 None。
+
+    与 `reload_model()` 的分工：那个重建整个 Predictor（含 state 账本与选图模型，
+    十几秒），这个只换 rank 索引（毫秒级）。换排名快照是**高频**操作，
+    账本重建是低频操作，不该绑在同一条路径上。
+    """
+    pr = _STATE["pred"]
+    if pr is None or not hasattr(pr, "_build_rank"):
+        return None
+    fp = rank_fingerprint()
+    if fp == _STATE.get("_rank_fp"):
+        return None
+    with _SYNC_LOCK:
+        pr = _STATE["pred"]                          # 等锁期间可能已被 reload 换掉
+        if pr is None:
+            return None
+        fp = rank_fingerprint()
+        if fp == _STATE.get("_rank_fp"):
+            return None
+        before = getattr(pr, "_rank_snap", "")
+        try:
+            pr._build_rank()
+            teams = build_teams(pr)
+        except Exception as e:                       # noqa: BLE001
+            sys.stderr.write("[predict_gui] sync_rank: %s: %s\n"
+                             % (type(e).__name__, e))
+            sys.stderr.flush()
+            return {"ok": False, "error": "%s: %s" % (type(e).__name__, e)}
+        if _STATE["pred"] is not pr:                  # 期间发生了完整重载，交给它
+            return None
+        _STATE["teams"] = teams
+        _STATE["_rank_fp"] = fp
+        _STATE["rank_syncs"] += 1
+        _STATE["last_rank_sync"] = time.strftime("%Y-%m-%d %H:%M:%S")
+        return {"ok": True, "from": before, "to": getattr(pr, "_rank_snap", ""),
+                "teams": len(teams),
+                "rank_teams": len(getattr(pr, "_rank_idx", None) or {})}
 
 
 def reload_model():
@@ -103,6 +178,7 @@ def reload_model():
                         "reloads": _STATE["reloads"]}
         _STATE["pred"] = pr
         _STATE["teams"] = build_teams(pr)
+        _STATE["_rank_fp"] = rank_fingerprint()      # 刚建过，别让 sync_rank 立刻再跑一次
         _STATE["ready"] = True
         _STATE["error"] = None
         _STATE["reloads"] += 1
@@ -114,25 +190,47 @@ def reload_model():
                 "last_reload": _STATE["last_reload"],
                 "teams": len(_STATE["teams"]),
                 "rank_teams": len(rk),
+                "rank_snapshot": getattr(pr, "_rank_snap", ""),
                 "last_date": getattr(getattr(pr, "state", None), "last_date", None)}
 
 
 # ------------------------------------------------------------------ 队伍清单
 def build_teams(pr):
-    """从 csapi 快照取全部队伍 + rank，并附上当前账本的 games 与选手丰度。"""
+    """取全部队伍 + rank，并附上当前账本的 games 与选手丰度。
+
+    ⚠ 2026-10-19 修：rank 原先**只**读 `csapi_matches_all.jsonl` 内嵌的名次，
+      那是 2026-09-05 的**冻结**快照 ⇒ 页面下拉里的 `#N` 永远是 09-05 的旧名次，
+      哪怕磁盘上已经换了更新的 `vrs_rank_*.json`。实测表现就是「更新了数据、
+      页面排名纹丝不动」，很容易误判成快照没生效。
+      现改为与 `predict.py:rank_pick` 同一套两级口径：
+      **VRS 索引优先，csapi 只兜底**，并在 `rank_src` 里标出每支队名的来源，
+      前端据此给兜底项加 `*` 标记。
+    """
     info = {}
     p = os.path.join(DATA, "csapi_matches_all.jsonl")
-    if not os.path.exists(p):
-        return []
-    for line in io.open(p, encoding="utf-8"):
-        if not line.strip():
-            continue
-        r = json.loads(line)
-        for t in (r["team1"], r["team2"]):
-            nm = t["name"]
-            d = info.setdefault(nm, {"rank": None})
-            if t.get("rank"):
-                d["rank"] = int(t["rank"])
+    if os.path.exists(p):
+        for line in io.open(p, encoding="utf-8"):
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            for t in (r["team1"], r["team2"]):
+                nm = t["name"]
+                d = info.setdefault(nm, {"rank": None})
+                if t.get("rank"):
+                    d["rank"] = int(t["rank"])
+    # ---- VRS 覆盖 csapi（同名归一化后比对，与 predict.py:_norm 完全一致）----
+    ridx = getattr(pr, "_rank_idx", None) or {}
+    rsrc = getattr(pr, "_rank_src", None) or {}
+    nrm = getattr(pr, "_norm", None) or (
+        lambda t: "".join(ch for ch in str(t).lower() if ch.isalnum()))
+    for nm, d in info.items():
+        k = nrm(nm)
+        if k in ridx:
+            d["rank"], d["rank_src"] = int(ridx[k]), rsrc.get(k)
+        elif d["rank"] is not None:
+            d["rank_src"] = "csapi"
+        else:
+            d["rank_src"] = None
     st = pr.state
     date = getattr(st, "last_date", None)
     out = []
@@ -140,7 +238,7 @@ def build_teams(pr):
         lu = st.lineup(nm, date) if date else []
         gs = sorted(float(st.p_w.get(x) or 0) for x in lu) if lu else []
         rich = gs[len(gs) // 2] if gs else 0.0
-        out.append({"name": nm, "rank": d["rank"],
+        out.append({"name": nm, "rank": d["rank"], "rank_src": d["rank_src"],
                     "games": int(st.games.get(nm, 0)),
                     "richness": round(rich, 1),
                     "has_lineup": bool(lu)})
@@ -355,9 +453,10 @@ cursor:pointer}
 <div class="card"><label>最近</label><div id="hist"></div></div>
 </div>
 <script>
-let TEAMS=[],HIST=[];
+let TEAMS=[],HIST=[],LAST_SNAP=null,LAST_SYNC=null;
 const $=s=>document.getElementById(s), esc=s=>String(s??"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-function rankTxt(t){return t.rank?('#'+t.rank):'无rank';}
+// ⚠ 名次后带 `*` = 该队名次来自 csapi 冻结兜底（2026-09-05），不是最新 VRS 快照。
+function rankTxt(t){return t.rank?('#'+t.rank+(/csapi/.test(t.rank_src||'')?'*':'')):'无rank';}
 function gamesTxt(t){return t.games+'场';}
 function richTxt(t){return t.has_lineup?('丰度'+t.richness):'无阵容';}
 
@@ -447,8 +546,24 @@ bind('a','la');bind('b','lb');
 fetch('/api/status').then(r=>r.json()).then(j=>{
   if(j.error){$('st').textContent='加载失败：'+j.error;return;}
   TEAMS=j.teams;$('go').disabled=false;
-  $('st').textContent=`就绪 · ${TEAMS.length} 支队伍 · 模型加载 ${j.load_s}s`;
+  LAST_SNAP=j.rank_snapshot;LAST_SYNC=j.rank_syncs;
+  $('st').textContent=`就绪 · ${TEAMS.length} 支队伍 · 模型加载 ${j.load_s}s`
+    +(j.rank_snapshot?` · rank 快照 ${j.rank_snapshot}`:'');
 }).catch(()=>{$('st').textContent='无法连接服务';});
+// 兜底模板同 predict_page.html：30s 拉一次状态，换了 rank 快照自动跟上。
+setInterval(function(){
+  if(!TEAMS.length) return;
+  fetch('/api/status').then(r=>r.json()).then(j=>{
+    if(!j.ready||!j.teams) return;
+    const changed=j.rank_snapshot!==LAST_SNAP||j.rank_syncs!==LAST_SYNC;
+    TEAMS=j.teams;$('go').disabled=false;
+    LAST_SNAP=j.rank_snapshot;LAST_SYNC=j.rank_syncs;
+    $('st').textContent=`就绪 · ${TEAMS.length} 支队伍`
+      +(j.rank_snapshot?` · rank 快照 ${j.rank_snapshot}`:'')
+      +(j.rank_syncs?` · 自动同步 ${j.rank_syncs} 次`:'')
+      +(changed?' · rank 已更新':'');
+  }).catch(()=>{});
+},30000);
 </script></body></html>"""
 
 
@@ -517,11 +632,19 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, {"error": _STATE["error"]})
             if not _STATE["ready"]:
                 return self._send(200, {"ready": False})
+            try:                       # rank 数据变了就自动跟上（毫秒级）
+                sync_rank()
+            except Exception:          # noqa: BLE001  同步失败不该让状态接口整个挂掉
+                pass
             rk = getattr(_STATE["pred"], "_rank_idx", None) or {}
             return self._send(200, {"ready": True,
                                     "teams": _STATE["teams"],
                                     "load_s": round(time.time() - _STATE["t0"], 1),
                                     "rank_teams": len(rk),
+                                    "rank_snapshot": getattr(
+                                        _STATE["pred"], "_rank_snap", ""),
+                                    "rank_syncs": _STATE["rank_syncs"],
+                                    "last_rank_sync": _STATE["last_rank_sync"],
                                     "reloads": _STATE["reloads"],
                                     "last_reload": _STATE["last_reload"],
                                     "last_date": getattr(
@@ -549,6 +672,7 @@ class H(BaseHTTPRequestHandler):
         if u.path == "/api/predict":
             if not _STATE["ready"]:
                 return self._send(503, {"error": "模型仍在加载"})
+            sync_rank()      # 预测前同步：换快照后第一次预测就该用新名次
             try:
                 r = predict(_STATE["pred"], q.get("a", [""])[0],
                             q.get("b", [""])[0], q.get("bo", ["3"])[0])
