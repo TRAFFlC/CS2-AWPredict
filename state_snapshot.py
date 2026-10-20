@@ -43,6 +43,10 @@ STATE_KEYS = [
     "pm_sum", "pm_w", "t_level_sum", "t_level_w",
     # 注入配置
     "aliases", "injected",
+    # 明确离队的选手（2026-10-19 加）：{队: {选手: 离队日期}}
+    # 不持久化的话，重建快照会把「cmtry 已下放」这件事**忘掉** ⇒
+    # 他又会从 240 天窗口里回到 MVP 候选池。
+    "roster_departed",
 ]
 
 MH_KEYS = ["uniform", "half_life", "app", "pooln", "tapp", "tpooln",

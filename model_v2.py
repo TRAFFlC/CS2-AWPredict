@@ -250,6 +250,8 @@ class State:
         # 注入（cold-start）
         self.aliases = {}
         self.injected = {}
+        # 已明确离队的选手（2026-10-19 加）：{队: {选手: 离队日期}}
+        self.roster_departed = {}
 
     # ---- 注入 API（冷门队伍） ----
     def alias(self, team, donor):
@@ -285,6 +287,55 @@ class State:
             if date:
                 self.p_date[name] = date
                 self.team_players[team][name] = date
+
+    def _resolve(self, t):
+        return self.aliases.get(t, t)
+
+    # ---- 阵容变更（2026-10-19 加）----
+    def set_roster(self, team, players, date, departed=None):
+        """**显式**记录该队当前阵容与离队者。
+
+        为什么需要它（主理人 2026-10-19 指出）：
+          `team_players` 原本**只记在场者的最后出场日，从不记离队**。
+          而 `lineup()` 是「窗口内按（最近出场日 → rating）取前 5」，
+          窗口 LINEUP_WINDOW=240 天。
+          ⇒ 被下放的老将**只要 240 天内出场过，就还在候选池里**，
+            会被当成 MVP 候选。
+          5 人 1:1 换人时靠「新阵容 5 人日期更新 ⇒ 排在前面」侥幸能挤掉；
+          但**非 1:1**（轮换 1 人、伤退 1 人）时，离队者会从窗口里溜回来。
+
+        `players`  = [(name, rating), ...]  当前阵容（按出场顺序无关）
+        `departed` = [name, ...]             明确离队者
+        离队者的 `team_players` 日期被**回退**到「离队前最后出场日」，
+        并记入 `roster_departed`，使其**不再进入 lineup 候选**。
+        """
+        t = self._resolve(team)
+        roster = []
+        for name, rating in (players or []):
+            roster.append((name, float(rating)))
+            self.team_players[t][name] = date
+            self.p_team[name] = t
+        # 离队者：标记并把日期回退，使其退出候选
+        prev = set(self.roster_sig.get(t) or ())
+        for name in (departed or []):
+            self.roster_departed.setdefault(t, {})[name] = date
+            self.team_players[t].pop(name, None)
+        # 更新 roster_sig（阵容变动感知用）
+        snap = set(n for n, _ in roster)
+        if snap:
+            old = self.roster_sig.get(t)
+            self.roster_sig[t] = snap
+            if old:
+                frac = len(snap - old) / 5.0
+                if frac > 0:
+                    self.churn[t].append((date, frac))
+                    if self.rho > 0:
+                        r = self.rho * frac
+                        self.elo[t] = self.elo0 + (self.elo[t] - self.elo0) * (1.0 - r)
+                        self.elo_m[t] = self.elo0 + (self.elo_m[t] - self.elo0) * (1.0 - r)
+                    if self.rho_g > 0:
+                        self.games[t] = max(0, int(round(self.games[t] * (1.0 - self.rho_g * frac))))
+        return roster
 
     def _resolve(self, t):
         return self.aliases.get(t, t)
@@ -373,10 +424,19 @@ class State:
         return self.p_top[p] / n if n > 0 else 0.0
 
     def lineup(self, t, date, window=LINEUP_WINDOW, n=5):
-        """该队「最可能出场」的阵容：近窗口出场者中按（近度→rating）取前 n。"""
+        """该队「最可能出场」的阵容：近窗口出场者中按（近度→rating）取前 n。
+
+        ★ 2026-10-19：已**明确离队**的选手一律排除。
+          `team_players` 原本只记在场者、从不记离队，而窗口 240 天很宽 ⇒
+          被下放的老将仍在候选池里、会被当 MVP 候选（主理人指出的问题）。
+          现在 `roster_departed` 里的选手直接出局。
+        """
         t = self._resolve(t)
+        gone = self.roster_departed.get(t) or {}
         cands = []
         for p, d in self.team_players.get(t, {}).items():
+            if p in gone:
+                continue
             if VM.days_apart(date, d) > window:
                 continue
             cands.append((d, self.player_mean(p) or 0.0, p))
@@ -1289,6 +1349,39 @@ def _selftest():
     chk("fresh winrate", st.winrate("X"), 0.5)
     chk("empty lineup", st.lineup("X", "2026-01-01"), [])
     chk("lineup strength None", st.lineup_strength("X", "2026-01-01"), None)
+
+    # ★ 离队者必须退出 MVP 候选（2026-10-19 加）
+    #   起因：`team_players` 原本只记在场者、从不记离队，窗口 240 天很宽
+    #   ⇒ 被下放的老将仍留在候选池里，会被当 MVP 候选。
+    st2 = State()
+    st2.observe("2026-06-01", "T", "O", "T", [("m", 13, 5)],
+                {"T": [("p1", 1.1), ("p2", 1.0), ("p3", 0.9),
+                       ("p4", 0.8), ("p5", 0.7)],
+                 "O": [("q1", 1.0)]})
+    _before = st2.lineup("T", "2026-06-02")
+    chk("初始五人都在候选里", sorted(_before),
+        ["p1", "p2", "p3", "p4", "p5"])
+    st2.set_roster("T", [("p1", 1.1), ("p2", 1.0), ("p3", 0.9),
+                         ("p4", 0.8), ("p6", 1.05)], "2026-06-10",
+                    departed=["p5"])
+    _after = st2.lineup("T", "2026-06-11")
+    chk("离队者退出候选", "p5" in _after, False)
+    chk("新援进入候选", "p6" in _after, True)
+    chk("候选数仍为 5", len(_after), 5)
+    chk("roster_departed 已登记", st2.roster_departed.get("T", {}).get("p5"),
+        "2026-06-10")
+    chk("离队者从 team_players 移除", "p5" in st2.team_players.get("T", {}), False)
+    # 非 1:1 换人（只进 1 人、只出 1 人）时，**替补**也不能把离队者挤回来
+    st3 = State()
+    st3.observe("2026-06-01", "T", "O", "T", [("m", 13, 5)],
+                {"T": [("p1", 1.1), ("p2", 1.0), ("p3", 0.9),
+                       ("p4", 0.8), ("p5", 0.7)],
+                 "O": [("q1", 1.0)]})
+    st3.set_roster("T", [("p1", 1.1), ("p2", 1.0), ("p3", 0.9),
+                         ("p4", 0.8)], "2026-06-10", departed=["p5"])
+    chk("非 1:1 时离队者仍出局", "p5" in st3.lineup("T", "2026-06-11"), False)
+    chk("非 1:1 时只剩四人（窗口内没有替补）",
+        len(st3.lineup("T", "2026-06-11")), 4)
 
     st.advance("2026-01-01")
     for _ in range(10):
