@@ -262,9 +262,11 @@ padding-left:6px}
 </div>
 
 <script>
-let TEAMS=[],HIST=[];
+let TEAMS=[],HIST=[],LAST_SNAP=null,LAST_SYNC=null;
 const $=s=>document.getElementById(s), esc=s=>String(s??"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-function rankTxt(t){return t.rank?('#'+t.rank):'无rank';}
+// ⚠ 名次后带 `*` = 该队名次来自 csapi 冻结兜底（2026-09-05），不是最新 VRS 快照。
+//   两者混用时判定跨了两个时间点，页面必须让人一眼看出来。
+function rankTxt(t){return t.rank?('#'+t.rank+(/csapi/.test(t.rank_src||'')?'*':'')):'无rank';}
 function gamesTxt(t){return t.games+'场';}
 function richTxt(t){return t.has_lineup?('丰度'+t.richness):'无阵容';}
 
@@ -392,6 +394,8 @@ function stText(j){
   return `就绪 · ${j.teams.length} 支队伍 · 模型加载 ${j.load_s}s`
     + (j.last_date?` · 账本 ${j.last_date}`:'')
     + (j.rank_teams?` · rank ${j.rank_teams} 队`:' · ⚠ rank 索引为空')
+    + (j.rank_snapshot?` · 快照 ${j.rank_snapshot}`:'')
+    + (j.rank_syncs?` · 自动同步 ${j.rank_syncs} 次${j.last_rank_sync?'（'+j.last_rank_sync+'）':''}`:'')
     + (j.reloads?` · 已刷新 ${j.reloads} 次${j.last_reload?'（'+j.last_reload+'）':''}`:'');
 }
 $('btnReload').onclick=function(){
@@ -410,6 +414,7 @@ $('btnReload').onclick=function(){
     return fetch('/api/status').then(r=>r.json()).then(j=>{
       if(!j.ready || j.busy) return new Promise(s=>setTimeout(s,800)).then(poll);
       TEAMS=j.teams; $('go').disabled=false;
+      LAST_SNAP=j.rank_snapshot; LAST_SYNC=j.rank_syncs;
       $('st').textContent=stText(j);
       // 下拉不用重建：bind() 的 draw() 在 onfocus/oninput 时实时读 TEAMS 画。
       // ⚠ 这里曾写 `$('la') && $('la').innerHTML = $('la').innerHTML;` ——
@@ -422,8 +427,23 @@ $('btnReload').onclick=function(){
 fetch('/api/status').then(r=>r.json()).then(j=>{
   if(j.error){$('st').textContent='加载失败：'+j.error;return;}
   TEAMS=j.teams;$('go').disabled=false;
+  LAST_SNAP=j.rank_snapshot;LAST_SYNC=j.rank_syncs;
   $('st').textContent=stText(j);
 }).catch(()=>{$('st').textContent='无法连接服务';});
+// ---- 自动同步（2026-10-19）----------------------------------
+// 服务端在每个请求前比对 rank 数据的 (mtime,size) 指纹，变了就地重建索引
+// （毫秒级，不需要重建 Predictor）。这一层只负责**把变化显示出来**，
+// 否则换了快照后浏览器不手动刷新就看不到新名次——那正是本次的原始症状。
+setInterval(function(){
+  if(!TEAMS.length) return;
+  fetch('/api/status').then(r=>r.json()).then(j=>{
+    if(!j.ready||!j.teams) return;
+    const changed = j.rank_snapshot!==LAST_SNAP || j.rank_syncs!==LAST_SYNC;
+    TEAMS=j.teams; $('go').disabled=false;
+    $('st').textContent=stText(j)+(changed?' · rank 已更新':'');
+    LAST_SNAP=j.rank_snapshot; LAST_SYNC=j.rank_syncs;
+  }).catch(()=>{});
+},30000);
 </script>
 <script>
 /* 像素流体背景：白 / 荧光绿双色，像素方块沿流场漂移 + 拖尾。
