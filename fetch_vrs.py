@@ -36,6 +36,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import glob
 import html
 import io
 import json
@@ -159,6 +160,16 @@ def append_log(entry):
     entry.setdefault("ts", dt.datetime.now().isoformat(timespec="seconds"))
     with io.open(os.path.join(CACHE, "fetch_vrs_runs.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+
+def prune_html_cache(keep=14):
+    """只保留最近 N 份成功抓取的 ranking HTML（约 1.5MB/天，避免无限增长）。"""
+    try:
+        files = sorted(glob.glob(os.path.join(CACHE, "hltv_valve_*.html")))
+        for path in files[:-keep]:
+            os.remove(path)
+    except OSError:
+        pass
 
 
 def acquire_lock():
@@ -371,6 +382,7 @@ def main(argv=None):
         os.makedirs(CACHE, exist_ok=True)
         atomic_write(os.path.join(CACHE, "hltv_valve_%s.html" % actual_iso),
                      got["ranking_html"])
+        prune_html_cache()
         append_log({"status": "ok", "requested": req_iso, "actual": actual_iso,
                     "teams": len(doc["teams"]), "duplicates": len(doc["duplicates"]),
                     "url": url, "path": actual_path})
