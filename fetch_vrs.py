@@ -55,7 +55,7 @@ URL_TMPL = "https://www.hltv.org/valve-ranking/teams/{year}/{month}/{day}"
 MONTHS = ["january", "february", "march", "april", "may", "june",
           "july", "august", "september", "october", "november", "december"]
 
-DATE_RE = re.compile(r"Valve global ranking on ([A-Za-z]+) (\d{1,2})(?:st|nd|rd|th), (\d{4})", re.I)
+DATE_RE = re.compile(r"Valve global ranking on ([A-Za-z]+) (\d{1,2})(?:st|nd|rd|th)?, (\d{4})", re.I)
 POS_RE = re.compile(r"#\s*(\d+)")
 POINTS_RE = re.compile(r"\(\s*(\d+)")
 
@@ -118,13 +118,12 @@ def snapshot_doc(path, date):
     return doc
 
 
-def parse_page_date(text, fallback):
+def parse_page_date(text):
+    """从 `Valve global ranking on October 26th, 2026` 解析日期；失败返回 None。"""
     m = DATE_RE.search(text or "")
-    if not m:
-        return fallback
-    month = MONTHS.index(m.group(1).lower()) + 1 if m.group(1).lower() in MONTHS else None
-    if not month:
-        return fallback
+    if not m or m.group(1).lower() not in MONTHS:
+        return None
+    month = MONTHS.index(m.group(1).lower()) + 1
     return dt.date(int(m.group(3)), month, int(m.group(2)))
 
 
@@ -278,10 +277,14 @@ def fetch_page(url, timeout=60, headed=False, date_hint=None):
                                      % (date_hint or "YYYY-MM-DD")) from e
                 raise FetchError("页面已打开，但没等到 div.ranking（title=%r）" % title) from e
 
-            date_text = page.eval_on_selector(
-                "div.ranking .regional-ranking-header-text", "el => el.textContent.trim()")
-            raw_rows = page.eval_on_selector("div.ranking", JS_ROWS)
-            ranking_html = page.eval_on_selector("div.ranking", "el => el.outerHTML")
+            try:
+                date_text = page.eval_on_selector(
+                    "div.ranking .regional-ranking-header-text", "el => el.textContent.trim()")
+                raw_rows = page.eval_on_selector("div.ranking", JS_ROWS)
+                ranking_html = page.eval_on_selector("div.ranking", "el => el.outerHTML")
+            except Exception as e:                          # noqa: BLE001
+                _save_failure(page, url)
+                raise FetchError("页面结构异常，无法读取 div.ranking：%s" % e) from e
             try:
                 ctx.storage_state(path=STORAGE)
             except Exception as e:                          # noqa: BLE001
@@ -333,7 +336,12 @@ def main(argv=None):
     try:
         print("抓取 %s ..." % url)
         got = fetch_page(url, timeout=a.timeout, headed=a.headed, date_hint=req_iso)
-        actual = parse_page_date(got["date_text"], requested)
+        header = got.get("date_text") or ""
+        if "valve global ranking" not in header.lower():
+            raise ParseError("页面 header 不是 Valve global ranking：%r" % header)
+        actual = parse_page_date(header)
+        if actual is None:
+            raise ParseError("无法从页面 header 解析日期：%r" % header)
         actual_iso = actual.isoformat()
         if actual != requested:
             print("⚠ URL 日期 %s，页面实际日期 %s（HLTV 可能还没更新）" % (req_iso, actual_iso))
