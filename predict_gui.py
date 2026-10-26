@@ -15,9 +15,10 @@
   * **胜方取 rank 热门**（不是模型 argmax）：2026-10-13 复测——112 场时间前进式
     无泄漏（**模型已摄入 09-08~10-11 赛果**）：rank 67.0% vs 模型 63.4%（p=0.481），
     9 档置信门控无一超过 rank ⇒ **遵循 rank、不做门控**；rank 缺失才回退模型。
-    分歧时显示 ⚠ 并给出模型的意见，由人决定（112 场分歧 18：rank 11 对 vs 模型 7 对）。
-  * **⚠ 富度提示**：MVP 项按 lineup 选手历史出场场次分档
-    （<18 场 ≈ 随机 20%，≥18 场 ≈ 40%）。冷门队伍必须看到这条。
+    既然策略是跟 rank，界面就不再单列模型倾向，避免两套胜方信号互相找补。
+  * **A/B 规范化**：入口先按 rank（VRS 优先、csapi 补缺）→ 队名定一个固定朝向，
+    只跑一次模型，再映射回用户选择顺序；同一对阵交换 A/B 结果必须一致。
+  * **MVP 项**按 lineup 选手历史出场场次分档；无阵容数据时红色提示只能取随机。
   * **期望得分**是标定后的（MVP 项不再虚高 3 倍）。
   * **比分朝向**：换胜方时比分线自动翻转（scorer 要求二者一致）。
   * bo1 **不计比分项**（满分 25）；bo5 满分 55 且比分有 3:0/3:1/3:2 三种可能。
@@ -318,7 +319,7 @@ def predict(pr, a, b, bo):
                     "有把握请自己覆盖" % (oldest_date, stale))
     elif stale is not None and stale >= RANK_STALE_D:
         warn.append("🟡 本场 rank 名次来自 %s 的旧榜（已 %d 天），排名普遍翻动，"
-                    "胜方可信度下降；模型在此时分歧更值得听" % (oldest_date, stale))
+                    "胜方可信度下降，请谨慎" % (oldest_date, stale))
     tmap = {t["name"]: t for t in _STATE["teams"]}
     for nm in (A, B):
         t = tmap.get(nm)
@@ -330,15 +331,6 @@ def predict(pr, a, b, bo):
             warn.append("🟡 %s rank#%d（冷门）" % (nm, t["rank"]))
         if not t["has_lineup"]:
             warn.append("🔴 %s 无阵容数据 ⇒ MVP 项只能取随机" % nm)
-        elif t["richness"] < 18:
-            warn.append("🟡 %s 选手历史中位 %.0f 场（<18）⇒ MVP 项≈随机 20%%"
-                        % (nm, t["richness"]))
-    if p.get("disagreement"):
-        warn.append("⚠ 模型与 rank 分歧：我方 rank 选 %s，模型倾向 %s（%.1f%%）。"
-                    "实测分歧仅占 11%%，其中 rank 对 6/8——**默认跟 rank**，"
-                    "但 rank 差距大（>6）或快照陈旧时更该听模型"
-                    % (p["winner"], p["model_winner"],
-                       100 * max(p["win_prob"].values())))
     if bo == 1:
         warn.append("ℹ bo1 不计比分项（满分 25），选图是 7 选 1、MVP 占 40%")
     if bo == 5:
@@ -348,8 +340,6 @@ def predict(pr, a, b, bo):
         "A": A, "B": B, "bo": bo, "max_points": maxp,
         "winner": p["winner"], "loser": B if p["winner"] == A else A,
         "p_win": round(100 * p["win_prob"][p["winner"]], 1),
-        "model_winner": p.get("model_winner"),
-        "disagreement": bool(p.get("disagreement")),
         "rank_src": src, "rank_stale_days": stale,
         "score": "%d:%d" % (p["score"][0], p["score"][1]),
         "maps": p["maps"], "map_probs": p.get("map_probs") or {},
@@ -533,7 +523,6 @@ function render(j){
     <div class="kv">
       <div><b>期望得分</b><span>${j.exp_points} <small style="color:var(--dim)">±${j.sd}</small> / ${j.max_points}</span></div>
       <div><b>预测 MVP</b><span>${esc(j.mvp||'—')}</span></div>
-      <div><b>模型倾向</b><span>${esc(j.model_winner||'—')}${j.disagreement?' ⚠':''}</span></div>
     </div>
     <div style="margin-top:14px"><b style="font-size:12px;color:var(--dim)">选图（按概率降序） ${pickedTxt}</b></div>
     ${restTxt?`<div style="font-size:11px;color:var(--dim);margin-top:3px">池内未选 ${esc(restTxt)}</div>`:''}

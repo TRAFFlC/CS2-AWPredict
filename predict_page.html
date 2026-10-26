@@ -371,7 +371,6 @@ function render(j){
     <div class="kv">
       <div><b>期望得分</b><span>${j.exp_points} <small style="color:var(--dim)">±${j.sd}</small> / ${j.max_points}</span></div>
       <div><b>预测 MVP</b><span>${esc(j.mvp||'—')}</span></div>
-      <div><b>模型倾向</b><span>${esc(j.model_winner||'—')}${j.disagreement?' ⚠':''}</span></div>
     </div>
     <div style="margin-top:14px"><b style="font-size:12px;color:var(--dim)">选图（按概率降序） ${pickedTxt}</b></div>
     ${restTxt?`<div style="font-size:11px;color:var(--dim);margin-top:3px">池内未选 ${esc(restTxt)}</div>`:''}

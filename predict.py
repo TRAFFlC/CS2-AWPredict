@@ -55,6 +55,31 @@ import pool_experiment as PE  # noqa: E402
 from scorer import Prediction, Truth, score_match, max_total  # noqa: E402
 
 
+def _swap_prediction_sides(out):
+    """把「规范化 A/B 朝向」的预测**原地**翻回「用户 A/B 朝向」。
+
+    只翻**有方向**的字段：A/B、pA、win_prob、score、rank_src 的 A/B 名次与来源、
+    score_probs 的比分键。`maps` / `maps_ranked` / `map_probs` / `mvp*` /
+    `exp_points` / `sd` / `exp_rank` 与谁先谁后无关，保持原样。
+    """
+    canonA, canonB = out["A"], out["B"]
+    userA, userB = canonB, canonA
+    out["A"], out["B"] = userA, userB
+    if "pA" in out:
+        out["pA"] = 1.0 - out["pA"]
+        out["win_prob"] = {userA: out["pA"], userB: 1.0 - out["pA"]}
+    if "score" in out:
+        out["score"] = [out["score"][1], out["score"][0]]
+    src = out.get("rank_src")
+    if isinstance(src, dict) and ("rankA" in src or "rankB" in src):
+        src["rankA"], src["rankB"] = src.get("rankB"), src.get("rankA")
+        src["srcA"], src["srcB"] = src.get("srcB"), src.get("srcA")
+    sp = out.get("score_probs")
+    if sp:
+        out["score_probs"] = {(b, a): pr for (a, b), pr in sp.items()}
+    return out
+
+
 # ------------------------------------------------------------------ 预测器
 class Predictor:
     """把 v2 的四项模型 + 冷门映射器打包成一个可直接调用的对象。"""
@@ -310,7 +335,9 @@ class Predictor:
             missing = [n for n, k, v in ((sample["teamA"], ka, ra),
                                          (sample["teamB"], kb, rb)) if v is None]
             return None, {"ok": False, "why": "rank 缺失: %s" % ",".join(missing)}
-        win = sample["teamA"] if ra < rb else sample["teamB"]
+        # 平局取 teamA：调用方已按 _canonical_sides() 规范化（同 rank 按名称），
+        # 若这里用 `ra < rb` 反而固定偏向名称较大的 B，与规范化朝向矛盾。
+        win = sample["teamA"] if ra <= rb else sample["teamB"]
         sa, sb = self._rank_src.get(ka), self._rank_src.get(kb)
         return win, {"ok": True, "rankA": ra, "rankB": rb,
                      "snapshot": self._rank_snap, "srcA": sa, "srcB": sb,
@@ -376,16 +403,47 @@ class Predictor:
         self._rank_idx, self._rank_src = idx, src
         self._rank_snap = max(best_date, getattr(self, "_csapi_snap", ""))
 
+    def _canonical_sides(self, A, B):
+        """按「rank 索引升序 → 队名」给同一对阵定一个固定 A/B 朝向。
+
+        模型带 team1 侧位截距（约 61.6%），直接按用户输入顺序跑会让同一对阵
+        在交换 A/B 后得到不同的概率/期望分。这里先把**更好名次**的队放在 A
+        （rank 索引本身已是 VRS 快照优先、csapi 只补缺），名次相同或都缺失时
+        再按规范化队名排序，保证两种输入顺序得到同一个 canonical 对阵。
+
+        返回 `(canonical_A, canonical_B, 是否与用户顺序相反)`。
+        """
+        if self._rank_idx is None:
+            self._build_rank()
+
+        def key(t):
+            r = self._rank_idx.get(self._norm(t))
+            # rank 缺失排最后；同 rank 按规范化名称，绝不能依赖输入顺序。
+            return (r is None, r if r is not None else 0, self._norm(t))
+
+        if key(B) < key(A):
+            return B, A, True
+        return A, B, False
+
     def predict(self, A, B, bo=3, date=None, objective="score", rank_field=None,
                 profileA=None, profileB=None, quiet=True, opponents=20, noise=0.25,
                 winner_policy="rank"):
         A, coldA = self.resolve_team(A, profileA, quiet)
         B, coldB = self.resolve_team(B, profileB, quiet)
+        cold = {A: coldA, B: coldB}
+
+        # ★ 规范化后再跑模型：同一对阵只跑一次，输出再映射回用户选择顺序。
+        #   否则只要用户交换 A/B，模型的 team1 侧位偏差就会改结果（2026-10-26 复现：
+        #   BetBoom/NaVi 正向 p_win=34.0、反向 22.2）。
+        A, B, swapped = self._canonical_sides(A, B)
         sample = self.live_sample(A, B, bo, date)
         out = self.predict_from_sample(sample, objective, rank_field,
                                        opponents=opponents, noise=noise,
                                        winner_policy=winner_policy)
-        out["cold"] = {A: coldA, B: coldB}
+        if swapped:
+            _swap_prediction_sides(out)
+        # cold 按**用户**队名索引（不是 canonical 顺序），交换时不要跟着翻。
+        out["cold"] = cold
         return out
 
     # ---- 场（对手）模型 ----
@@ -688,6 +746,74 @@ def _selftest():
     chk("retarget: 选图不动", _rp["maps"], ("Mirage", "Nuke", "Inferno"))
     chk("retarget: 胜方一致时原样返回",
         D.retarget(_MDStub, {"winner": "Y", "score": (0, 2), "mvp": "py1"}, "Y")["mvp"], "py1")
+
+    # ★ A/B 顺序不变性：先按 rank→名称规范化，只跑一次模型，再翻回用户顺序。
+    #   2026-10-26 复现：BetBoom vs NaVi 正向 p_win=34.0、反向 22.2（模型 team1 侧位偏差）。
+    class _RankStub(object):
+        _rank_idx = {"betboom": 7, "natusvincere": 13, "aaa": 5, "bbb": 5}
+        _norm = staticmethod(Predictor._norm)
+
+        def _build_rank(self):
+            raise AssertionError("索引已就绪，不应重建")
+
+    _rs = _RankStub()
+    chk("canonical: 低 rank 作 A（输入正向）",
+        Predictor._canonical_sides(_rs, "BetBoom", "Natus Vincere"),
+        ("BetBoom", "Natus Vincere", False))
+    chk("canonical: 低 rank 作 A（输入反向）",
+        Predictor._canonical_sides(_rs, "Natus Vincere", "BetBoom"),
+        ("BetBoom", "Natus Vincere", True))
+    chk("canonical: 同 rank 按名称定序",
+        Predictor._canonical_sides(_rs, "BBB", "AAA"), ("AAA", "BBB", True))
+
+    _rank_idx_bak = _RankStub._rank_idx
+    _RankStub._rank_idx = {"aaa": 5}
+    chk("canonical: rank 缺失排最后",
+        Predictor._canonical_sides(_rs, "ZZZ", "AAA"), ("AAA", "ZZZ", True))
+    _RankStub._rank_idx = _rank_idx_bak
+
+    # 输出映射：只翻有方向的字段，地图/MVP/期望值保持原样。
+    _swap = {"A": "BetBoom", "B": "Natus Vincere", "bo": 3, "pA": 0.66,
+             "win_prob": {"BetBoom": 0.66, "Natus Vincere": 0.34},
+             "winner": "BetBoom", "score": [2, 1],
+             "score_probs": {(2, 1): 0.5, (2, 0): 0.3},
+             "rank_src": {"ok": True, "rankA": 7, "rankB": 13,
+                          "srcA": "VRS 2026-10-26", "srcB": "VRS 2026-10-26",
+                          "snapshot": "2026-10-26", "mixed": False},
+             "maps": ["Mirage", "Nuke"], "maps_ranked": ["Nuke", "Mirage"],
+             "map_probs": {"Mirage": 0.6, "Nuke": 0.7}, "mvp": "magnojez",
+             "mvp_probs": {"magnojez": 0.4}, "exp_points": 14.3, "sd": 7.4,
+             "exp_rank": None, "cold": {"BetBoom": False, "Natus Vincere": False}}
+    _swap_prediction_sides(_swap)
+    chk("swap: A/B 翻回用户顺序",
+        (_swap["A"], _swap["B"]), ("Natus Vincere", "BetBoom"))
+    chk("swap: pA 取补", abs(_swap["pA"] - 0.34) < 1e-9, True)
+    chk("swap: win_prob 跟着 pA",
+        (abs(_swap["win_prob"]["Natus Vincere"] - 0.34) < 1e-9
+         and abs(_swap["win_prob"]["BetBoom"] - 0.66) < 1e-9), True)
+    chk("swap: score 反向", _swap["score"], [1, 2])
+    chk("swap: score_probs 键反向",
+        sorted(_swap["score_probs"]), [(0, 2), (1, 2)])
+    chk("swap: rankA/rankB 与来源一起反向",
+        (_swap["rank_src"]["rankA"], _swap["rank_src"]["rankB"],
+         _swap["rank_src"]["srcA"], _swap["rank_src"]["srcB"]),
+        (13, 7, "VRS 2026-10-26", "VRS 2026-10-26"))
+    chk("swap: maps 不翻", _swap["maps"], ["Mirage", "Nuke"])
+    chk("swap: maps_ranked 不翻", _swap["maps_ranked"], ["Nuke", "Mirage"])
+    chk("swap: MVP 不翻", _swap["mvp"], "magnojez")
+    chk("swap: 期望分/sd 不翻", (_swap["exp_points"], _swap["sd"]), (14.3, 7.4))
+    chk("swap: cold 按队名保留", _swap["cold"],
+        {"BetBoom": False, "Natus Vincere": False})
+
+    # rank 平局必须取 canonical A（同 rank 按名称较小者），不能固定偏向 B。
+    class _RankPickStub(object):
+        _rank_idx = {"aaa": 5, "bbb": 5}
+        _rank_src = {"aaa": "VRS", "bbb": "VRS"}
+        _rank_snap = "2026-10-26"
+        _norm = staticmethod(Predictor._norm)
+
+    _rw, _ = Predictor.rank_pick(_RankPickStub(), {"teamA": "AAA", "teamB": "BBB"}, None)
+    chk("rank_pick: 平局取 teamA", _rw, "AAA")
 
     # ★ 两个开关必须**正交**：objective 管排序，winner_policy 管胜方来源。
     #   混过一次的后果：objective="score" 时代码仍无条件用 rank_pick 覆盖胜方，
