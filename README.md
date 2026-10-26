@@ -25,6 +25,11 @@ python -X utf8 predict_gui.py --open      # → http://127.0.0.1:8765/
 
 无第三方依赖，Python ≥ 3.10 即可（前端为原生 HTML/JS）。
 
+> **Windows 开机自启**：计划任务 `issue014-predict-gui` 应调用本仓库的
+> `start_predict_gui.bat`。历史坑：任务曾指向旧开发副本 `014-scratch`，
+> 该副本只有旧快照，导致「更新 rank 后一重启就回到旧榜」。旧副本的启动器
+> 现已改为跳转本仓库；重建计划任务时不要指回它。
+
 ---
 
 ## v1.1.1 变更
@@ -373,6 +378,11 @@ experiments/          实验脚本（上限诊断、标定、复测、回放）
 
 - **rank 快照会陈旧。** VRS 快照是某一时点的冻结值，不会自动更新。
   界面会显示快照日期与陈旧天数，>30 天变黄、>60 天变红。
+- **开机自启指向旧副本会静默回退旧 rank。** 常驻服务只读取自己工作目录下的
+  `data/vrs_rank_*.json`；若计划任务启动的是 `014-scratch`，即使仓库里已有
+  `2026-10-25`，页面也会显示该副本里最新的 `2026-10-19`。判断方法：看
+  `/api/status` 的 `rank_snapshot` / `rank_teams`，以及仓库根目录
+  `gui.launcher.log` 里的 `starting ... in <目录>`。
 - **换 rank 快照不需要重启**（2026-10-19）：`python -X utf8 ingest_vrs.py` 落盘后，
   常驻服务在**下一个请求**时比对 `(mtime, size)` 指纹自动重建索引（毫秒级），
   页面 30 秒内自行刷新。但**账本快照**（`ingest_new.py --rebuild`）仍要 10~20 秒
