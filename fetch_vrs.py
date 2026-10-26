@@ -381,16 +381,22 @@ def main(argv=None):
             return 0
 
         atomic_write(actual_path, json.dumps(doc, indent=1, ensure_ascii=False))
-        if not a.no_text:
-            lines = [actual_iso]
-            for r in rows:
-                lines.append("%d. %s — %d — %s"
-                             % (r["rank"], r["name"], r["points"], r["region"]))
-            atomic_write(a.text_out, "\n".join(lines) + "\n")
-        os.makedirs(CACHE, exist_ok=True)
-        atomic_write(os.path.join(CACHE, "hltv_valve_%s.html" % actual_iso),
-                     got["ranking_html"])
-        prune_html_cache()
+        try:
+            if not a.no_text:
+                lines = [actual_iso]
+                for r in rows:
+                    lines.append("%d. %s — %d — %s"
+                                 % (r["rank"], r["name"], r["points"], r["region"]))
+                atomic_write(a.text_out, "\n".join(lines) + "\n")
+        except OSError as e:
+            print("⚠ 快照已写入，但可读榜单写入失败：%s" % e)
+        try:
+            os.makedirs(CACHE, exist_ok=True)
+            atomic_write(os.path.join(CACHE, "hltv_valve_%s.html" % actual_iso),
+                         got["ranking_html"])
+            prune_html_cache()
+        except OSError as e:
+            print("⚠ 快照已写入，但 HTML 缓存写入失败：%s" % e)
         append_log({"status": "ok", "requested": req_iso, "actual": actual_iso,
                     "teams": len(doc["teams"]), "duplicates": len(doc["duplicates"]),
                     "url": url, "path": actual_path})
