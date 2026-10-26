@@ -23,7 +23,38 @@ python -X utf8 predict.py G2 FURIA 3
 python -X utf8 predict_gui.py --open      # → http://127.0.0.1:8765/
 ```
 
-无第三方依赖，Python ≥ 3.10 即可（前端为原生 HTML/JS）。
+无第三方依赖，Python ≥ 3.10 即可（前端为原生 HTML/JS）。仅每日自动抓取 VRS
+需要可选的 Playwright 与系统 Chrome。
+
+### 每日自动更新 VRS 排名
+
+`fetch_vrs.py` 用 Playwright 驱动系统 Chrome 无头打开 HLTV 的 Valve 全球排名页，
+直接从 `div.ranking` 的 DOM 读取队伍，再复用 `ingest_vrs.py` 的校验与去重逻辑生成
+`data/vrs_rank_<日期>.json`。**当天快照已存在时直接跳过，不发起任何网络请求**；
+页面日期还没更新时也不会覆盖旧快照，因此可以安全地重复运行。
+
+```bash
+python -X utf8 fetch_vrs.py                  # 抓本机今天；已有快照则跳过
+python -X utf8 fetch_vrs.py --date 2026-10-26
+python -X utf8 fetch_vrs.py --dry-run        # 只抓取/校验，不落盘
+python -X utf8 fetch_vrs.py --force          # 已有同日快照也重抓
+```
+
+依赖：`pip install playwright`，并使用系统安装的 Chrome（不需要
+`python -m playwright install chromium`；脚本以 `channel="chrome"` 启动）。
+不要改回 `requests` / `curl`：HLTV 前面的 Cloudflare 会返回 403。
+
+本机已注册每日计划任务（每天 13:00；错过则在下次可用时补跑）：
+
+```powershell
+Get-ScheduledTask -TaskName "CS2-AWPredict-update-vrs"
+Start-ScheduledTask -TaskName "CS2-AWPredict-update-vrs"   # 立即跑一次
+.\update_vrs.bat                                            # 手动入口
+```
+
+计划任务通过 `wscript.exe //B update_vrs_hidden.vbs` 无窗口运行；日志在
+`data/cache/update_vrs.log`，结构化运行记录在 `data/cache/fetch_vrs_runs.jsonl`。
+改时间：`Set-ScheduledTask -TaskName "CS2-AWPredict-update-vrs" -Trigger (New-ScheduledTaskTrigger -Daily -At 14:00)`。
 
 > **Windows 开机自启**：计划任务 `issue014-predict-gui` 应调用本仓库的
 > `start_predict_gui.bat`。历史坑：任务曾指向旧开发副本 `014-scratch`，
@@ -362,7 +393,11 @@ scorer.py             官方四项计分器
 state_snapshot.py     增量状态引擎
 ingest_new.py         增量摄入（加新赛果）
 ingest_vrs.py         Valve 排名文本 → data/vrs_rank_<日期>.json
+fetch_vrs.py          HLTV → data/vrs_rank_<日期>.json（Playwright + 系统 Chrome）
+update_vrs.bat        每日抓取入口（计划任务 / 手动）
+update_vrs_hidden.vbs 计划任务的无窗口启动器
 data/                 语料、VRS 排名、精简排名档案、增量快照
+  cache/              抓取缓存、锁、运行日志（不入库）
   groundtruth/        各赛事真实赛果
   rankings/           精简排名档案（0.7MB，由上游 103MB 派生）
 experiments/          实验脚本（上限诊断、标定、复测、回放）
@@ -376,8 +411,9 @@ experiments/          实验脚本（上限诊断、标定、复测、回放）
 
 ## 局限与已知问题
 
-- **rank 快照会陈旧。** VRS 快照是某一时点的冻结值，不会自动更新。
-  界面会显示快照日期与陈旧天数，>30 天变黄、>60 天变红。
+- **rank 快照会陈旧。** VRS 快照是某一时点的冻结值；本机虽有每日计划任务
+  `CS2-AWPredict-update-vrs`，但它只负责「当天没有就抓一次」，HLTV 未更新或
+  任务失败时仍会保持旧快照。界面会显示快照日期与陈旧天数，>30 天变黄、>60 天变红。
 - **开机自启指向旧副本会静默回退旧 rank。** 常驻服务只读取自己工作目录下的
   `data/vrs_rank_*.json`；若计划任务启动的是 `014-scratch`，即使仓库里已有
   `2026-10-25`，页面也会显示该副本里最新的 `2026-10-19`。判断方法：看

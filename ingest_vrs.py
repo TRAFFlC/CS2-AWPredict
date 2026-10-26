@@ -87,7 +87,7 @@ def check(rows):
     return []
 
 
-def build(date, rows, keep_first=True):
+def build(date, rows, keep_first=True, origin="ingest_vrs.py 从排名文本转换"):
     teams, first, dupes = [], {}, []
     for r in rows:
         k = norm(r["name"])
@@ -100,11 +100,10 @@ def build(date, rows, keep_first=True):
                 continue
         first[k] = r
         teams.append(r)
-    side = "第一次" if keep_first else "最后一次"
     doc = {"date": date, "source": "Valve Regional Standings (VRS)", "type": "world",
-           "notes": "由 ingest_vrs.py 从排名文本转换（%s）。%s"
-                    % (date, ("源文件中 %d 支队伍重名，按约定保留第一次出现"
-                              "（名次/积分更高），被丢弃行见 duplicates。" % len(dupes))
+           "notes": "由 %s（%s）。%s"
+                    % (origin, date, ("源文件中 %d 支队伍重名，按约定保留第一次出现"
+                                      "（名次/积分更高），被丢弃行见 duplicates。" % len(dupes))
                        if dupes else "无重名队伍。"),
            "teams": teams, "duplicates": dupes}
     return doc
