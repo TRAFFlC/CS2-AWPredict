@@ -75,7 +75,8 @@ import predict_stage as PS     # noqa: E402
 import scoring as SC           # noqa: E402
 
 VERSION = "pickem-gui 0.2"
-POST_ENDPOINTS = ("/api/predict", "/api/pickem", "/api/score", "/api/calibrate")
+POST_ENDPOINTS = ("/api/predict", "/api/pickem", "/api/score", "/api/calibrate",
+                  "/api/vrs/refresh")
 DEFAULT_PORT = 8790
 MAX_BODY = 1 << 20                     # 1 MiB
 FIXDIR = os.path.join(HERE, "fixtures")
@@ -230,6 +231,7 @@ __MODE_NAV__
 <div class="card">
   <div class="row spread">
     <span class="pill" id="libp">强度库加载中…</span>
+    <span class="pill" id="vrsp">VRS 检查中…</span>
     <span class="row" style="gap:8px">
       <button class="ghost" id="autoseed" style="padding:7px 12px"
               title="识别 1v2、3v4… 的首轮对阵顺序并转成种子序；否则按 VRS 排名排序">自动排种子</button>
@@ -743,22 +745,81 @@ async function loadDemo() {
   } catch (e) { $("st").textContent = "示例加载失败：" + e.message; }
 }
 
+async function loadLib() {
+  const t = await jget("/api/teams");
+  LIB = t; INDEX = {};
+  t.teams.forEach((r) => { INDEX[r.name.toLowerCase()] = r; });
+  t.teams.forEach((r) => (r.aliases || []).forEach((a) => {
+    if (!INDEX[a.toLowerCase()]) INDEX[a.toLowerCase()] = r;
+  }));
+  const eloAsOf = t.elo_asof ? " · Elo 参考 " + esc(t.elo_asof) : "";
+  $("libp").innerHTML = "强度库 <b>" + t.teams.length + "</b> 支 · 默认 VRS 积分 · VRS " + esc(t.asof) + eloAsOf;
+  $("libp").title = (t._provenance || "") + " ｜ 覆盖：" + JSON.stringify(t.counts || {});
+  return t;
+}
+
+// ---- VRS 自动抓取（2026-10-29）--------------------------------
+// 页面每次加载都问服务端「北京时间现在该抓哪一天」；需要时后台抓 HLTV，
+// 不阻塞页面。抓到新快照后重新拉 /api/teams，输入框旁的 VRS 标签立刻更新。
+let VRS_LATEST = null, VRS_TIMER = null;
+
+function vrsText(s) {
+  if (!s || s.ok === false) {
+    return "VRS 同步不可用" + (s && s.error ? "：" + s.error : "");
+  }
+  const t = s.target || "—", l = s.latest || "—";
+  if (s.running) return "VRS " + l + " · 正在检查 " + t + "…";
+  if (s.target_ready) return "VRS " + l + " · 已是最新（目标 " + t + "）";
+  if (s.cooldown_s > 0) {
+    return "VRS " + l + " · 目标 " + t + " 尚未发布，" +
+      Math.ceil(s.cooldown_s / 60) + " 分钟后重试";
+  }
+  return "VRS " + l + " · 目标 " + t + " 待抓取";
+}
+
+function vrsShow(s) {
+  const el = $("vrsp"); if (!el) return;
+  el.textContent = vrsText(s);
+  el.title = (s && s.message) || "";
+  if (s && s.last_error && !s.running) el.title += " ｜ 上次错误：" + s.last_error;
+}
+
+async function vrsPoll() {
+  clearTimeout(VRS_TIMER);
+  try {
+    const s = await jget("/api/vrs/status");
+    vrsShow(s);
+    if (s.running) { VRS_TIMER = setTimeout(vrsPoll, 1500); return; }
+    if (s.latest && VRS_LATEST && s.latest !== VRS_LATEST) {
+      await loadLib();
+      refresh();
+      $("st").textContent += " · VRS 已更新到 " + s.latest;
+    }
+    VRS_LATEST = s.latest || VRS_LATEST;
+  } catch (e) { /* 老服务没有该端点时静默 */ }
+}
+
+async function vrsKick() {
+  try {
+    const s = await jget("/api/vrs/status");
+    vrsShow(s); VRS_LATEST = s.latest || null;
+    if (!s.running && !(s.target_ready && s.library_current)) {
+      const j = await jpost("/api/vrs/refresh", {});
+      if (j && j.status) vrsShow(j.status); else vrsShow(j);
+    }
+    vrsPoll();
+  } catch (e) { /* 独立部署或老版本没有 VRS 端点 */ }
+}
+
 async function boot() {
   try {
-    const t = await jget("/api/teams");
-    LIB = t; INDEX = {};
-    t.teams.forEach((r) => { INDEX[r.name.toLowerCase()] = r; });
-    t.teams.forEach((r) => (r.aliases || []).forEach((a) => {
-      if (!INDEX[a.toLowerCase()]) INDEX[a.toLowerCase()] = r;
-    }));
-    const eloAsOf = t.elo_asof ? " · Elo 参考 " + esc(t.elo_asof) : "";
-    $("libp").innerHTML = "强度库 <b>" + t.teams.length + "</b> 支 · 默认 VRS 积分 · VRS " + esc(t.asof) + eloAsOf;
-    $("libp").title = (t._provenance || "") + " ｜ 覆盖：" + JSON.stringify(t.counts || {});
+    await loadLib();
     buildSlots();
     const st = await jget("/api/status");
     $("ver").textContent = st.version + " · ready";
     await loadDemo();
     $("st").textContent += " · 点「预测十格」出结果（默认 n=20000，约 3～4 秒）";
+    vrsKick();
   } catch (e) { $("st").textContent = "加载失败：" + e.message; }
 }
 
@@ -853,6 +914,31 @@ def _teams_payload():
             "teams": [{"name": t["name"], "rating": t["rating"], "rank": t["rank"],
                        "points": t["points"], "aliases": t["aliases"]}
                       for t in lib["teams"]]}
+
+
+def _vrs_mod():
+    """懒加载仓库根的 vrs_sync（独立部署只有 pickem/ 时会 ImportError）。"""
+    root = os.path.dirname(HERE)
+    if root not in sys.path:
+        sys.path.append(root)          # 追加而非插到最前，避免遮蔽 pickem 自己的模块
+    import vrs_sync
+    return vrs_sync
+
+
+def _vrs_status():
+    try:
+        return _vrs_mod().status()
+    except Exception as exc:                       # noqa: BLE001
+        return {"ok": False, "running": False,
+                "error": "VRS 同步不可用：%s: %s" % (type(exc).__name__, exc)}
+
+
+def _vrs_refresh(payload=None):
+    try:
+        return _vrs_mod().maybe_start(force=bool((payload or {}).get("force")))
+    except Exception as exc:                       # noqa: BLE001
+        return {"ok": False, "running": False,
+                "error": "VRS 同步不可用：%s: %s" % (type(exc).__name__, exc)}
 
 
 def _demo_stage():
@@ -1041,7 +1127,10 @@ class Handler(BaseHTTPRequestHandler):
                                         "endpoints": ["/api/status", "/api/teams", "/api/demo",
                                                       "/api/fixtures", "/api/fixture",
                                                       "/api/pickem", "/api/predict",
-                                                      "/api/score", "/api/calibrate"]})
+                                                      "/api/score", "/api/calibrate",
+                                                      "/api/vrs/status", "/api/vrs/refresh"]})
+            if path == "/api/vrs/status":
+                return self._json(200, _vrs_status())
             if path == "/api/fixtures":
                 return self._json(200, _fixtures())
             if path == "/api/teams":
@@ -1069,7 +1158,8 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError as exc:
             return self._err(400, exc)
         handlers = {"/api/predict": do_predict, "/api/pickem": do_pickem,
-                    "/api/score": do_score, "/api/calibrate": do_calibrate}
+                    "/api/score": do_score, "/api/calibrate": do_calibrate,
+                    "/api/vrs/refresh": _vrs_refresh}
         if path not in handlers:
             return self._err(404, "没有这个端点：%s" % path)
         try:
@@ -1125,6 +1215,8 @@ def _selftest():
     import urllib.request
 
     ok = 0
+    old_disable = os.environ.get("VRS_SYNC_DISABLE")
+    os.environ["VRS_SYNC_DISABLE"] = "1"      # 自检不抓网络
 
     def chk(cond, msg):
         nonlocal ok
@@ -1163,6 +1255,21 @@ def _selftest():
             "GET / 应返回页面")
         st, body = get("/api/status")
         chk(st == 200 and json.loads(body)["ready"] is True, "/api/status ready=true")
+        st, body = get("/api/vrs/status")
+        vj = json.loads(body)
+        chk(st == 200 and vj.get("ok") is True and vj.get("target")
+            and vj.get("latest") and vj.get("library_asof"),
+            "GET /api/vrs/status 给出目标日 / 最新快照 / 强度库日期")
+        chk("08:00" in (vj.get("target_rule") or ""),
+            "VRS 状态说明北京时间 08:00 日期规则")
+        st, vj = jpost("/api/vrs/refresh", {})
+        chk(st == 200 and vj.get("started") is False and vj.get("reason") == "disabled",
+            "POST /api/vrs/refresh 在自检环境不抓网络")
+        st, body = get("/api/vrs/refresh")
+        chk(st == 405 and "只接受 POST" in body, "GET /api/vrs/refresh → 405")
+        st, html = get("/")
+        chk('id="vrsp"' in html and "function vrsKick" in html,
+            "页面带 VRS 状态与刷新触发")
         st, body = get("/api/fixtures")
         fx = json.loads(body)
         chk(st == 200 and {"budapest2025s1_elo", "budapest2025s1_uncertain",
@@ -1382,6 +1489,10 @@ def _selftest():
     finally:
         httpd.shutdown()
         httpd.server_close()
+        if old_disable is None:
+            os.environ.pop("VRS_SYNC_DISABLE", None)
+        else:
+            os.environ["VRS_SYNC_DISABLE"] = old_disable
 
     print("PREDICT_GUI_SELFTEST_OK (%d checks)" % ok)
     return 0

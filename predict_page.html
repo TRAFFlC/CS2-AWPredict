@@ -271,6 +271,7 @@ __MODE_NAV__
       <button id="go" disabled>预测</button></div>
   </div>
   <div class="hint" id="st">正在加载模型（首次约 10 秒）…</div>
+  <div class="hint" id="vrs">VRS 排名：检查中…</div>
   <div class="hint">支持简称：mouz→MOUZ、navi→Natus Vincere、gamelegion→GamerLegion、
     nip→Ninjas in Pyjamas 等</div>
 </div>
@@ -441,12 +442,63 @@ $('btnReload').onclick=function(){
     });
   }
 };
-fetch('/api/status').then(r=>r.json()).then(j=>{
-  if(j.error){$('st').textContent='加载失败：'+j.error;return;}
-  TEAMS=j.teams;$('go').disabled=false;
+async function refreshStatus(){
+  const j=await fetch('/api/status').then(r=>r.json());
+  if(j.error){$('st').textContent='加载失败：'+j.error;return j;}
+  if(!j.ready){$('st').textContent='模型加载中…';return j;}
+  TEAMS=j.teams||[];$('go').disabled=false;
   LAST_SNAP=j.rank_snapshot;LAST_SYNC=j.rank_syncs;
   $('st').textContent=stText(j);
-}).catch(()=>{$('st').textContent='无法连接服务';});
+  return j;
+}
+
+// ---- VRS 自动抓取（2026-10-29）--------------------------------
+// 页面每次加载都问服务端「北京时间现在该抓哪一天」；需要时后台抓 HLTV，
+// 不阻塞页面。抓到新快照后重新拉 /api/status，服务端会按 mtime 指纹
+// 自动重建 rank 索引，所以这里只要把新名次显示出来。
+let VRS_LATEST=null,VRS_TIMER=null;
+function vrsText(s){
+  if(!s||s.ok===false) return 'VRS 同步不可用'+(s&&s.error?'：'+s.error:'');
+  const t=s.target||'—',l=s.latest||'—';
+  if(s.running) return `VRS ${l} · 正在检查 ${t}…`;
+  if(s.target_ready) return `VRS ${l} · 已是最新（目标 ${t}）`;
+  if(s.cooldown_s>0) return `VRS ${l} · 目标 ${t} 尚未发布，${Math.ceil(s.cooldown_s/60)} 分钟后重试`;
+  return `VRS ${l} · 目标 ${t} 待抓取`;
+}
+function vrsShow(s){
+  const el=$('vrs'); if(!el) return;
+  el.textContent=vrsText(s);
+  el.title=(s&&s.message)||'';
+  if(s&&s.last_error&&!s.running) el.title+=' ｜ 上次错误：'+s.last_error;
+}
+async function vrsPoll(){
+  clearTimeout(VRS_TIMER);
+  try{
+    const s=await fetch('/api/vrs/status').then(r=>r.json());
+    vrsShow(s);
+    if(s.running){VRS_TIMER=setTimeout(vrsPoll,1500);return;}
+    if(s.latest&&VRS_LATEST&&s.latest!==VRS_LATEST){
+      await refreshStatus();
+      $('st').textContent+=' · VRS 已更新到 '+s.latest;
+    }
+    VRS_LATEST=s.latest||VRS_LATEST;
+  }catch(e){/* 老服务没有该端点时静默 */}
+}
+async function vrsKick(){
+  try{
+    const s=await fetch('/api/vrs/status').then(r=>r.json());
+    vrsShow(s); VRS_LATEST=s.latest||null;
+    if(!s.running&&!(s.target_ready&&s.library_current)){
+      const j=await fetch('/api/vrs/refresh',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:'{}'}).then(r=>r.json());
+      if(j&&j.status) vrsShow(j.status); else vrsShow(j);
+    }
+    vrsPoll();
+  }catch(e){/* 端点不可用（老版本）时静默 */}
+}
+
+refreshStatus().catch(()=>{$('st').textContent='无法连接服务';});
+vrsKick();
 // ---- 自动同步（2026-10-19）----------------------------------
 // 服务端在每个请求前比对 rank 数据的 (mtime,size) 指纹，变了就地重建索引
 // （毫秒级，不需要重建 Predictor）。这一层只负责**把变化显示出来**，

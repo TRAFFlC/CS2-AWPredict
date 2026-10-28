@@ -113,7 +113,7 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   "asof": "2026-10-28",          // VRS 快照日
   "elo_asof": "2026-10-18",      // Elo 语料切点（不是 VRS 日）
   "elo_matches": 2923,
-  "source": "elo",
+  "source": "rank_points",
   "_provenance": "rating = 公开语料重算的 Elo；rank/points 刷新自 2026-10-28 全球 VRS 快照；VRS 概率尚未重新校准。",
   "counts": { "teams": 391, "elo": 179, "vrs": 352, "both": 152 },
   "teams": [ { "name": "Spirit", "rating": 1753.0253, "rank": 3, "points": 1899.0, "aliases": [] } ]
@@ -124,7 +124,7 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   （2025-10-14..2026-09-05）+ `data/groundtruth/new_records_*.jsonl` 123 场增量
   （2026-09-08..2026-10-18），K=24、初始 1500、按日期逐场累计；切点写在 `elo_asof`。
   斜率用公开侧 `sources.FITTED['elo']`。
-  `rank`/`points` = 2026-10-28 全球 VRS 快照；`aliases` 保留原库内容。新加入的 VRS 队伍不推造 Elo，`rating=null`。
+  `rank`/`points` = 2026-10-28 全球 VRS 快照；`aliases` 保留原库内容。新加入的 VRS 队伍不伪造 Elo，`rating=null`。
 - 当前覆盖：391 支队伍，179 支有 Elo、352 支有 VRS、152 支两者都有；**200 支只有 VRS，没有 Elo**，另有 12 支暂时两者都没有。
   在 `source=rank_points`（**默认**）下无 VRS 积分的队按 `250` 兜底并**点名告警**；在 `source=elo` 下无 Elo 的队按 `1500` 兜底并告警。
 - **默认强度源是 VRS 积分，不是 Elo。** 原因：Elo 没有赛事权重，三线队在自己的池子里刷分也能刷到一线数字。
@@ -138,7 +138,12 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   `python pickem/update_elo.py`（预览）→ `python pickem/update_elo.py --write`（写回）。
   这是**维护脚本**，会读 `data/`；页面/CLI 本身仍只查 fixture，不读 `data/`。
   强度库按 mtime 热加载；只有改 `predict_gui.py` 本身才需要重启页面进程。
-- 首次生成/换 VRS 快照仍走私有侧 `build_strength.py`（`…/015-scratch/`，自带队数对账断言）。
+- **换 VRS 快照**：`python pickem/update_vrs.py --write`（默认取 `data/vrs_rank_*.json`
+  中日期最大的一份）按 name → 别名 → 规范化匹配，更新 `rank` / `points`；新队伍
+  `rating=null`，掉榜队伍 `rank` / `points=null`，`asof` / `counts` / `_provenance` 一起重写。
+  根服务的 `vrs_sync.py` 会在页面加载时自动跑这一步；独立部署（只有 `pickem/`）时
+  需手动执行或由自己的调度器调用。
+- 首次生成强度库仍走私有侧 `build_strength.py`（`…/015-scratch/`，自带队数对账断言）。
 - `GET /api/teams` 直接返回这张表（含 `asof` / `elo_asof` / `elo_matches` / `_provenance`），
   页面用它做补全与强度标签。
 
@@ -486,8 +491,8 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
    `elo_asof` = Elo 语料切点（当前 2026-10-18，2923 场）；两者不是同一天。
    `rating` 来自只有约一年跨度的语料（同限制 1，Elo 会失真），且增量赛果不完整
    （2026-10-19..2026-10-28 缺，增量也只覆盖部分赛事）。名单越新、库越旧，「强度」就越不可信；
-   更新 Elo 用 `python pickem/update_elo.py --write`，换 VRS 快照仍需私有侧
-   `build_strength.py`。
+   更新 Elo 用 `python pickem/update_elo.py --write`；换 VRS 快照用
+   `python pickem/update_vrs.py --write`（根服务页面加载时会自动跑）。
 18. **库里两个源的覆盖不同（2026-10-28 快照）：** 391 支里 179 有 Elo / 352 有 VRS / 152 两者都有；
    **200 支只有 VRS、没有 Elo** ⇒ `source=elo` 时按 `1500` 兜底（接口在 `warnings` 里点名）。
    另有 27 支只有 Elo，及 12 支两种强度都缺；`rank_points`（默认）缺 VRS 积分时按 `250` 兜底并告警
@@ -519,7 +524,8 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
 - `fixtures/team_strength.json`（**公开强度库**）：初始由私有侧 `015-scratch/build_strength.py` 生成，
   内容 = 全语料 Elo（K=24）+ VRS 快照（rank/points）+ 队名/别名；provenance 与覆盖数写在文件内。
   维护脚本 `pickem/update_elo.py` 负责把增量公开赛果（`data/groundtruth/new_records_*.jsonl`）
-  重放进 Elo，只改 `rating` 并写 `elo_asof` / `elo_matches`；页面/CLI 仍只查表。
+  重放进 Elo，只改 `rating` 并写 `elo_asof` / `elo_matches`；`pickem/update_vrs.py`
+  用最新 VRS 快照更新 `rank` / `points`（不碰 Elo）；页面/CLI 仍只查表。
 - `fixtures/demo_stage_s1.json`（示例**队名清单**，不是 roster）：页面开机预填用；
   只回答「填哪 16 支队」，强度不在里面（查库）。
 - issue-015 全文：`issues/015-major-pickem-prediction.md`；

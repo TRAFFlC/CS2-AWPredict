@@ -47,6 +47,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.1）
 sys.path.insert(0, HERE)
 
+import vrs_sync  # noqa: E402  页面刷新时自动抓 HLTV VRS（见 vrs_sync.py）
+
 MAX_BODY = 1 << 20                 # /major/api/* 请求体上限（与 pickem 独立服务一致）
 _PICKEM = None
 _PICKEM_LOCK = threading.Lock()
@@ -697,6 +699,14 @@ class H(BaseHTTPRequestHandler):
             return self._send(200, major_page(), "text/html; charset=utf-8")
         if u.path.startswith("/major/api/"):
             return self._major_get(u.path[len("/major"):], q)
+        if u.path == "/api/vrs/status":
+            # 页面轮询：只读状态，不触发抓取
+            try:
+                return self._send(200, vrs_sync.status())
+            except Exception as e:                   # noqa: BLE001
+                return self._send(200, {"ok": False,
+                                        "error": "%s: %s" % (type(e).__name__, e),
+                                        "running": False})
         if u.path == "/api/status":
             if _STATE["error"]:
                 return self._send(200, {"error": _STATE["error"]})
@@ -764,7 +774,10 @@ class H(BaseHTTPRequestHandler):
                                   "/major/api/demo", "/major/api/fixtures",
                                   "/major/api/fixture", "/major/api/pickem",
                                   "/major/api/predict", "/major/api/score",
-                                  "/major/api/calibrate"]})
+                                  "/major/api/calibrate", "/major/api/vrs/status",
+                                  "/major/api/vrs/refresh"]})
+            if ep == "/api/vrs/status":
+                return self._send(200, mod._vrs_status())
             if ep == "/api/fixtures":
                 return self._send(200, mod._fixtures())
             if ep == "/api/teams":
@@ -804,12 +817,22 @@ class H(BaseHTTPRequestHandler):
                 pass
 
     def _route_post(self, path, payload):
+        if path == "/api/vrs/refresh":
+            # 页面加载时触发；maybe_start 立即返回，抓取在后台线程里跑
+            try:
+                return self._send(200, vrs_sync.maybe_start(
+                    force=bool(payload.get("force"))))
+            except Exception as e:                   # noqa: BLE001
+                return self._send(200, {"ok": False,
+                                        "error": "%s: %s" % (type(e).__name__, e),
+                                        "running": False})
         if not path.startswith("/major/api/"):
             return self._send(404, {"error": "not found"})
         ep = path[len("/major"):]
         mod = pickem_gui()
         handlers = {"/api/predict": mod.do_predict, "/api/pickem": mod.do_pickem,
-                    "/api/score": mod.do_score, "/api/calibrate": mod.do_calibrate}
+                    "/api/score": mod.do_score, "/api/calibrate": mod.do_calibrate,
+                    "/api/vrs/refresh": mod._vrs_refresh}
         fn = handlers.get(ep)
         if fn is None:
             return self._send(404, {"error": "没有这个端点：%s" % path})

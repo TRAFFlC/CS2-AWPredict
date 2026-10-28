@@ -64,6 +64,29 @@ Start-ScheduledTask -TaskName "CS2-AWPredict-update-vrs"   # 立即跑一次
 > 该副本只有旧快照，导致「更新 rank 后一重启就回到旧榜」。旧副本的启动器
 > 现已改为跳转本仓库；重建计划任务时不要指回它。
 
+### 页面刷新即自动更新
+
+打开 `/` 或 `/major` 时，页面会问服务端「现在该抓哪一天」，需要时在**后台线程**
+里跑一次抓取，不阻塞页面。抓到新快照后：
+
+* `/` 直接读 `data/vrs_rank_<日期>.json`，服务端按 mtime 指纹热重载 rank 索引；
+* `/major` 的强度库 `pickem/fixtures/team_strength.json` 由 `pickem/update_vrs.py`
+  同步 `rank` / `points`，页面按 mtime 热加载。**两个页面因此不会各说各话。**
+
+日期按**北京时间**切分：**08:00 之前抓前一天，08:00 起抓当天**——HLTV 的榜单在
+北京时间凌晨通常还停在前一日，直接抓「今天」会拿到空页。目标快照已存在且强度库
+已同步时不发网络请求；失败或尚未发布后冷却 15 分钟，避免每次刷新都打 HLTV。
+
+```bash
+python -X utf8 vrs_sync.py status          # 目标日 / 最新快照 / 强度库是否同步
+python -X utf8 vrs_sync.py refresh         # 需要时抓取并同步（--force 忽略冷却）
+python -X utf8 vrs_sync.py selftest        # 不联网自检日期规则
+python -X utf8 pickem/update_vrs.py        # 只用现有快照刷新强度库（预览）
+```
+
+接口：`GET /api/vrs/status`、`POST /api/vrs/refresh`；`/major` 侧对应
+`/major/api/vrs/*`。自检或离线环境可设 `VRS_SYNC_DISABLE=1` 禁止真实抓取。
+
 ---
 
 ## v1.1.1 变更
