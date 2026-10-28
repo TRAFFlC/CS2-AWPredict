@@ -267,6 +267,19 @@ def _age_seconds(now, fetched_at, mtime):
     return None
 
 
+def _cooldown_seconds(now, target_ready, last_ts, last_result):
+    """联网抓取的剩余冷却。
+
+    目标日已就绪、只是超过 1 小时未复核 → 60 分钟窗口；
+    目标日还没发布（例如 08:00 刚切到新一天）或上次失败 → 15 分钟重试。
+    """
+    if last_ts is None:
+        return 0
+    window = (REVALIDATE_S if target_ready
+              and last_result in ("ok", "not_published") else RETRY_S)
+    return max(0, int(window - (now - last_ts).total_seconds()))
+
+
 def _library_matches(lib, snap):
     """强度库是否已与快照同步。优先 content_sha，缺失时回退 asof + 队数。"""
     if not (lib and snap and snap.get("date")):
@@ -303,10 +316,7 @@ def status():
         last_ts = _parse_ts(state.get("last_fetch_at") or state.get("last_attempt"))
         last_result = str(state.get("last_fetch_result")
                           or state.get("last_result") or "")
-        if last_ts is not None:
-            window = (REVALIDATE_S if last_result in ("ok", "not_published")
-                      else RETRY_S)
-            cooldown = max(0, int(window - (now - last_ts).total_seconds()))
+        cooldown = _cooldown_seconds(now, target_ready, last_ts, last_result)
 
     if running:
         message = "正在检查 VRS %s…" % target.isoformat()
@@ -561,6 +571,18 @@ def _selftest():
     parsed = _parse_change('noise\nVRS_CHANGE {"revision": 2, "changed": 3}\n')
     chk(parsed and parsed.get("revision") == 2 and parsed.get("changed") == 3,
         "能解析 fetch_vrs 的 VRS_CHANGE 行")
+
+    fixed_now = datetime.datetime(2026, 10, 29, 12, 0, tzinfo=BJ)
+    five_min = fixed_now - datetime.timedelta(minutes=5)
+    chk(_cooldown_seconds(fixed_now, True, five_min, "ok") > 3000,
+        "目标日已就绪 → 60 分钟复核窗口")
+    chk(_cooldown_seconds(fixed_now, False, five_min, "ok") <= RETRY_S,
+        "目标日未发布 → 15 分钟重试窗口")
+    chk(_cooldown_seconds(fixed_now, True,
+                          fixed_now - datetime.timedelta(minutes=61), "ok") == 0,
+        "超过 60 分钟 → 冷却归零")
+    chk(_cooldown_seconds(fixed_now, True, five_min, "fetch_error") <= RETRY_S,
+        "上次失败 → 15 分钟重试窗口")
 
     old = os.environ.get("VRS_SYNC_DISABLE")
     os.environ["VRS_SYNC_DISABLE"] = "1"
