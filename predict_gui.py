@@ -5,11 +5,13 @@
 但单次预测只要 **0.01 秒**。每次对话里手填参数跑脚本，等于每次都付那 9.5 秒。
 本工具在后台线程里初始化一次，之后常驻复用。
 
-零依赖：只用标准库 `http.server`（flask/fastapi 虽然装了，但不想给使用添加装依赖）。
+零依赖：分数预测只用标准库 `http.server`（flask/fastapi 虽然装了，但不想给使用添加装依赖）。
+同一服务还提供 `/major`：懒加载 `pickem/`，复用它的页面与 API（该工具需要 numpy）。
 
 启动：
     python -X utf8 predict_gui.py            # 默认 http://127.0.0.1:8765
     python -X utf8 predict_gui.py --port 9000 --open
+    # / 分数预测；/major Major 竞猜十格
 
 界面要点（都是这几轮实测逼出来的，务必保留）：
   * **胜方取 rank 热门**（不是模型 argmax）：2026-10-13 复测——112 场时间前进式
@@ -28,6 +30,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import glob
+import importlib.util
 import io
 import json
 import os
@@ -43,6 +46,61 @@ from urllib.parse import parse_qs, urlparse
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data")  # # 仓库布局：数据与代码分目录（Alpha 1.1.1）
 sys.path.insert(0, HERE)
+
+MAX_BODY = 1 << 20                 # /major/api/* 请求体上限（与 pickem 独立服务一致）
+_PICKEM = None
+_PICKEM_LOCK = threading.Lock()
+
+
+def pickem_gui():
+    """懒加载 pickem/predict_gui.py，复用它的页面与 API 处理函数。
+
+    pickem 是**可独立运行/可整体搬运**的工具：这里不复制、不改写它的逻辑，
+    只在第一次访问 /major 时按文件路径加载，并用别名避免与根目录同名模块冲突。
+    """
+    global _PICKEM
+    if _PICKEM is not None:
+        return _PICKEM
+    with _PICKEM_LOCK:
+        if _PICKEM is not None:
+            return _PICKEM
+        pdir = os.path.join(HERE, "pickem")
+        path = os.path.join(pdir, "predict_gui.py")
+        if not os.path.exists(path):
+            raise RuntimeError("未找到 pickem/predict_gui.py（Major 入口不可用）")
+        if pdir not in sys.path:
+            sys.path.insert(0, pdir)
+        spec = importlib.util.spec_from_file_location("cs2_pickem_gui", path)
+        if spec is None or spec.loader is None:
+            raise RuntimeError("无法加载 pickem/predict_gui.py")
+        mod = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = mod
+        spec.loader.exec_module(mod)
+        _PICKEM = mod
+        return _PICKEM
+
+
+def mode_nav(active):
+    """两个入口共用的场景切换条；active = match | major。"""
+    def attr(key):
+        return ' class="on" aria-current="page"' if key == active else ""
+
+    return (
+        '<nav class="modes" aria-label="预测场景">'
+        '<a href="/"%s><span class="k">01</span><b>完美电竞 · 分数预测</b>'
+        '<i>赛前胜方 / 比分 / 选图 / MVP</i></a>'
+        '<a href="/major"%s><span class="k">02</span><b>Major · 竞猜十格</b>'
+        "<i>16 队瑞士轮 Pick'Em</i></a>"
+        "</nav>" % (attr("match"), attr("major"))
+    )
+
+
+def major_page():
+    """把 pickem 页面接到 /major 下：API 前缀改写成 /major/api/。"""
+    mod = pickem_gui()
+    page = mod.PAGE.replace("__VERSION__", mod.VERSION)
+    page = page.replace("__MODE_NAV__", mode_nav("major"))
+    return page.replace('"/api/', '"/major/api/')
 
 # ---- rank 快照陈旧度阈值（实测标定，见下方注释）----
 # 2026-10-13 实测：csapi 09-05 快照 与 HLTV 10-05 排名相比，
@@ -358,14 +416,30 @@ def predict(pr, a, b, bo):
 HTML = r"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CS2 预测器</title>
+<title>完美电竞 · 分数预测</title>
 <style>
 :root{--bg:#0f1115;--card:#171a21;--line:#262b36;--fg:#e6e9ef;--dim:#9aa3b2;
---acc:#4da3ff;--ok:#3ecf8e;--warn:#ffb020;--bad:#ff5c5c}
+--line-2:#28303d;--fg-2:#aeb7c5;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
+--acc:#00e58a;--acc-2:#7dffc4;--acc-line:rgba(0,229,138,.42);
+--ok:#3ecf8e;--warn:#ffb020;--bad:#ff5c5c}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);
 font:14px/1.6 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
 .wrap{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+/* —— 场景切换：同一服务的两个入口 —— */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.modes a{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+column-gap:11px;row-gap:1px;align-items:center;padding:10px 13px;
+border:1px solid var(--line);border-radius:8px;background:rgba(10,12,16,.66);
+color:var(--fg-2);text-decoration:none;transition:border-color .14s,background .14s}
+.modes a .k{grid-row:1 / 3;font:700 17px/1 var(--mono);color:var(--line-2)}
+.modes a b{font-size:13px;color:var(--fg);font-weight:600}
+.modes a i{font-style:normal;font-size:11px;color:var(--dim)}
+.modes a:hover{border-color:var(--acc-line);background:rgba(0,229,138,.06)}
+.modes a.on{border-color:var(--acc-line);background:rgba(0,229,138,.08);
+box-shadow:inset 3px 0 0 var(--acc)}
+.modes a.on .k{color:var(--acc)}
+@media(max-width:640px){.modes{grid-template-columns:1fr}}
 h1{font-size:19px;margin:0 0 4px}
 .sub{color:var(--dim);font-size:12px;margin-bottom:18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
@@ -416,8 +490,9 @@ cursor:pointer}
 .err{color:var(--bad)}
 .hint{color:var(--dim);font-size:12px;margin-top:6px}
 </style></head><body><div class="wrap">
-<h1>CS2 预测器</h1>
-<div class="sub">胜方取 rank 热门（模型 argmax 实测不优于它）· MVP 按数据丰度标定 · bo1 不计比分</div>
+__MODE_NAV__
+<h1>完美电竞 · 分数预测</h1>
+<div class="sub">赛前胜方 / 比分 / 选图 / MVP · 胜方取 rank 热门（模型 argmax 实测不优于它）· MVP 按数据丰度标定 · BO1 不计比分</div>
 
 <div class="card">
   <div class="row">
@@ -610,12 +685,18 @@ class H(BaseHTTPRequestHandler):
             _page = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  "predict_page.html")
             if os.path.exists(_page):
-                return self._send(200, io.open(_page, encoding="utf-8").read(),
+                return self._send(200, io.open(_page, encoding="utf-8").read()
+                                  .replace("__MODE_NAV__", mode_nav("match")),
                                   "text/html; charset=utf-8")
-            return self._send(200, HTML, "text/html; charset=utf-8")
+            return self._send(200, HTML.replace("__MODE_NAV__", mode_nav("match")),
+                              "text/html; charset=utf-8")
         if u.path == "/favicon.ico":
             # 浏览器每次都会自动要它；给个空 200，省掉控制台 404 噪音
             return self._send(200, b"", "image/x-icon")
+        if u.path in ("/major", "/major/"):
+            return self._send(200, major_page(), "text/html; charset=utf-8")
+        if u.path.startswith("/major/api/"):
+            return self._major_get(u.path[len("/major"):], q)
         if u.path == "/api/status":
             if _STATE["error"]:
                 return self._send(200, {"error": _STATE["error"]})
@@ -669,6 +750,102 @@ class H(BaseHTTPRequestHandler):
             except Exception as e:                       # noqa: BLE001
                 return self._send(400, {"error": str(e)})
         self._send(404, {"error": "not found"})
+
+    def _major_get(self, ep, q):
+        """/major/api/* 的 GET 面：直接复用 pickem 的只读函数。"""
+        try:
+            mod = pickem_gui()
+            if ep == "/api/status":
+                return self._send(200, {
+                    "ready": True, "version": mod.VERSION, "mode": "major",
+                    "port": self.server.server_address[1],
+                    "fixtures": sorted(mod._fixtures()),
+                    "endpoints": ["/major/api/status", "/major/api/teams",
+                                  "/major/api/demo", "/major/api/fixtures",
+                                  "/major/api/fixture", "/major/api/pickem",
+                                  "/major/api/predict", "/major/api/score",
+                                  "/major/api/calibrate"]})
+            if ep == "/api/fixtures":
+                return self._send(200, mod._fixtures())
+            if ep == "/api/teams":
+                return self._send(200, mod._teams_payload())
+            if ep == "/api/demo":
+                return self._send(200, mod._demo_stage())
+            if ep == "/api/fixture":
+                name = (q.get("name") or [""])[0]
+                return self._send(200, {"name": name,
+                                        "text": mod._fixture_text(name)})
+            if ep in mod.POST_ENDPOINTS:
+                return self._send(405, {"error": "该端点只接受 POST：%s" % ep})
+            return self._send(404, {"error": "没有这个路径：/major%s" % ep})
+        except ValueError as e:
+            return self._send(400, {"error": str(e)})
+        except Exception as e:                           # noqa: BLE001
+            return self._send(500, {"error": "服务端异常：%s: %s"
+                                             % (type(e).__name__, e)})
+
+    def do_POST(self):
+        try:
+            payload = self._payload()
+        except OverflowError as e:
+            return self._send(413, {"error": str(e)})
+        except ValueError as e:
+            return self._send(400, {"error": str(e)})
+        u = urlparse(self.path)
+        try:
+            self._route_post(u.path, payload)
+        except Exception as e:                           # noqa: BLE001
+            sys.stderr.write("[predict_gui] POST %s: %s: %s\n"
+                             % (u.path, type(e).__name__, e))
+            sys.stderr.flush()
+            try:
+                self._send(500, {"error": "%s: %s" % (type(e).__name__, e)})
+            except Exception:                            # noqa: BLE001
+                pass
+
+    def _route_post(self, path, payload):
+        if not path.startswith("/major/api/"):
+            return self._send(404, {"error": "not found"})
+        ep = path[len("/major"):]
+        mod = pickem_gui()
+        handlers = {"/api/predict": mod.do_predict, "/api/pickem": mod.do_pickem,
+                    "/api/score": mod.do_score, "/api/calibrate": mod.do_calibrate}
+        fn = handlers.get(ep)
+        if fn is None:
+            return self._send(404, {"error": "没有这个端点：%s" % path})
+        try:
+            return self._send(200, fn(payload))
+        except ValueError as e:
+            return self._send(400, {"error": str(e)})
+        except Exception as e:                           # noqa: BLE001
+            return self._send(500, {"error": "服务端异常：%s: %s"
+                                             % (type(e).__name__, e)})
+
+    def _drain(self, n):
+        """请求体超限时先读完再回错，避免客户端还在发送就被断开。"""
+        left = n
+        try:
+            while left > 0:
+                chunk = self.rfile.read(min(65536, left))
+                if not chunk:
+                    break
+                left -= len(chunk)
+        except OSError:
+            pass
+
+    def _payload(self):
+        n = int(self.headers.get("Content-Length") or 0)
+        if n > MAX_BODY:
+            self._drain(n)
+            raise OverflowError("请求体过大（%d > %d 字节）" % (n, MAX_BODY))
+        raw = self.rfile.read(n) if n else b"{}"
+        try:
+            doc = json.loads(raw.decode("utf-8") or "{}")
+        except (ValueError, UnicodeDecodeError) as e:
+            raise ValueError("请求体不是合法 JSON：%s" % e)
+        if not isinstance(doc, dict):
+            raise ValueError("请求体应为 JSON 对象")
+        return doc
 
 
 class Server(ThreadingHTTPServer):

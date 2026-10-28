@@ -21,10 +21,13 @@ python -X utf8 predict.py G2 FURIA 3
 
 # Web 界面（推荐：选队 + 点预测）
 python -X utf8 predict_gui.py --open      # → http://127.0.0.1:8765/
+#   同一服务的两个入口：
+#   /       完美电竞分数预测（胜方 / 比分 / 选图 / MVP）
+#   /major  Major 竞猜十格（复用 pickem/，需要 numpy）
 ```
 
-无第三方依赖，Python ≥ 3.10 即可（前端为原生 HTML/JS）。仅每日自动抓取 VRS
-需要可选的 Playwright 与系统 Chrome。
+分数预测无第三方依赖，Python ≥ 3.10 即可（前端为原生 HTML/JS）；`/major` 复用
+`pickem/`，需要 `numpy`。仅每日自动抓取 VRS 需要可选的 Playwright 与系统 Chrome。
 
 ### 每日自动更新 VRS 排名
 
@@ -389,8 +392,9 @@ predict.py            预测主入口（CLI / 库）
 decide.py             四项评分决策：期望分、最优计划
 model_v2.py           特征与选图模型
 veto_model.py         ban/pick 顺序解码
-predict_gui.py        Web 服务（仅标准库）
-predict_page.html     前端页面
+predict_gui.py        Web 服务（标准库；/major 懒加载 pickem，需 numpy）
+predict_page.html     前端页面（完美电竞分数预测）
+pickem/               Major 竞猜十格工具（可独立运行；fixtures 为公开强度库/示例）
 scorer.py             官方四项计分器
 state_snapshot.py     增量状态引擎
 ingest_new.py         增量摄入（加新赛果）

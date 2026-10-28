@@ -1,0 +1,22 @@
+{
+ "_role": "示例阶段**队名清单**：只回答「填哪 16 支队」，强度不在这里（由 team_strength.json 现查）。来源 = issue-015 §5.1 的 Budapest Major 2025 Stage 1 真实名单与种子顺序。",
+ "stage": "StarLadder Budapest Major 2025 Stage 1",
+ "teams": [
+  "FaZe",
+  "Legacy",
+  "GamerLegion",
+  "B8",
+  "fnatic",
+  "Ninjas in Pyjamas",
+  "PARIVISION",
+  "Imperial",
+  "Lynn Vision",
+  "FlyQuest",
+  "Fluxo",
+  "M80",
+  "RED Canids",
+  "NRG",
+  "The Huns",
+  "Rare Atom"
+ ]
+}

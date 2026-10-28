@@ -1,0 +1,93 @@
+{
+  "stage": "StarLadder Budapest Major 2025 Stage 1",
+  "date": "2025-11-24",
+  "source": "elo",
+  "_role": "示例 roster，同时是 issue-015 §5.1「赛前 Elo」那一行的复现输入（复现命令见 README）。",
+  "_provenance": "seed = 回测重建种子（015-scratch/backtest.reconstruct_seeds：由 R1 配对 + 赛前排名还原）；rating = 赛前 Elo（K=24，切点 2025-11-24，exclude 本赛事），**全精度**（四舍五入会让模拟 RNG 流偏移、复现失败）；slopes = 该切点样本拟合值。",
+  "slopes": {
+    "bo1": 4.8824186038268635,
+    "bo3": 4.094322634725966
+  },
+  "teams": [
+    {
+      "name": "FaZe",
+      "seed": 1,
+      "rating": 1485.6957721455005
+    },
+    {
+      "name": "Legacy",
+      "seed": 2,
+      "rating": 1523.9391863680248
+    },
+    {
+      "name": "GamerLegion",
+      "seed": 3,
+      "rating": 1510.9920519423665
+    },
+    {
+      "name": "B8",
+      "seed": 4,
+      "rating": 1501.6326159297648
+    },
+    {
+      "name": "fnatic",
+      "seed": 5,
+      "rating": 1465.2747221718816
+    },
+    {
+      "name": "Ninjas in Pyjamas",
+      "seed": 6,
+      "rating": 1487.960056338761
+    },
+    {
+      "name": "PARIVISION",
+      "seed": 7,
+      "rating": 1524.288913640506
+    },
+    {
+      "name": "Imperial",
+      "seed": 8,
+      "rating": 1501.4799056353647
+    },
+    {
+      "name": "Lynn Vision",
+      "seed": 9,
+      "rating": 1527.745529564371
+    },
+    {
+      "name": "FlyQuest",
+      "seed": 10,
+      "rating": 1489.1104675342824
+    },
+    {
+      "name": "Fluxo",
+      "seed": 11,
+      "rating": 1527.526536032089
+    },
+    {
+      "name": "M80",
+      "seed": 12,
+      "rating": 1536.371710590593
+    },
+    {
+      "name": "RED Canids",
+      "seed": 13,
+      "rating": 1477.497925308082
+    },
+    {
+      "name": "NRG",
+      "seed": 14,
+      "rating": 1549.0814621180032
+    },
+    {
+      "name": "The Huns",
+      "seed": 15,
+      "rating": 1499.5999923740492
+    },
+    {
+      "name": "Rare Atom",
+      "seed": 16,
+      "rating": 1488.6320647929185
+    }
+  ]
+}

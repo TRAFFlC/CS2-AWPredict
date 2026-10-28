@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CS2 预测器</title>
+<title>完美电竞 · 分数预测</title>
 <style>
 /* ============================================================
    CS2 预测器 · 视觉重设计（Redesign Only）
@@ -52,13 +52,30 @@ body::after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;
 
 .wrap{position:relative;z-index:4;max-width:920px;margin:0 auto;padding:26px 18px 70px}
 
+/* —— 场景切换：同一服务的两个入口 —— */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.modes a{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+  column-gap:11px;row-gap:1px;align-items:center;padding:10px 13px;
+  border:1px solid var(--line);border-radius:8px;background:rgba(10,12,16,.66);
+  color:var(--fg-2);text-decoration:none;
+  transition:border-color .14s,background .14s,box-shadow .14s}
+.modes a .k{grid-row:1 / 3;font:700 17px/1 var(--mono);color:var(--line-2);
+  letter-spacing:.04em}
+.modes a b{font-size:13px;color:var(--fg);font-weight:600;letter-spacing:.02em}
+.modes a i{font-style:normal;font-size:11px;color:var(--dim)}
+.modes a:hover{border-color:var(--acc-line);background:rgba(0,229,138,.06)}
+.modes a.on{border-color:var(--acc-line);background:rgba(0,229,138,.08);
+  box-shadow:inset 3px 0 0 var(--acc)}
+.modes a.on .k{color:var(--acc)}
+@media(max-width:640px){.modes{grid-template-columns:1fr}}
+
 /* —— 页头 —— */
 .masthead{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
 /* ⚠ 加了刷新按钮后，masthead 里的文本容器必须显式 flex:1 + min-width:0。
    否则 flex 会把 h1/.sub 压到按钮的剩余宽度里，长句被逐字折断成竖排。 */
 .masthead > div{flex:1 1 260px;min-width:0}
 /* 刷新模型按钮：margin-left:auto 顶到最右；窄屏时 flex-wrap 让它独占一行 */
-.reload{margin-left:auto;flex:0 0 auto;font:inherit;font-size:12px;letter-spacing:.02em;
+.reload{margin-left:auto;flex:0 0 auto;width:auto;font:inherit;font-size:12px;letter-spacing:.02em;
   color:var(--dim);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
   border-radius:8px;padding:7px 13px;cursor:pointer;transition:.15s;white-space:nowrap}
 .reload:hover:not(:disabled){color:var(--ink);background:rgba(255,255,255,.12);
@@ -227,11 +244,12 @@ padding-left:6px}
 <div class="pxmask" aria-hidden="true"></div>
 
 <div class="wrap">
+__MODE_NAV__
 <div class="masthead">
   <span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
   <div>
-<h1>CS2 预测器</h1>
-<div class="sub">胜方取 rank 热门（模型 argmax 实测不优于它）· MVP 按数据丰度标定 · bo1 不计比分</div>
+<h1>完美电竞 · 分数预测</h1>
+<div class="sub">赛前胜方 / 比分 / 选图 / MVP · 胜方取 rank 热门（模型 argmax 实测不优于它）· MVP 按数据丰度标定 · BO1 不计比分</div>
   </div>
   <button id="btnReload" class="reload" title="重新读取 state_2026-10.pkl 与 rank 索引">刷新模型</button>
 </div>

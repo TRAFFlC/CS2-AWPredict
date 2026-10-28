@@ -1,0 +1,141 @@
+{
+  "stage": "StarLadder Budapest Major 2025 Stage 1",
+  "date": "2025-11-24",
+  "source": "elo",
+  "_role": "σ 不确定性传播演示 roster（--uncertain 臂）。rating/seed/slopes 与 budapest2025s1_elo.json 逐字节同值 ⇒ 不带 --uncertain 时两文件结果一致。",
+  "_provenance": "strength/seed 同 budapest2025s1_elo.json（赛前 Elo K=24、全精度）；exposure = 赛前（严格早于 2025-11-24、排除本赛事）与 rank<=30 队交手场数；games = 赛前总场数；rank = 赛前最近一次 csapi rank。三者烘焙自 014-scratch/csapi_matches_all.jsonl（issue-015 §5.5 口径，与 uncertain_sim.py 同式）；锚点核对：PARIVISION E=0/rank17、Lynn Vision E=2/rank41 与 issue 公布值一致。",
+  "slopes": {
+    "bo1": 4.8824186038268635,
+    "bo3": 4.094322634725966
+  },
+  "teams": [
+    {
+      "name": "FaZe",
+      "seed": 1,
+      "rating": 1485.6957721455005,
+      "exposure": 4,
+      "games": 5,
+      "rank": 10
+    },
+    {
+      "name": "Legacy",
+      "seed": 2,
+      "rating": 1523.9391863680248,
+      "exposure": 7,
+      "games": 10,
+      "rank": 6
+    },
+    {
+      "name": "GamerLegion",
+      "seed": 3,
+      "rating": 1510.9920519423665,
+      "exposure": 2,
+      "games": 5,
+      "rank": 28
+    },
+    {
+      "name": "B8",
+      "seed": 4,
+      "rating": 1501.6326159297648,
+      "exposure": 4,
+      "games": 6,
+      "rank": 13
+    },
+    {
+      "name": "fnatic",
+      "seed": 5,
+      "rating": 1465.2747221718816,
+      "exposure": 5,
+      "games": 7,
+      "rank": 32
+    },
+    {
+      "name": "Ninjas in Pyjamas",
+      "seed": 6,
+      "rating": 1487.960056338761,
+      "exposure": 1,
+      "games": 1,
+      "rank": 27
+    },
+    {
+      "name": "PARIVISION",
+      "seed": 7,
+      "rating": 1524.288913640506,
+      "exposure": 0,
+      "games": 2,
+      "rank": 17
+    },
+    {
+      "name": "Imperial",
+      "seed": 8,
+      "rating": 1501.4799056353647,
+      "exposure": 2,
+      "games": 6,
+      "rank": 61
+    },
+    {
+      "name": "Lynn Vision",
+      "seed": 9,
+      "rating": 1527.745529564371,
+      "exposure": 2,
+      "games": 8,
+      "rank": 41
+    },
+    {
+      "name": "FlyQuest",
+      "seed": 10,
+      "rating": 1489.1104675342824,
+      "exposure": 3,
+      "games": 5,
+      "rank": 52
+    },
+    {
+      "name": "Fluxo",
+      "seed": 11,
+      "rating": 1527.526536032089,
+      "exposure": 1,
+      "games": 4,
+      "rank": 71
+    },
+    {
+      "name": "M80",
+      "seed": 12,
+      "rating": 1536.371710590593,
+      "exposure": 1,
+      "games": 5,
+      "rank": 40
+    },
+    {
+      "name": "RED Canids",
+      "seed": 13,
+      "rating": 1477.497925308082,
+      "exposure": 0,
+      "games": 6,
+      "rank": 176
+    },
+    {
+      "name": "NRG",
+      "seed": 14,
+      "rating": 1549.0814621180032,
+      "exposure": 0,
+      "games": 4,
+      "rank": 50
+    },
+    {
+      "name": "The Huns",
+      "seed": 15,
+      "rating": 1499.5999923740492,
+      "exposure": 0,
+      "games": 2,
+      "rank": 160
+    },
+    {
+      "name": "Rare Atom",
+      "seed": 16,
+      "rating": 1488.6320647929185,
+      "exposure": 0,
+      "games": 5,
+      "rank": 142
+    }
+  ]
+}

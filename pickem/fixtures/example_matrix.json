@@ -1,0 +1,225 @@
+{
+ "stage": "StarLadder Budapest Major 2025 Stage 1（matrix 源示例）",
+ "source": "matrix",
+ "alpha_bo1": 0.75,
+ "_note": "由 fixtures/budapest2025s1_elo.json 的赛前 Elo 按 bo3 logistic 生成的示例矩阵（三位小数）。真实使用时该矩阵应由外部模型（如 014 Predictor 的 live_sample(...)[\"pA\"]）产出——这正是 014 模型接入本工具的桥。只给上三角，反向取 1−p。",
+ "matrix": {
+  "FaZe": {
+   "Legacy": 0.447,
+   "GamerLegion": 0.465,
+   "B8": 0.478,
+   "fnatic": 0.529,
+   "Ninjas in Pyjamas": 0.497,
+   "PARIVISION": 0.446,
+   "Imperial": 0.478,
+   "Lynn Vision": 0.441,
+   "FlyQuest": 0.495,
+   "Fluxo": 0.442,
+   "M80": 0.43,
+   "RED Canids": 0.511,
+   "NRG": 0.412,
+   "The Huns": 0.481,
+   "Rare Atom": 0.496
+  },
+  "Legacy": {
+   "GamerLegion": 0.518,
+   "B8": 0.531,
+   "fnatic": 0.581,
+   "Ninjas in Pyjamas": 0.55,
+   "PARIVISION": 0.5,
+   "Imperial": 0.531,
+   "Lynn Vision": 0.495,
+   "FlyQuest": 0.549,
+   "Fluxo": 0.495,
+   "M80": 0.483,
+   "RED Canids": 0.565,
+   "NRG": 0.465,
+   "The Huns": 0.534,
+   "Rare Atom": 0.549
+  },
+  "GamerLegion": {
+   "B8": 0.513,
+   "fnatic": 0.564,
+   "Ninjas in Pyjamas": 0.532,
+   "PARIVISION": 0.481,
+   "Imperial": 0.513,
+   "Lynn Vision": 0.477,
+   "FlyQuest": 0.531,
+   "Fluxo": 0.477,
+   "M80": 0.465,
+   "RED Canids": 0.547,
+   "NRG": 0.447,
+   "The Huns": 0.516,
+   "Rare Atom": 0.531
+  },
+  "B8": {
+   "fnatic": 0.551,
+   "Ninjas in Pyjamas": 0.519,
+   "PARIVISION": 0.468,
+   "Imperial": 0.5,
+   "Lynn Vision": 0.464,
+   "FlyQuest": 0.518,
+   "Fluxo": 0.464,
+   "M80": 0.452,
+   "RED Canids": 0.534,
+   "NRG": 0.434,
+   "The Huns": 0.503,
+   "Rare Atom": 0.518
+  },
+  "fnatic": {
+   "Ninjas in Pyjamas": 0.468,
+   "PARIVISION": 0.418,
+   "Imperial": 0.449,
+   "Lynn Vision": 0.413,
+   "FlyQuest": 0.467,
+   "Fluxo": 0.414,
+   "M80": 0.402,
+   "RED Canids": 0.483,
+   "NRG": 0.385,
+   "The Huns": 0.452,
+   "Rare Atom": 0.467
+  },
+  "Ninjas in Pyjamas": {
+   "PARIVISION": 0.449,
+   "Imperial": 0.481,
+   "Lynn Vision": 0.445,
+   "FlyQuest": 0.498,
+   "Fluxo": 0.445,
+   "M80": 0.433,
+   "RED Canids": 0.515,
+   "NRG": 0.415,
+   "The Huns": 0.484,
+   "Rare Atom": 0.499
+  },
+  "PARIVISION": {
+   "Imperial": 0.532,
+   "Lynn Vision": 0.495,
+   "FlyQuest": 0.549,
+   "Fluxo": 0.495,
+   "M80": 0.483,
+   "RED Canids": 0.565,
+   "NRG": 0.465,
+   "The Huns": 0.535,
+   "Rare Atom": 0.55
+  },
+  "Imperial": {
+   "Lynn Vision": 0.463,
+   "FlyQuest": 0.517,
+   "Fluxo": 0.464,
+   "M80": 0.451,
+   "RED Canids": 0.534,
+   "NRG": 0.434,
+   "The Huns": 0.503,
+   "Rare Atom": 0.518
+  },
+  "Lynn Vision": {
+   "FlyQuest": 0.554,
+   "Fluxo": 0.5,
+   "M80": 0.488,
+   "RED Canids": 0.57,
+   "NRG": 0.47,
+   "The Huns": 0.539,
+   "Rare Atom": 0.555
+  },
+  "FlyQuest": {
+   "Fluxo": 0.446,
+   "M80": 0.434,
+   "RED Canids": 0.516,
+   "NRG": 0.417,
+   "The Huns": 0.485,
+   "Rare Atom": 0.501
+  },
+  "Fluxo": {
+   "M80": 0.488,
+   "RED Canids": 0.57,
+   "NRG": 0.47,
+   "The Huns": 0.539,
+   "Rare Atom": 0.554
+  },
+  "M80": {
+   "RED Canids": 0.582,
+   "NRG": 0.482,
+   "The Huns": 0.551,
+   "Rare Atom": 0.566
+  },
+  "RED Canids": {
+   "NRG": 0.401,
+   "The Huns": 0.469,
+   "Rare Atom": 0.484
+  },
+  "NRG": {
+   "The Huns": 0.569,
+   "Rare Atom": 0.584
+  },
+  "The Huns": {
+   "Rare Atom": 0.515
+  },
+  "Rare Atom": {}
+ },
+ "teams": [
+  {
+   "name": "FaZe",
+   "seed": 1
+  },
+  {
+   "name": "Legacy",
+   "seed": 2
+  },
+  {
+   "name": "GamerLegion",
+   "seed": 3
+  },
+  {
+   "name": "B8",
+   "seed": 4
+  },
+  {
+   "name": "fnatic",
+   "seed": 5
+  },
+  {
+   "name": "Ninjas in Pyjamas",
+   "seed": 6
+  },
+  {
+   "name": "PARIVISION",
+   "seed": 7
+  },
+  {
+   "name": "Imperial",
+   "seed": 8
+  },
+  {
+   "name": "Lynn Vision",
+   "seed": 9
+  },
+  {
+   "name": "FlyQuest",
+   "seed": 10
+  },
+  {
+   "name": "Fluxo",
+   "seed": 11
+  },
+  {
+   "name": "M80",
+   "seed": 12
+  },
+  {
+   "name": "RED Canids",
+   "seed": 13
+  },
+  {
+   "name": "NRG",
+   "seed": 14
+  },
+  {
+   "name": "The Huns",
+   "seed": 15
+  },
+  {
+   "name": "Rare Atom",
+   "seed": 16
+  }
+ ]
+}

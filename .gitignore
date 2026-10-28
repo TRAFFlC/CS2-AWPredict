@@ -23,6 +23,9 @@ predict_gui.err.log
 cache/
 csapi_cache/
 fixtures/
+# 例外：pickem 的公开 fixture 是工具本体的一部分（强度库 / 示例 roster / 真值样例）
+!pickem/fixtures/
+!pickem/fixtures/*.json
 *.html.json
 stier.html
 valvetier1.html
