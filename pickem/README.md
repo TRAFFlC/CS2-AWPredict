@@ -117,12 +117,12 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   "_provenance": "rating = 公开语料重算的 Elo；rank/points 刷新自 2026-10-28 全球 VRS 快照；VRS 概率尚未重新校准。",
   "vrs_source": {                // 用来判断「同日榜单是否被重算」
     "date": "2026-10-28",
-    "teams": 352,
-    "content_sha": "3a013e0af46c…",
-    "fetched_at": "2026-10-29T04:10:00+08:00",
+    "teams": 350,
+    "content_sha": "25f4492938ff…",
+    "fetched_at": "2026-10-29T04:04:46+08:00",
     "revision": 2
   },
-  "counts": { "teams": 391, "elo": 179, "vrs": 352, "both": 152 },
+  "counts": { "teams": 391, "elo": 179, "vrs": 350, "both": 151 },
   "teams": [ { "name": "Spirit", "rating": 1753.0253, "rank": 5, "points": 1877.0, "aliases": [] } ]
 }
 ```
@@ -138,7 +138,7 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   （2026-09-08..2026-10-18），K=24、初始 1500、按日期逐场累计；切点写在 `elo_asof`。
   斜率用公开侧 `sources.FITTED['elo']`。
   `rank`/`points` = 2026-10-28 全球 VRS 快照；`aliases` 保留原库内容。新加入的 VRS 队伍不伪造 Elo，`rating=null`。
-- 当前覆盖：391 支队伍，179 支有 Elo、352 支有 VRS、152 支两者都有；**200 支只有 VRS，没有 Elo**，另有 12 支暂时两者都没有。
+- 当前覆盖：391 支队伍，179 支有 Elo、350 支有 VRS、151 支两者都有；**199 支只有 VRS，没有 Elo**，另有 13 支暂时两者都没有。
   在 `source=rank_points`（**默认**）下无 VRS 积分的队按 `250` 兜底并**点名告警**；在 `source=elo` 下无 Elo 的队按 `1500` 兜底并告警。
 - **默认强度源是 VRS 积分，不是 Elo。** 原因：Elo 没有赛事权重，三线队在自己的池子里刷分也能刷到一线数字。
   同一批近期赛果（2026-09-20 起 83 场）上，按 VRS 积分判高下命中 **79.5%**，按 Elo 只有 **62.7%**。
@@ -509,9 +509,9 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
    （2026-10-19..2026-10-28 缺，增量也只覆盖部分赛事）。名单越新、库越旧，「强度」就越不可信；
    更新 Elo 用 `python pickem/update_elo.py --write`；换 VRS 快照用
    `python pickem/update_vrs.py --write`（根服务页面加载时会自动跑）。
-18. **库里两个源的覆盖不同（2026-10-28 快照）：** 391 支里 179 有 Elo / 352 有 VRS / 152 两者都有；
-   **200 支只有 VRS、没有 Elo** ⇒ `source=elo` 时按 `1500` 兜底（接口在 `warnings` 里点名）。
-   另有 27 支只有 Elo，及 12 支两种强度都缺；`rank_points`（默认）缺 VRS 积分时按 `250` 兜底并告警
+18. **库里两个源的覆盖不同（2026-10-28 快照）：** 391 支里 179 有 Elo / 350 有 VRS / 151 两者都有；
+   **199 支只有 VRS、没有 Elo** ⇒ `source=elo` 时按 `1500` 兜底（接口在 `warnings` 里点名）。
+   另有 28 支只有 Elo，及 13 支两种强度都缺；`rank_points`（默认）缺 VRS 积分时按 `250` 兜底并告警
    （低于榜尾 355，但不是 0 分悬崖——0 分会让胜率饱和到 1.0）。
 19. **「只填队名」这条路跑不了 σ 臂：** σ 后验需要每队的 `exposure`/`games`，强度库不含
    ⇒ 用库建的 roster + `--uncertain` 一律 **400/rc=1**（不静默降级为点估计）；要 σ 臂请手填 roster。
