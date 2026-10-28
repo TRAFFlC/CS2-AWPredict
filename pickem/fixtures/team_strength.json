@@ -1,8 +1,10 @@
 {
  "asof": "2026-10-28",
+ "elo_asof": "2026-10-18",
+ "elo_matches": 2923,
  "source": "elo",
- "_role": "公开强度库：队名查找与两种强度来源。rating 保留现有 Elo；rank/points 来自最新 VRS 快照。公开侧只查表，不读 data/。",
- "_provenance": "rating 保留原公开库中的全语料 Elo（K=24；语料 2800 场，切点为语料末尾；不因 VRS 刷新而重估）。rank/points 全量刷新自 GPT-6 Luna 私有工作区的 vrs_rank_2026-10-28.json（Valve Regional Standings，世界榜，asof 2026-10-28）。新 VRS 队伍不推造 Elo，rating=null；在 source=elo 下按既有规则回退 1500 并告警。未出现在当前 VRS 快照中的队伍保留原记录及 Elo/aliases，但 rank/points=null。rank_points 胜率斜率沿用既有历史拟合值；尚未针对本次 VRS 快照重新校准。aliases 保留原库值；新队伍暂无附加别名。原 provenance: 生成脚本 data/Deepseek/Deepseek-V4.1 Flash/2026-10-07/015-scratch/build_strength.py（私有侧；生成时间 2026-10-15T23:10Z）。rating = 全语料 Elo（语料 2800 场，K=24，切点 语料末尾，无排除赛事），斜率用公开侧 sources.FITTED['elo']；rank/points = VRS 世界排名快照 2026-10-13；name 优先取 VRS 显示名，aliases = 语料内其它显示拼法 + 归一化短名 + 人工整理的常见简写（只影响按名查表）。Elo 与 VRS 覆盖不同：有 rating 无 points 的队只有语料内的 Elo；有 points 无 rating 的队**没有** Elo（公开侧按 1500 兜底并告警）。",
+ "_role": "公开强度库：队名查找与两种强度来源。rating = 公开语料重算的 Elo（截至 2026-10-18）；rank/points 来自 VRS 快照（2026-10-28）。公开侧只查表，不读 data/。",
+ "_provenance": "rating = 公开语料重算的 Elo：data/csapi_matches_all.jsonl 2800 场（2025-10-14..2026-09-05）+ data/groundtruth/new_records_*.jsonl 123 场增量（2026-09-08..2026-10-18），K=24、初始 1500、按日期逐场累计；语料切点 2026-10-18（见 elo_asof）。VRS rank/points 仍为 2026-10-28 快照，未重估；Elo 切点 2026-10-18 早于 VRS 快照 2026-10-28，二者之间的赛果未覆盖；增量语料不是完整赛程，Elo 仍可能滞后。rank_points 胜率斜率沿用既有历史拟合值，尚未针对本次 VRS 快照重新校准。aliases 保留原库值；未出现在语料中的队伍保留原 rating。原 provenance: rating 保留原公开库中的全语料 Elo（K=24；语料 2800 场，切点为语料末尾；不因 VRS 刷新而重估）。rank/points 全量刷新自 GPT-6 Luna 私有工作区的 vrs_rank_2026-10-28.json（Valve Regional Standings，世界榜，asof 2026-10-28）。新 VRS 队伍不推造 Elo，rating=null；在 source=elo 下按既有规则回退 1500 并告警。未出现在当前 VRS 快照中的队伍保留原记录及 Elo/aliases，但 rank/points=null。rank_points 胜率斜率沿用既有历史拟合值；尚未针对本次 VRS 快照重新校准。aliases 保留原库值；新队伍暂无附加别名。原 provenance: 生成脚本 data/Deepseek/Deepseek-V4.1 Flash/2026-10-07/015-scratch/build_strength.py（私有侧；生成时间 2026-10-15T23:10Z）。rating = 全语料 Elo（语料 2800 场，K=24，切点 语料末尾，无排除赛事），斜率用公开侧 sources.FITTED['elo']；rank/points = VRS 世界排名快照 2026-10-13；name 优先取 VRS 显示名，aliases = 语料内其它显示拼法 + 归一化短名 + 人工整理的常见简写（只影响按名查表）。Elo 与 VRS 覆盖不同：有 rating 无 points 的队只有语料内的 Elo；有 points 无 rating 的队**没有** Elo（公开侧按 1500 兜底并告警）。",
  "counts": {
   "teams": 391,
   "elo": 179,
@@ -12,28 +14,28 @@
  "teams": [
   {
    "name": "Spirit",
-   "rating": 1795.0744830290857,
+   "rating": 1753.0252874679923,
    "rank": 3,
    "points": 1899.0,
    "aliases": []
   },
   {
    "name": "Vitality",
-   "rating": 1730.3396741023766,
+   "rating": 1797.0834144879595,
    "rank": 1,
    "points": 1979.0,
    "aliases": []
   },
   {
    "name": "Falcons",
-   "rating": 1707.0508328762262,
+   "rating": 1696.3944235054246,
    "rank": 7,
    "points": 1805.0,
    "aliases": []
   },
   {
    "name": "MOUZ",
-   "rating": 1699.8716345739774,
+   "rating": 1715.6212073091099,
    "rank": 2,
    "points": 1957.0,
    "aliases": [
@@ -49,7 +51,7 @@
   },
   {
    "name": "FURIA",
-   "rating": 1648.3155165550345,
+   "rating": 1692.8231935814188,
    "rank": 5,
    "points": 1867.0,
    "aliases": []
@@ -63,21 +65,21 @@
   },
   {
    "name": "Legacy",
-   "rating": 1640.8419459843972,
+   "rating": 1634.386793628137,
    "rank": 9,
    "points": 1689.0,
    "aliases": []
   },
   {
    "name": "Alliance",
-   "rating": 1637.791985940949,
+   "rating": 1638.2805533100498,
    "rank": 46,
    "points": 1331.0,
    "aliases": []
   },
   {
    "name": "Natus Vincere",
-   "rating": 1636.4290154866687,
+   "rating": 1605.4973135756977,
    "rank": 16,
    "points": 1559.0,
    "aliases": [
@@ -87,7 +89,7 @@
   },
   {
    "name": "BETBOOM",
-   "rating": 1633.4196435614958,
+   "rating": 1647.0625948918992,
    "rank": 6,
    "points": 1813.0,
    "aliases": [
@@ -96,14 +98,14 @@
   },
   {
    "name": "G2",
-   "rating": 1627.789321836475,
+   "rating": 1619.0032878751174,
    "rank": 10,
    "points": 1639.0,
    "aliases": []
   },
   {
    "name": "9z",
-   "rating": 1607.926603828998,
+   "rating": 1580.2017986398923,
    "rank": 21,
    "points": 1519.0,
    "aliases": []
@@ -117,7 +119,7 @@
   },
   {
    "name": "BIG",
-   "rating": 1597.0837353119584,
+   "rating": 1575.2681111311676,
    "rank": 25,
    "points": 1454.0,
    "aliases": [
@@ -126,14 +128,14 @@
   },
   {
    "name": "magic",
-   "rating": 1596.820510093837,
+   "rating": 1575.3570883699683,
    "rank": 33,
    "points": 1399.0,
    "aliases": []
   },
   {
    "name": "Aurora",
-   "rating": 1595.9294826630312,
+   "rating": 1674.2434162328882,
    "rank": 4,
    "points": 1882.0,
    "aliases": []
@@ -182,7 +184,7 @@
   },
   {
    "name": "The MongolZ",
-   "rating": 1573.915574245146,
+   "rating": 1546.6231006612736,
    "rank": 11,
    "points": 1589.0,
    "aliases": [
@@ -198,28 +200,28 @@
   },
   {
    "name": "MIBR",
-   "rating": 1562.508489540548,
+   "rating": 1584.9683639807956,
    "rank": 12,
    "points": 1587.0,
    "aliases": []
   },
   {
    "name": "HEROIC",
-   "rating": 1561.1701636603857,
+   "rating": 1606.998281077912,
    "rank": 18,
    "points": 1547.0,
    "aliases": []
   },
   {
    "name": "Astralis",
-   "rating": 1558.5523104617962,
+   "rating": 1565.0518607871588,
    "rank": 13,
    "points": 1579.0,
    "aliases": []
   },
   {
    "name": "1win",
-   "rating": 1558.2404489858664,
+   "rating": 1591.2389087362033,
    "rank": 22,
    "points": 1515.0,
    "aliases": []
@@ -256,7 +258,7 @@
   },
   {
    "name": "Ninjas in Pyjamas",
-   "rating": 1542.9176052177888,
+   "rating": 1528.2344792248743,
    "rank": 15,
    "points": 1563.0,
    "aliases": [
@@ -272,7 +274,7 @@
   },
   {
    "name": "GamerLegion",
-   "rating": 1540.813475516572,
+   "rating": 1519.3384851101046,
    "rank": 45,
    "points": 1348.0,
    "aliases": [
@@ -281,7 +283,7 @@
   },
   {
    "name": "100 Thieves",
-   "rating": 1532.8894192586126,
+   "rating": 1561.0759038626784,
    "rank": 24,
    "points": 1480.0,
    "aliases": [
@@ -290,7 +292,7 @@
   },
   {
    "name": "FaZe",
-   "rating": 1530.7596263550345,
+   "rating": 1512.5291750396561,
    "rank": 17,
    "points": 1558.0,
    "aliases": []
@@ -304,7 +306,7 @@
   },
   {
    "name": "Virtus.pro",
-   "rating": 1528.9742059618814,
+   "rating": 1523.908635431235,
    "rank": 30,
    "points": 1428.0,
    "aliases": [
@@ -372,7 +374,7 @@
   },
   {
    "name": "TYLOO",
-   "rating": 1513.2466398152462,
+   "rating": 1479.4351444729566,
    "rank": 50,
    "points": 1286.0,
    "aliases": [
@@ -381,7 +383,7 @@
   },
   {
    "name": "PARIVISION",
-   "rating": 1512.9855856890886,
+   "rating": 1522.518543327409,
    "rank": 14,
    "points": 1579.0,
    "aliases": []
@@ -402,7 +404,7 @@
   },
   {
    "name": "Eternal Fire",
-   "rating": 1510.647337181324,
+   "rating": 1494.3697143818392,
    "rank": 32,
    "points": 1408.0,
    "aliases": [
@@ -411,7 +413,7 @@
   },
   {
    "name": "M80",
-   "rating": 1510.4862988807324,
+   "rating": 1520.5383008507656,
    "rank": 23,
    "points": 1491.0,
    "aliases": []
@@ -481,14 +483,14 @@
   },
   {
    "name": "FOKUS",
-   "rating": 1502.3098114253746,
+   "rating": 1491.3171135058283,
    "rank": 48,
    "points": 1303.0,
    "aliases": []
   },
   {
    "name": "JiJieHao",
-   "rating": 1501.0431521525595,
+   "rating": 1511.337639998251,
    "rank": 28,
    "points": 1437.0,
    "aliases": []
@@ -541,7 +543,7 @@
   },
   {
    "name": "Sashi",
-   "rating": 1491.0953307783095,
+   "rating": 1466.6952381892886,
    "rank": 98,
    "points": 1035.0,
    "aliases": []
@@ -667,7 +669,7 @@
   },
   {
    "name": "Betclic",
-   "rating": 1486.8911065005739,
+   "rating": 1489.9399388093257,
    "rank": 55,
    "points": 1255.0,
    "aliases": []
@@ -695,7 +697,7 @@
   },
   {
    "name": "BBL",
-   "rating": 1486.3572066633105,
+   "rating": 1490.628569272567,
    "rank": 41,
    "points": 1370.0,
    "aliases": []
@@ -723,14 +725,14 @@
   },
   {
    "name": "5star",
-   "rating": 1483.7920794276579,
+   "rating": 1497.5795130637523,
    "rank": 67,
    "points": 1178.0,
    "aliases": []
   },
   {
    "name": "ShindeN",
-   "rating": 1483.441251238771,
+   "rating": 1467.1901137510124,
    "rank": 89,
    "points": 1086.0,
    "aliases": []
@@ -830,7 +832,7 @@
   },
   {
    "name": "Sangal",
-   "rating": 1475.9273091027871,
+   "rating": 1496.3728345807954,
    "rank": 42,
    "points": 1367.0,
    "aliases": []
@@ -925,7 +927,7 @@
   },
   {
    "name": "NRG",
-   "rating": 1469.3183838042862,
+   "rating": 1472.349348464619,
    "rank": 49,
    "points": 1286.0,
    "aliases": []
@@ -955,7 +957,7 @@
   },
   {
    "name": "fnatic",
-   "rating": 1465.778529994576,
+   "rating": 1463.7636834480045,
    "rank": 27,
    "points": 1447.0,
    "aliases": []
@@ -1081,7 +1083,7 @@
   },
   {
    "name": "Johnny Speeds",
-   "rating": 1448.9078383087603,
+   "rating": 1421.9453999251314,
    "rank": 109,
    "points": 996.0,
    "aliases": []
@@ -1116,7 +1118,7 @@
   },
   {
    "name": "EAC",
-   "rating": 1442.1711886409971,
+   "rating": 1422.3559005596662,
    "rank": 116,
    "points": 962.0,
    "aliases": []
@@ -1165,7 +1167,7 @@
   },
   {
    "name": "ASTRAL",
-   "rating": 1435.100323207314,
+   "rating": 1415.3893169636872,
    "rank": 97,
    "points": 1036.0,
    "aliases": []
@@ -1288,7 +1290,7 @@
   },
   {
    "name": "Phantom",
-   "rating": 1404.0053285985075,
+   "rating": 1400.988414974805,
    "rank": 63,
    "points": 1216.0,
    "aliases": []

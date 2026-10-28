@@ -110,23 +110,33 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
 
 ```jsonc
 {
-  "asof": "2026-10-28",
+  "asof": "2026-10-28",          // VRS 快照日
+  "elo_asof": "2026-10-18",      // Elo 语料切点（不是 VRS 日）
+  "elo_matches": 2923,
   "source": "elo",
-  "_provenance": "rating 保留原 Elo；rank/points 刷新自 2026-10-28 全球 VRS 快照；VRS 概率尚未重新校准。",
+  "_provenance": "rating = 公开语料重算的 Elo；rank/points 刷新自 2026-10-28 全球 VRS 快照；VRS 概率尚未重新校准。",
   "counts": { "teams": 391, "elo": 179, "vrs": 352, "both": 152 },
-  "teams": [ { "name": "Spirit", "rating": 1795.0744, "rank": 3, "points": 1899.0, "aliases": [] } ]
+  "teams": [ { "name": "Spirit", "rating": 1753.0253, "rank": 3, "points": 1899.0, "aliases": [] } ]
 }
 ```
 
-- `rating` = 原库的全语料 Elo（K=24，切点 = 语料末尾；本次 VRS 导入没有重估 Elo），斜率用公开侧 `sources.FITTED['elo']`；
+- `rating` = **2923 场公开赛果重放的 Elo**：`data/csapi_matches_all.jsonl` 2800 场
+  （2025-10-14..2026-09-05）+ `data/groundtruth/new_records_*.jsonl` 123 场增量
+  （2026-09-08..2026-10-18），K=24、初始 1500、按日期逐场累计；切点写在 `elo_asof`。
+  斜率用公开侧 `sources.FITTED['elo']`。
   `rank`/`points` = 2026-10-28 全球 VRS 快照；`aliases` 保留原库内容。新加入的 VRS 队伍不推造 Elo，`rating=null`。
 - 当前覆盖：391 支队伍，179 支有 Elo、352 支有 VRS、152 支两者都有；**200 支只有 VRS，没有 Elo**，另有 12 支暂时两者都没有。
   在 `source=elo` 下无 Elo 的队按 `1500` 兜底并**点名告警**；在 `rank_points` 下无 VRS points 的队按 0 分兜底并告警。
-- **重要：本次只刷新 VRS 数据，没有重新拟合或校准 `rank_points` 的胜率斜率。** 新鲜排名可用于队伍信息与对照预测，不代表 VRS 胜率概率已验证。
-- 生成/重生成（**只在私有侧**，因为要语料）：
-  `python build_strength.py [--dry]`（脚本在 `…/015-scratch/build_strength.py`，自带断言：
-  队数对账、显示名不得重复）。重生成后**重启页面进程**才会生效（页面读的是启动时那一份）。
-- `GET /api/teams` 直接返回这张表（含 `asof` 与 `_provenance`），页面用它做补全与强度标签。
+- **重要：增量语料不是完整赛程。** 2026-10-19..2026-10-28 仍缺（且增量只覆盖部分赛事），所以 Elo 仍可能滞后于 VRS；
+  页面同时显示 `VRS <asof>` 与 `Elo <elo_asof>`，不要把两者当成同一天。
+  本次也没有重新拟合或校准 `rank_points` 的胜率斜率。
+- 重算 Elo（仓库根目录运行；只改 `rating`，保留 VRS 的 `rank`/`points`）：
+  `python pickem/update_elo.py`（预览）→ `python pickem/update_elo.py --write`（写回）。
+  这是**维护脚本**，会读 `data/`；页面/CLI 本身仍只查 fixture，不读 `data/`。
+  强度库按 mtime 热加载；只有改 `predict_gui.py` 本身才需要重启页面进程。
+- 首次生成/换 VRS 快照仍走私有侧 `build_strength.py`（`…/015-scratch/`，自带队数对账断言）。
+- `GET /api/teams` 直接返回这张表（含 `asof` / `elo_asof` / `elo_matches` / `_provenance`），
+  页面用它做补全与强度标签。
 
 ## roster 格式
 
@@ -293,6 +303,12 @@ python tools/pickem/calibration.py --truth t.json --report point.json --report s
 **计分**（粘真值表 → 真实命中，十格卡片按命中着绿/红）、**校准**（真值表 + 报表 → Brier/基线/分箱）。
 纯标准库 `http.server`，无依赖、无 CDN；配色与交互对齐 014（单列 900px、卡片、pill、带元信息的补全下拉）。
 
+**不用手工确认种子序**：页面上的「自动排种子」按钮会先识别「首轮对阵顺序」
+（`1v2、3v4…`，即前 8 与后 8 交错），把它转成种子序；若输入前 8 正好是 VRS 前 8
+（官方种子序可能因区域避让微调 9–16 位，例如 MIBR VRS #12 排到 14 号位），保留原顺序；
+其余情况才按 VRS 排名升序排序。强度标签写作 `Elo … · VRS #…`：`#` 是 **VRS 排名**，
+不是 Elo 排名。
+
 ```powershell
 python tools/pickem/predict_gui.py                 # 默认 http://127.0.0.1:8790
 python tools/pickem/predict_gui.py selftest        # 起服务 + 真实 HTTP 回环自证（58 项）
@@ -323,7 +339,8 @@ python tools/pickem/predict_gui.py selftest        # 起服务 + 真实 HTTP 回
 ## 端点 runbook（新加坡 Major 赛前 5 步）
 
 1. **装 roster**（`seed` 用官方公告；Stage 2/3 可按 §5.2.1 取证过的惯例推导：8 支晋级队进种子 9–16；
-   强度用排名归档或 014 Predictor 的 16×16 矩阵）。数据新鲜度是已知瓶颈：语料止 2026-09-05。
+   强度用排名归档或 014 Predictor 的 16×16 矩阵）。数据新鲜度是已知瓶颈：Elo 语料止 2026-10-18
+   （2923 场），VRS 快照 2026-10-28；不确定种子序就点页面上的「自动排种子」。
 2. **跑预测**：打开页面（已预填示例阶段）→ 把 16 个名字改成当日名单（或先「清空」）→ 点「预测十格」
    （或 `predict_stage.py --n 20000 --seed <当日> --json card.json`）；
    看十个位置、`P(≥5/6/7)`、逐队边际、三路基线，以及那句 ⚠（热门基线是否同解）。
@@ -460,8 +477,11 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
 16. **校准只校逐队边际，不校 P(≥k)**：过关概率的校准需要**多阶段**（每个阶段只有 1 个
    0/1 结果），目前只有一个可校阶段 ⇒ 不声称 P(≥5) 已校准（见 `calibration.py` 输出末两行）。
 17. **强度库是快照，不是实时：** `fixtures/team_strength.json` 的 `asof` = VRS 快照日，
-   `rating` 来自只有约一年跨度的语料（同限制 1，Elo 会失真）。名单越新、库越旧，
-   「强度」就越不可信；要更新得在私有侧重跑 `build_strength.py` 并重启页面进程。
+   `elo_asof` = Elo 语料切点（当前 2026-10-18，2923 场）；两者不是同一天。
+   `rating` 来自只有约一年跨度的语料（同限制 1，Elo 会失真），且增量赛果不完整
+   （2026-10-19..2026-10-28 缺，增量也只覆盖部分赛事）。名单越新、库越旧，「强度」就越不可信；
+   更新 Elo 用 `python pickem/update_elo.py --write`，换 VRS 快照仍需私有侧
+   `build_strength.py`。
 18. **库里两个源的覆盖不同（2026-10-28 快照）：** 391 支里 179 有 Elo / 352 有 VRS / 152 两者都有；
    **200 支只有 VRS、没有 Elo** ⇒ `source=elo` 时按 `1500` 兜底（接口在 `warnings` 里点名）。
    另有 27 支只有 Elo，及 12 支两种强度都缺；`rank_points` 缺 points 时按 0 分兜底并告警。
@@ -489,8 +509,10 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
 - `predict_stage.py` / `uncertain.py` / `selftest.py` / `fixtures/`：公共入口与自证。
   `predict_stage.build_roster` / `load_strength_library` / `resolve_team` 是 16 队名 → roster 那一步
   （纯逻辑，不读文件；库由调用方传入）⇒ CLI 与 Web（与将来的其他前端）共用同一份实现。
-- `fixtures/team_strength.json`（**公开强度库**）：由私有侧 `015-scratch/build_strength.py` 一次性生成，
+- `fixtures/team_strength.json`（**公开强度库**）：初始由私有侧 `015-scratch/build_strength.py` 生成，
   内容 = 全语料 Elo（K=24）+ VRS 快照（rank/points）+ 队名/别名；provenance 与覆盖数写在文件内。
+  维护脚本 `pickem/update_elo.py` 负责把增量公开赛果（`data/groundtruth/new_records_*.jsonl`）
+  重放进 Elo，只改 `rating` 并写 `elo_asof` / `elo_matches`；页面/CLI 仍只查表。
 - `fixtures/demo_stage_s1.json`（示例**队名清单**，不是 roster）：页面开机预填用；
   只回答「填哪 16 支队」，强度不在里面（查库）。
 - issue-015 全文：`issues/015-major-pickem-prediction.md`；

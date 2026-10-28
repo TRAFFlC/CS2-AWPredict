@@ -231,11 +231,13 @@ __MODE_NAV__
   <div class="row spread">
     <span class="pill" id="libp">强度库加载中…</span>
     <span class="row" style="gap:8px">
+      <button class="ghost" id="autoseed" style="padding:7px 12px"
+              title="识别 1v2、3v4… 的首轮对阵顺序并转成种子序；否则按 VRS 排名排序">自动排种子</button>
       <button class="ghost" id="demo" style="padding:7px 12px">载入示例阶段</button>
       <button class="ghost" id="clear" style="padding:7px 12px">清空</button>
     </span>
   </div>
-  <label style="margin-top:12px">按 16 支参赛队伍的官方种子顺序填入（1 号位 ↔ 16 号位）</label>
+  <label style="margin-top:12px">按 16 支参赛队伍的官方种子顺序填入（1 号位 ↔ 16 号位）；不确定就点「自动排种子」</label>
   <div class="teams" id="teams"></div>
   <div class="row" style="margin-top:14px;gap:14px">
     <span style="flex:0 0 auto"><button id="go" disabled>预测十格</button></span>
@@ -364,9 +366,9 @@ function strengthTag(t) {
                                                        : "VRS " + Math.round(t.points);
   }
   if (t.rating === null || t.rating === undefined) {
-    return t.rank !== null && t.rank !== undefined ? "⚠ 无 Elo · #" + t.rank : "⚠ 无 Elo";
+    return t.rank !== null && t.rank !== undefined ? "⚠ 无 Elo · VRS #" + t.rank : "⚠ 无 Elo";
   }
-  return "Elo " + Math.round(t.rating) + (t.rank ? " · #" + t.rank : "");
+  return "Elo " + Math.round(t.rating) + (t.rank ? " · VRS #" + t.rank : "");
 }
 
 function buildSlots() {
@@ -423,7 +425,8 @@ function refresh() {
   }
   $("go").disabled = RUNNING || filled < 16;
   if (LIB) {
-    $("st").textContent = "强度库 " + LIB.teams.length + " 支（" + LIB.asof + "）· 已填 " +
+    $("st").textContent = "强度库 " + LIB.teams.length + " 支（VRS " + LIB.asof +
+      (LIB.elo_asof ? " · Elo " + LIB.elo_asof : "") + "）· 已填 " +
       filled + "/16" + (unknown ? " · " + unknown + " 支未收录（会被点名告警）" : "");
   }
 }
@@ -431,6 +434,49 @@ function slotNames() {
   const out = [];
   for (let i = 0; i < 16; i++) out.push($("t" + i).value.trim());
   return out;
+}
+
+function sameRankSet(a, b) {
+  if (a.length !== b.length) return false;
+  const sa = a.slice().sort((x, y) => x - y), sb = b.slice().sort((x, y) => x - y);
+  return sa.every((v, i) => v === sb[i]);
+}
+
+function autoSeed() {
+  const names = slotNames();
+  if (names.length !== 16 || names.some((n) => !n)) {
+    $("st").textContent = "先把 16 支队填满，再自动排种子。";
+    return;
+  }
+  const recs = names.map((n) => recByQuery(n));
+  if (recs.some((r) => !r || r.rank == null)) {
+    $("st").textContent = "有队伍查不到 VRS 排名，无法自动排种子；请手动调整。";
+    return;
+  }
+  const ranks = recs.map((r) => r.rank);
+  const sorted = ranks.slice().sort((a, b) => a - b);
+  const byRank = names.slice().sort((a, b) => recByQuery(a).rank - recByQuery(b).rank);
+  let order, msg;
+
+  // 首轮对阵表顺序：1v2、3v4…，每对第一位是高位种子，且偶数位正好是 VRS 前 8。
+  let bracket = ranks.every((r, i) => i % 2 === 0 || ranks[i - 1] < r) &&
+    sameRankSet(ranks.filter((_, i) => i % 2 === 0), sorted.slice(0, 8));
+  if (bracket) {
+    const top = [], bottom = [];
+    for (let i = 0; i < 16; i += 2) { top.push(names[i]); bottom.push(names[i + 1]); }
+    order = top.concat(bottom);
+    msg = "已识别首轮对阵顺序，重排为种子序（前 8 + 后 8）。";
+  } else if (sameRankSet(ranks.slice(0, 8), sorted.slice(0, 8))) {
+    // 官方种子序可能因区域避让微调 9–16 位（如 MIBR #12 排到 14 号位），不要按 VRS 重排。
+    order = names.slice();
+    msg = "看起来已是种子序（前 8 正好是 VRS 前 8），保留原顺序。";
+  } else {
+    order = byRank;
+    msg = "已按 VRS 排名排序（如官方抽签不同，请手动调整）。";
+  }
+  order.forEach((n, i) => { $("t" + i).value = n; });
+  refresh();
+  $("st").textContent = msg;
 }
 
 /* ---------------- 结果渲染 ---------------- */
@@ -671,6 +717,7 @@ async function runCal() {
 }
 
 $("go").onclick = go;
+$("autoseed").onclick = autoSeed;
 $("runraw").onclick = runRaw;
 $("fillraw").onclick = fillRaw;
 $("score").onclick = runScore;
@@ -700,7 +747,8 @@ async function boot() {
     t.teams.forEach((r) => (r.aliases || []).forEach((a) => {
       if (!INDEX[a.toLowerCase()]) INDEX[a.toLowerCase()] = r;
     }));
-    $("libp").innerHTML = "强度库 <b>" + t.teams.length + "</b> 支 · 更新 " + esc(t.asof);
+    const eloAsOf = t.elo_asof ? " · Elo 截至 " + esc(t.elo_asof) : "";
+    $("libp").innerHTML = "强度库 <b>" + t.teams.length + "</b> 支 · VRS " + esc(t.asof) + eloAsOf;
     $("libp").title = (t._provenance || "") + " ｜ 覆盖：" + JSON.stringify(t.counts || {});
     buildSlots();
     const st = await jget("/api/status");
@@ -794,7 +842,8 @@ def strength_library(path=PS.STRENGTH_LIB):
 def _teams_payload():
     """GET /api/teams：给前端的强度库（含 asof/provenance/别名）。"""
     lib = strength_library()
-    return {"asof": lib.get("asof"), "source": lib.get("source"),
+    return {"asof": lib.get("asof"), "elo_asof": lib.get("elo_asof"),
+            "elo_matches": lib.get("elo_matches"), "source": lib.get("source"),
             "_role": lib.get("_role"), "_provenance": lib.get("_provenance"),
             "counts": lib.get("counts"),
             "teams": [{"name": t["name"], "rating": t["rating"], "rank": t["rank"],
