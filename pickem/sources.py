@@ -10,16 +10,18 @@
 三条来源：
 
   * `EloSource`        : p = sigmoid(k * (r_a - r_b) / 400)
-  * `RankPointsSource` : p = sigmoid(k * (log1p(pts_a) - log1p(pts_b)))   —— HLTV 周排名 points
+  * `RankPointsSource` : p = sigmoid(k * (log1p(pts_a) - log1p(pts_b)))   —— VRS 积分
   * `MatrixSource`     : **直接给两两胜率**（bo3），bo1 用 α=0.75 在 logit 上折算
                          —— 这是把 **014 已训模型 / 任何外部模型**的意见带进来的桥：
                          公共工具不读语料、不 import 私有代码，只吃 roster 里的矩阵。
 
 为什么要分两条：014 语料实测 **log1p(points) 比线性 points 的 loglik 更好**
 （bo3 −1614.8 → −1587.6）；而 Elo 由赛前逐场累计、信息更密，但需要按自己的量纲重新定斜率。
+**注意量纲：** `rank_points` 的斜率必须在**喂进去的那套 points** 上拟合。HLTV 周排名与
+VRS 积分的动态范围差一倍多，斜率不能混用（见 `FITTED` 注释）。
 
-bo1 / bo3 各用一条斜率。默认值 = 在 014 语料上拟合的结果（见 `FITTED`），
-可被 roster 的 `slopes` 字段或构造参数覆盖。
+bo1 / bo3 各用一条斜率。默认值见 `FITTED`（`elo` 取自 014 语料；`rank_points` 于
+2026-10-29 按 VRS 量纲重拟合），可被 roster 的 `slopes` 字段或构造参数覆盖。
 
 复现自检：python -X utf8 sources.py selftest
 """
@@ -36,7 +38,15 @@ import math
 #   ② 语料起点 2025-10-14、只有约一年跨度 ⇒ 早阶段的赛前历史可能极短（Elo 会失真）。
 FITTED = {
     "elo": {"bo1": 2.2469, "bo3": 2.2394, "n1": 308, "n3": 2492},
-    "rank_points": {"bo1": 0.4045, "bo3": 0.5584, "n1": 287, "n3": 2407},
+    # 2026-10-29 重拟合：旧值 0.4045 / 0.5584 是在 **HLTV 周排名 points** 上拟合的，
+    # 而强度库现在喂的是 **VRS 积分**（355..1979，log1p 跨度只有 1.72）。
+    # 直接套旧斜率会把整场压平：Vitality vs VRS #54 只剩 56.1%、Vitality vs Legacy 52.2%
+    # —— 这解释了「rank_points 源 P(≥5)=0.1247、3:0 选 Legacy/FUT」那个荒谬结果，
+    # 是斜率量纲不匹配，不是 VRS 本身不行。
+    # 新值：同一份赛果，特征换成 VRS 积分，按 45 天半衰期做时间加权拟合
+    # （快照 2026-10-28，bo1 n=266 / bo3 n=2205）。对照检验（2026-09-20 起的 83 场）：
+    # 按 VRS 积分判高下命中 79.5%，按 Elo 只有 62.7%。
+    "rank_points": {"bo1": 2.4800, "bo3": 3.1400, "n1": 266, "n3": 2205},
 }
 
 # matrix 源的 bo1 折算系数：014 只给系列（bo3）概率，bo1 用先验 α 在 logit 上压缩。
@@ -124,9 +134,9 @@ class MatrixSource:
 
 
 class RankPointsSource:
-    """log1p(points) 差的 logistic。未知队按 `default_points` 处理。"""
+    """log1p(points) 差的 logistic。points 用 **VRS 积分**；未知队按 `default_points`（250）处理。"""
 
-    def __init__(self, points, k1=None, k3=None, default_points=0.0):
+    def __init__(self, points, k1=None, k3=None, default_points=250.0):
         d = FITTED["rank_points"]
         self.points = {str(k): float(v) for k, v in points.items() if v is not None}
         self.k1 = float(d["bo1"] if k1 is None else k1)
@@ -262,7 +272,8 @@ def _selftest():
     chk(abs(rp.pwin("A", "B", 1) + rp.pwin("B", "A", 1) - 1.0) < 1e-12, "排名源应对称")
     chk(rp.pwin("A", "B", 3) > rp.pwin("A", "B", 1) > 0.5, "bo3 应更极端")
     chk(abs(rp.pwin("A", "ZZZ", 3)
-            - sigmoid(0.6 * (math.log1p(1000.0) - math.log1p(0.0)))) < 1e-12, "未知队用 0 分")
+            - sigmoid(0.6 * (math.log1p(1000.0) - math.log1p(250.0)))) < 1e-12, "未知队用 250 分兜底")
+    chk(rp.pwin("A", "ZZZ", 3) < 1.0, "未知队兜底不是 0 分悬崖（概率不得饱和到 1）")
 
     # 单调性：分差越大越极端
     chk(EloSource({"A": 1600.0, "B": 1400.0}, 2.0, 2.0).pwin("A", "B", 3)

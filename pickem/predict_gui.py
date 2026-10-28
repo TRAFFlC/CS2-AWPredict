@@ -14,7 +14,7 @@
 
 其余能力全部收在「高级」折叠区里，默认看不见：
 
-  * 模拟参数（n / 过关线 k / 随机种子 / 强度源 elo|rank_points / 平局键 / σ 臂）
+  * 模拟参数（n / 过关线 k / 随机种子 / 强度源 rank_points（默认）|elo / 平局键 / σ 臂）
   * 手填 roster JSON（含 **矩阵 源**——外部模型接入的桥）
   * 赛后**计分**（真值表 → 真实命中格数，`scoring.py`）
   * **校准**（真值表 + 报表 → Brier / 常数基线 / 可靠性分箱，`calibration.py`）
@@ -267,8 +267,8 @@ __MODE_NAV__
         <select id="k"><option>5</option><option>6</option><option>7</option></select></div>
       <div><label>随机种子</label><input type="number" id="seed" value="20261012"></div>
       <div><label>强度源</label>
-        <select id="source"><option value="elo">elo（默认）</option>
-          <option value="rank_points">rank_points（VRS 排名）</option></select></div>
+        <select id="source"><option value="rank_points" selected>rank_points（VRS 积分，默认）</option>
+          <option value="elo">elo（Elo 参考）</option></select></div>
       <div><label>阶段名（可留空）</label>
         <input id="stage" placeholder="如 StarLadder Budapest Major 2025 Stage 1"></div>
     </div>
@@ -279,8 +279,8 @@ __MODE_NAV__
         <input type="checkbox" id="unc" style="width:auto"> σ 不确定性传播臂
         <span class="hint" style="margin:0">（需每队 exposure/games，强度库不含，故只对手填 roster 有效）</span></label>
     </div>
-    <label style="margin-top:14px">手填 roster JSON（source=elo / rank_points / 矩阵）</label>
-    <textarea id="roster" spellcheck="false" placeholder='{"stage":"…","source":"elo","teams":[{"name":"…","seed":1,"rating":1500},…]}'></textarea>
+    <label style="margin-top:14px">手填 roster JSON（source=rank_points / elo / 矩阵）</label>
+    <textarea id="roster" spellcheck="false" placeholder='{"stage":"…","source":"rank_points","teams":[{"name":"…","seed":1,"points":1500},…]}'></textarea>
     <div class="row" style="margin-top:8px;gap:8px">
       <span style="flex:0 0 auto"><button class="ghost" id="runraw" style="padding:8px 14px">用手填的 roster 预测</button></span>
       <span style="flex:0 0 auto"><button class="ghost" id="fillraw" style="padding:8px 14px">用上方 16 队填入</button></span>
@@ -326,6 +326,8 @@ const esc = (s) => String(s === null || s === undefined ? "" : s)
   .replace(/[&<>]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]));
 const pct = (x) => (x === null || x === undefined) ? "—" : (100 * Number(x)).toFixed(1) + "%";
 const fx = (x, d) => (x === null || x === undefined) ? "—" : Number(x).toFixed(d);
+const srcLabel = (s) => s === "rank_points" ? "VRS 积分"
+  : (s === "matrix" || s === "矩阵") ? "矩阵" : "Elo";
 
 let LIB = null, INDEX = {}, LAST = {}, RUNNING = false;
 
@@ -362,8 +364,10 @@ function recByQuery(q) {
 function strengthTag(t) {
   if (!t) return "⚠ 未收录";
   if ($("source").value === "rank_points") {
-    return t.points === null || t.points === undefined ? "⚠ 无 points"
-                                                       : "VRS " + Math.round(t.points);
+    if (t.points === null || t.points === undefined) {
+      return t.rank !== null && t.rank !== undefined ? "⚠ 无 VRS 分 · #" + t.rank : "⚠ 无 VRS 分";
+    }
+    return "VRS " + (t.rank ? "#" + t.rank + " · " : "") + Math.round(t.points);
   }
   if (t.rating === null || t.rating === undefined) {
     return t.rank !== null && t.rank !== undefined ? "⚠ 无 Elo · VRS #" + t.rank : "⚠ 无 Elo";
@@ -544,7 +548,7 @@ function render(j) {
     '<div class="card">' +
     '<div>' +
       '<span class="pill"><b>' + esc(rep.stage) + '</b></span>' +
-      '<span class="pill">强度源 ' + esc(rep.source) + '</span>' +
+      '<span class="pill">强度源 ' + esc(srcLabel(rep.source)) + '</span>' +
       '<span class="pill">模拟 ' + rep.n + ' 次 · seed ' + rep.seed + '</span>' +
       '<span class="pill">耗时 ' + fx(j.elapsed_s, 2) + ' s</span>' +
       '<span class="pill">臂 ' + (rep.arm === "uncertain" ? "σ 不确定性" : "点估计") + '</span>' +
@@ -747,8 +751,8 @@ async function boot() {
     t.teams.forEach((r) => (r.aliases || []).forEach((a) => {
       if (!INDEX[a.toLowerCase()]) INDEX[a.toLowerCase()] = r;
     }));
-    const eloAsOf = t.elo_asof ? " · Elo 截至 " + esc(t.elo_asof) : "";
-    $("libp").innerHTML = "强度库 <b>" + t.teams.length + "</b> 支 · VRS " + esc(t.asof) + eloAsOf;
+    const eloAsOf = t.elo_asof ? " · Elo 参考 " + esc(t.elo_asof) : "";
+    $("libp").innerHTML = "强度库 <b>" + t.teams.length + "</b> 支 · 默认 VRS 积分 · VRS " + esc(t.asof) + eloAsOf;
     $("libp").title = (t._provenance || "") + " ｜ 覆盖：" + JSON.stringify(t.counts || {});
     buildSlots();
     const st = await jget("/api/status");
@@ -786,7 +790,7 @@ def _fixtures():
         if len(teams) != 16 or not all(isinstance(t, dict) and t.get("name") for t in teams):
             continue
         out[name[:-5]] = {"stage": doc.get("stage") or "(未命名)",
-                          "source": doc.get("source", "elo"),
+                          "source": doc.get("source", "rank_points"),
                           "teams": len(teams), "truth": "records" in doc}
     return out
 
@@ -937,7 +941,7 @@ def do_pickem(payload):
         teams = [t.strip() for t in teams.replace("\n", ",").replace(";", ",").split(",")]
     if not isinstance(teams, (list, tuple)):
         raise ValueError("teams 应为数组")
-    source = str(payload.get("source") or "elo")
+    source = str(payload.get("source") or "rank_points")
     lib = strength_library()
     try:
         roster, warnings = PS.build_roster(teams, lib, source=source,
@@ -1259,8 +1263,9 @@ def _selftest():
         rep = r.get("report") or {}
         chk(st == 200 and [len(rep.get("picks", {}).get(c, [])) for c in ("p30", "padv", "p03")]
             == [2, 6, 2], "/api/pickem 出十格 2/6/2")
-        chk(st == 200 and r.get("warnings") == [] and len(r["roster"]["teams"]) == 16,
-            "示例阶段全部收录（无告警）且返回 roster 16 队")
+        chk(st == 200 and len(r["roster"]["teams"]) == 16
+            and len(r.get("warnings") or []) == 1 and "RED Canids" in r["warnings"][0],
+            "示例阶段 16 队全建出；RED Canids 无 VRS 积分 → 点名告警（默认源 rank_points）")
         chk(st == 200 and r["roster_file"].endswith(".json")
             and r["roster_file"] in r["command"],
             "命令里的 roster 文件名 = 可下载件名")
@@ -1284,8 +1289,7 @@ def _selftest():
         # 未收录的队：仍出结果，但必须点名（静默兜底是本项目明令禁止的失败模式）
         st, r_unk = jpost("/api/pickem", {"teams": dj["teams"][:15] + ["Zzzz Not A Team"],
                                            "n": 500, "seed": 1})
-        chk(st == 200 and len(r_unk.get("warnings") or []) == 1
-            and "Zzzz Not A Team" in r_unk["warnings"][0],
+        chk(st == 200 and any("Zzzz Not A Team" in w for w in (r_unk.get("warnings") or [])),
             "/api/pickem 未收录队 → 200 但点名告警")
 
         # 矩阵 源 + σ 臂走 HTTP
@@ -1315,8 +1319,9 @@ def _selftest():
         chk(st == 400 and "source" in e.get("error", ""), "/api/pickem 未知 source → 400")
         st, e = jpost("/api/pickem", {"teams": dj["teams"], "uncertain": True,
                                        "n": 500, "seed": 1})
-        chk(st == 400 and "exposure" in e.get("error", ""),
-            "/api/pickem 强度库 roster + σ 臂 → 400（库里没有 exposure/games）")
+        chk(st == 400 and ("exposure" in e.get("error", "")
+                           or "仅支持 source=elo" in e.get("error", "")),
+            "/api/pickem 强度库 roster + σ 臂 → 400（σ 臂只在 Elo 单位验证过）")
         def raw(path, data):
             req = urllib.request.Request(base + path, data=data,
                                          headers={"Content-Type": "application/json"})

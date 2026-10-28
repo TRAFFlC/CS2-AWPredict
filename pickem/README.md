@@ -31,7 +31,7 @@ Issue-015 的唯一公开、可移植实现目录是 **`tools/pickem/`**。该�
   Python Web 后端可直接调用 `predict_stage` 的 `load_strength_library()`、`build_roster(names, lib, source=...)`
   和 `predict(roster, n=..., k=..., seed=...)`；`names` 必须按官方种子顺序传入。`build_roster` 返回
   `(roster, warnings)`，集成方应把告警展示给用户；`predict` 返回可 JSON 化的预测报表。`build_roster` 的
-  `source` 支持 `elo` / `rank_points`；若要用 `matrix`，须自行组装带 `matrix` 字段的 roster。
+  `source` 支持 `rank_points`（默认，VRS 积分）/ `elo`；若要用 `matrix`，须自行组装带 `matrix` 字段的 roster。
   导入前需把 `tools/pickem/` 目录加入 Python 模块搜索路径（模块间按同目录脚本名导入）。
 - **依赖与数据**：预测核心需要 `numpy`；按队名查强度时还需要 `fixtures/team_strength.json`。
   若新 Web 项目不是 Python 后端，应由服务端封装/调用这套 Python 代码，不要把它当作浏览器端 JS 模块。
@@ -47,7 +47,7 @@ Issue-015 的唯一公开、可移植实现目录是 **`tools/pickem/`**。该�
 [`issues/015-major-pickem-prediction.md`](../../issues/015-major-pickem-prediction.md)，运行时不需要搬动它。
 
 - **强度不用你填**：每队水平由公开强度库 `fixtures/team_strength.json` 预先算好（见下节），
-  输入框里带实时强度标签（`Elo 1795 · #3`）。
+  输入框里带实时强度标签（`VRS #3 · 1899`）。
 - **支持简称**：`navi` → Natus Vincere、`nip` → Ninjas in Pyjamas、`vp` → Virtus.pro（点候选即选中）。
 - **查不到的队会被点名告警**并按默认强度兜底，不静默（该队结果不可信）。
 - 默认 `n=20000`，普通机器上 **约 4 秒**出结果（实测 3.4～4.5 s）；参数、手填 roster、计分、校准都在「高级」折叠区里，
@@ -126,10 +126,14 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   斜率用公开侧 `sources.FITTED['elo']`。
   `rank`/`points` = 2026-10-28 全球 VRS 快照；`aliases` 保留原库内容。新加入的 VRS 队伍不推造 Elo，`rating=null`。
 - 当前覆盖：391 支队伍，179 支有 Elo、352 支有 VRS、152 支两者都有；**200 支只有 VRS，没有 Elo**，另有 12 支暂时两者都没有。
-  在 `source=elo` 下无 Elo 的队按 `1500` 兜底并**点名告警**；在 `rank_points` 下无 VRS points 的队按 0 分兜底并告警。
-- **重要：增量语料不是完整赛程。** 2026-10-19..2026-10-28 仍缺（且增量只覆盖部分赛事），所以 Elo 仍可能滞后于 VRS；
+  在 `source=rank_points`（**默认**）下无 VRS 积分的队按 `250` 兜底并**点名告警**；在 `source=elo` 下无 Elo 的队按 `1500` 兜底并告警。
+- **默认强度源是 VRS 积分，不是 Elo。** 原因：Elo 没有赛事权重，三线队在自己的池子里刷分也能刷到一线数字。
+  同一批近期赛果（2026-09-20 起 83 场）上，按 VRS 积分判高下命中 **79.5%**，按 Elo 只有 **62.7%**。
+  Elo 保留为参考列，不再参与计算。
+- **`rank_points` 的斜率已按 VRS 量纲重拟合。** 旧值（bo1 0.4045 / bo3 0.5584）是在 **HLTV 周排名 points** 上拟合的，
+  直接套到 VRS 积分上会把整场压平（Vitality vs VRS #54 只剩 56.1%）；新值见 `sources.FITTED`，按 45 天半衰期时间加权。
+- **重要：增量语料不是完整赛程。** 2026-10-19..2026-10-28 仍缺（且增量只覆盖部分赛事），所以 Elo 列仍可能滞后；
   页面同时显示 `VRS <asof>` 与 `Elo <elo_asof>`，不要把两者当成同一天。
-  本次也没有重新拟合或校准 `rank_points` 的胜率斜率。
 - 重算 Elo（仓库根目录运行；只改 `rating`，保留 VRS 的 `rank`/`points`）：
   `python pickem/update_elo.py`（预览）→ `python pickem/update_elo.py --write`（写回）。
   这是**维护脚本**，会读 `data/`；页面/CLI 本身仍只查 fixture，不读 `data/`。
@@ -144,12 +148,12 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
 {
   "stage": "StarLadder Budapest Major 2025 Stage 1",   // 仅用于显示
   "date": "2025-11-24",                                // 仅用于显示
-  "source": "elo",                                     // "elo" | "rank_points" | "matrix"
+  "source": "rank_points",                             // "rank_points"（默认）| "elo" | "matrix"
   "slopes": { "bo1": 4.8824, "bo3": 4.0943 },          // 可选，覆盖默认斜率
   "teams": [
-    { "name": "FaZe", "seed": 1, "rating": 1485.6957,   // source=elo 用 rating
-      "exposure": 4, "games": 5, "rank": 10 },          // 仅 --uncertain 需要
-    { "name": "Legacy", "seed": 2, "points": 812.0 }    // source=rank_points 用 points
+    { "name": "FaZe", "seed": 1, "points": 1558.0 },     // source=rank_points 用 points（VRS 积分）
+    { "name": "Legacy", "seed": 2, "points": 1689.0 },
+    // source=elo 时改填 "rating": 1485.6957；--uncertain 还要 exposure/games/rank
   ]
 }
 ```
@@ -306,8 +310,8 @@ python tools/pickem/calibration.py --truth t.json --report point.json --report s
 **不用手工确认种子序**：页面上的「自动排种子」按钮会先识别「首轮对阵顺序」
 （`1v2、3v4…`，即前 8 与后 8 交错），把它转成种子序；若输入前 8 正好是 VRS 前 8
 （官方种子序可能因区域避让微调 9–16 位，例如 MIBR VRS #12 排到 14 号位），保留原顺序；
-其余情况才按 VRS 排名升序排序。强度标签写作 `Elo … · VRS #…`：`#` 是 **VRS 排名**，
-不是 Elo 排名。
+其余情况才按 VRS 排名升序排序。强度标签写作 `VRS #… · 积分`：`#` 是 **VRS 排名**；
+切到 `source=elo` 时写作 `Elo … · VRS #…`，Elo 只是参考列，不参与默认计算。
 
 ```powershell
 python tools/pickem/predict_gui.py                 # 默认 http://127.0.0.1:8790
@@ -435,6 +439,8 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
 1. **时间安全强度源判别力弱。** 014 语料起点 2025-10-14，Budapest 阶段赛前只有约 6 周
    （445 场）历史 ⇒ Elo 失真（Top 段多为三线队）、排名源弱到 **3:0 的 Brier（0.122）
    反比常数基线（0.109）更差**。要让回测有意义，需先把 014 模型**回滚到赛前状态**。
+   ⚠ 这个 Brier 是在**旧斜率**（HLTV points 量纲，0.5584）上算的；2026-10-29 已按 VRS 量纲重拟合
+   （3.14），该行数字**尚未重跑**，不要拿它当「VRS 不行」的证据。
 2. **bo1/bo3 斜率差测不出**：两个口径的置信区间重叠 ⇒ 只能沿用拟合值（issue §5.1）。
 3. **同 Buchholz 并列：默认仍按种子确定性排序**（已公布数字依赖此口径，不作废），
    但证据（issue §5.4）显示真实平局打破**倾向抽签**（Stage 2 上「R2 完美」与「R5 完美」的
@@ -484,7 +490,8 @@ roster.update({"source": "matrix", "alpha_bo1": 0.75, "matrix": matrix})   # →
    `build_strength.py`。
 18. **库里两个源的覆盖不同（2026-10-28 快照）：** 391 支里 179 有 Elo / 352 有 VRS / 152 两者都有；
    **200 支只有 VRS、没有 Elo** ⇒ `source=elo` 时按 `1500` 兜底（接口在 `warnings` 里点名）。
-   另有 27 支只有 Elo，及 12 支两种强度都缺；`rank_points` 缺 points 时按 0 分兜底并告警。
+   另有 27 支只有 Elo，及 12 支两种强度都缺；`rank_points`（默认）缺 VRS 积分时按 `250` 兜底并告警
+   （低于榜尾 355，但不是 0 分悬崖——0 分会让胜率饱和到 1.0）。
 19. **「只填队名」这条路跑不了 σ 臂：** σ 后验需要每队的 `exposure`/`games`，强度库不含
    ⇒ 用库建的 roster + `--uncertain` 一律 **400/rc=1**（不静默降级为点估计）；要 σ 臂请手填 roster。
 20. **`aliases` 里有一部分是人工整理的简写**（`nip`/`vp`/`mouz` 等），不是从数据里学出来的，

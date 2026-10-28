@@ -14,7 +14,8 @@
 * 队名按强度库的 `name` + `aliases` 归一（例如 `BetBoom` → `BETBOOM`）。
 * 增量语料**不是完整赛程**：脚本把实际最后一场的日期写进 `elo_asof`，
   不假装它等于 VRS 快照日。
-* `rank_points` 的胜率斜率不在本脚本范围内，仍沿用 `sources.FITTED` 的旧拟合值。
+* `rank_points` 的胜率斜率不在本脚本范围内，仍沿用 `sources.FITTED` 的拟合值
+  （2026-10-29 已按 VRS 积分量纲重拟合，见 `sources.py` 里 `FITTED` 的注释）。
 
 用法
 ----

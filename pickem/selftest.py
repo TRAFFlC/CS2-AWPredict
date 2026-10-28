@@ -439,9 +439,10 @@ def main():
           rc == 0 and "PICKEM_LIBRARY_DONE" in out_lib, (err or out_lib).strip()[:100])
     parts = (out_lib.split("PICKEM_LIBRARY_DONE")[-1].split() if "PICKEM_LIBRARY_DONE" in out_lib
              else [])
-    ok_lib = (len(parts) == 4 and int(parts[0]) == 16 and int(parts[1]) == 0
+    ok_lib = (len(parts) == 4 and int(parts[0]) == 16 and int(parts[1]) == 1
               and 0.0 <= float(parts[2]) <= 1.0 and int(parts[3]) == 6)
-    check("示例阶段 16 队全部收录（0 告警）且出 6 格晋级", ok_lib, " ".join(parts))
+    check("示例阶段 16 队全建出（RED Canids 无 VRS 积分 → 1 条点名告警）且出 6 格晋级",
+          ok_lib, " ".join(parts))
     code_neg = code.replace("d['teams']", "d['teams'][:15]")
     rc, _o, e = run(["-c", code_neg], timeout=300)
     check("只有 15 个队名 → 拒绝（不静默补位）",

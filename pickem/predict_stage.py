@@ -64,7 +64,7 @@ def validate_roster(roster):
     if not isinstance(roster, dict):
         raise ValueError("roster 应为 JSON 对象")
     teams = roster.get("teams") or []
-    kind = roster.get("source", "elo")
+    kind = roster.get("source", "rank_points")
     # matrix 源没有逐队标量强度；它给的是两两胜率矩阵（外部模型的桥）
     key = None if kind == "matrix" else ("rating" if kind == "elo" else "points")
     problems = []
@@ -97,7 +97,7 @@ def validate_roster(roster):
 # 库由私有侧一次性生成（provenance 写在库内），公开侧只查表。
 STRENGTH_LIB = os.path.join(HERE, "fixtures", "team_strength.json")
 DEFAULT_RATING = 1500.0        # Elo 兜底值：与 sources.EloSource 的 default 一致
-DEFAULT_POINTS = 0.0           # rank_points 兜底值：与 RankPointsSource 的 default_points 一致
+DEFAULT_POINTS = 250.0         # rank_points 兜底值：低于 VRS 榜尾（355），但不是 0 分悬崖
 
 
 def load_strength_library(path=STRENGTH_LIB):
@@ -146,7 +146,7 @@ def resolve_team(query, index):
     return None, None
 
 
-def build_roster(names, lib=None, source="elo", stage=None, date=None):
+def build_roster(names, lib=None, source="rank_points", stage=None, date=None):
     """**16 个队名 + 强度库 → roster**（种子 = 输入顺序 1..16）。
 
     返回 (roster, warnings)。契约：
