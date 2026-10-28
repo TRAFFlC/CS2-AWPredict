@@ -36,9 +36,15 @@ python -X utf8 predict_gui.py --open      # → http://127.0.0.1:8765/
 `data/vrs_rank_<日期>.json`。**当天快照已存在时直接跳过，不发起任何网络请求**；
 页面日期还没更新时也不会覆盖旧快照，因此可以安全地重复运行。
 
+> **同一天的榜单会变。** HLTV 在赛后持续重算 VRS，28 日凌晨和 28 日晚上看到的
+> 「2026-10-28」可能不是同一份数据。需要复核时用 `--latest --force`：抓不带日期的
+> 最新页，按页面 header 的实际日期写入；内容变了才把 `revision` 加 1，并把旧版本
+> 归档到 `data/cache/vrs_history/`。
+
 ```bash
 python -X utf8 fetch_vrs.py                  # 抓本机今天；已有快照则跳过
 python -X utf8 fetch_vrs.py --date 2026-10-26
+python -X utf8 fetch_vrs.py --latest --force # 抓最新页并覆盖同日快照（复核用）
 python -X utf8 fetch_vrs.py --dry-run        # 只抓取/校验，不落盘
 python -X utf8 fetch_vrs.py --force          # 已有同日快照也重抓
 ```
@@ -74,11 +80,17 @@ Start-ScheduledTask -TaskName "CS2-AWPredict-update-vrs"   # 立即跑一次
   同步 `rank` / `points`，页面按 mtime 热加载。**两个页面因此不会各说各话。**
 
 日期按**北京时间**切分：**08:00 之前抓前一天，08:00 起抓当天**——HLTV 的榜单在
-北京时间凌晨通常还停在前一日，直接抓「今天」会拿到空页。目标快照已存在且强度库
-已同步时不发网络请求；失败或尚未发布后冷却 15 分钟，避免每次刷新都打 HLTV。
+北京时间凌晨通常还停在前一日，直接抓「今天」会拿到空页。
+
+因为**同一日期的榜单会被 HLTV 赛后重算**，快照不再视为永久不变：页面加载时若
+当前快照距上次抓取已超过 **60 分钟**，就后台重抓一次最新页。成功后 60 分钟内不再
+联网复核；失败或尚未发布则 15 分钟后重试。抓取内容变化时 `revision` 加 1，旧版本
+归档到 `data/cache/vrs_history/`；两个页面轮询 `日期 + revision`，变化后自动重拉
+数据，无需手动刷新。强度库用 `content_sha` 判断是否需要更新，所以**队数不变、
+只有积分变化**时也会同步。
 
 ```bash
-python -X utf8 vrs_sync.py status          # 目标日 / 最新快照 / 强度库是否同步
+python -X utf8 vrs_sync.py status          # 目标日 / 最新快照 / revision / 强度库是否同步
 python -X utf8 vrs_sync.py refresh         # 需要时抓取并同步（--force 忽略冷却）
 python -X utf8 vrs_sync.py selftest        # 不联网自检日期规则
 python -X utf8 pickem/update_vrs.py        # 只用现有快照刷新强度库（预览）
@@ -441,8 +453,10 @@ experiments/          实验脚本（上限诊断、标定、复测、回放）
 ## 局限与已知问题
 
 - **rank 快照会陈旧。** VRS 快照是某一时点的冻结值；本机虽有每日计划任务
-  `CS2-AWPredict-update-vrs`，但它只负责「当天没有就抓一次」，HLTV 未更新或
-  任务失败时仍会保持旧快照。界面会显示快照日期与陈旧天数，>30 天变黄、>60 天变红。
+  `CS2-AWPredict-update-vrs`，但它只负责「当天没有就抓一次」。常驻服务现在会在
+  页面加载时检查快照年龄，超过 **60 分钟**就后台复核最新页（同一天榜单也可能被
+  HLTV 赛后重算），失败则 15 分钟后重试；计划任务仍作为离线兜底。界面会显示快照
+  日期、版本与抓取时间，>30 天变黄、>60 天变红。
 - **开机自启指向旧副本会静默回退旧 rank。** 常驻服务只读取自己工作目录下的
   `data/vrs_rank_*.json`；若计划任务启动的是 `014-scratch`，即使仓库里已有
   `2026-10-25`，页面也会显示该副本里最新的 `2026-10-19`。判断方法：看

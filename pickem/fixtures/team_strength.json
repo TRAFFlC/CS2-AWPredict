@@ -3,41 +3,48 @@
  "elo_asof": "2026-10-18",
  "elo_matches": 2923,
  "source": "rank_points",
- "_role": "公开强度库：队名查找与两种强度来源。rating = 公开语料重算的 Elo（截至 2026-10-18）；rank/points 来自 VRS 快照（2026-10-28）。公开侧只查表，不读 data/。",
- "_provenance": "rating = 公开语料重算的 Elo：data/csapi_matches_all.jsonl 2800 场（2025-10-14..2026-09-05）+ data/groundtruth/new_records_*.jsonl 123 场增量（2026-09-08..2026-10-18），K=24、初始 1500、按日期逐场累计；语料切点 2026-10-18（见 elo_asof）。VRS rank/points 仍为 2026-10-28 快照，未重估；Elo 切点 2026-10-18 早于 VRS 快照 2026-10-28，二者之间的赛果未覆盖；增量语料不是完整赛程，Elo 仍可能滞后。默认强度源为 VRS 积分（rank_points）：2026-10-29 按 VRS 量纲重拟合胜率斜率（bo1 2.48 / bo3 3.14；旧值 0.4045/0.5584 是 HLTV points 量纲，直接套用会把整场压平）。Elo 保留为参考列，不参与默认计算。aliases 保留原库值；未出现在语料中的队伍保留原 rating。原 provenance: rating 保留原公开库中的全语料 Elo（K=24；语料 2800 场，切点为语料末尾；不因 VRS 刷新而重估）。rank/points 全量刷新自 GPT-6 Luna 私有工作区的 vrs_rank_2026-10-28.json（Valve Regional Standings，世界榜，asof 2026-10-28）。新 VRS 队伍不推造 Elo，rating=null；在 source=elo 下按既有规则回退 1500 并告警。未出现在当前 VRS 快照中的队伍保留原记录及 Elo/aliases，但 rank/points=null。rank_points 胜率斜率沿用既有历史拟合值；尚未针对本次 VRS 快照重新校准。aliases 保留原库值；新队伍暂无附加别名。原 provenance: 生成脚本 data/Deepseek/Deepseek-V4.1 Flash/2026-10-07/015-scratch/build_strength.py（私有侧；生成时间 2026-10-15T23:10Z）。rating = 全语料 Elo（语料 2800 场，K=24，切点 语料末尾，无排除赛事），斜率用公开侧 sources.FITTED['elo']；rank/points = VRS 世界排名快照 2026-10-13；name 优先取 VRS 显示名，aliases = 语料内其它显示拼法 + 归一化短名 + 人工整理的常见简写（只影响按名查表）。Elo 与 VRS 覆盖不同：有 rating 无 points 的队只有语料内的 Elo；有 points 无 rating 的队**没有** Elo（公开侧按 1500 兜底并告警）。",
+ "_role": "公开强度库：队名查找与两种强度来源。rating = 公开语料重算的 Elo（截至 2026-10-18）；rank/points = VRS 快照（2026-10-28）。公开侧只查表，不读 data/。",
+ "_provenance": "VRS rank/points 刷新自 2026-10-28 的 Valve 全球排名快照（第 2 版，抓取于 2026-10-29T04:04:46+08:00）（350 队；新增 0 支 rating=null；掉榜 2 支 rank/points=null；按别名/规范化匹配 0 支；content_sha 25f4492938ff）。默认强度源仍是 VRS 积分；Elo 列来自公开语料重放，不随 VRS 刷新。原 provenance: rating = 公开语料重算的 Elo：data/csapi_matches_all.jsonl 2800 场（2025-10-14..2026-09-05）+ data/groundtruth/new_records_*.jsonl 123 场增量（2026-09-08..2026-10-18），K=24、初始 1500、按日期逐场累计；语料切点 2026-10-18（见 elo_asof）。VRS rank/points 仍为 2026-10-28 快照，未重估；Elo 切点 2026-10-18 早于 VRS 快照 2026-10-28，二者之间的赛果未覆盖；增量语料不是完整赛程，Elo 仍可能滞后。默认强度源为 VRS 积分（rank_points）：2026-10-29 按 VRS 量纲重拟合胜率斜率（bo1 2.48 / bo3 3.14；旧值 0.4045/0.5584 是 HLTV points 量纲，直接套用会把整场压平）。Elo 保留为参考列，不参与默认计算。aliases 保留原库值；未出现在语料中的队伍保留原 rating。原 provenance: rating 保留原公开库中的全语料 Elo（K=24；语料 2800 场，切点为语料末尾；不因 VRS 刷新而重估）。rank/points 全量刷新自 GPT-6 Luna 私有工作区的 vrs_rank_2026-10-28.json（Valve Regional Standings，世界榜，asof 2026-10-28）。新 VRS 队伍不推造 Elo，rating=null；在 source=elo 下按既有规则回退 1500 并告警。未出现在当前 VRS 快照中的队伍保留原记录及 Elo/aliases，但 rank/points=null。rank_points 胜率斜率沿用既有历史拟合值；尚未针对本次 VRS 快照重新校准。aliases 保留原库值；新队伍暂无附加别名。原 provenance: 生成脚本 data/Deepseek/Deepseek-V4.1 Flash/2026-10-07/015-scratch/build_strength.py（私有侧；生成时间 2026-10-15T23:10Z）。rating = 全语料 Elo（语料 2800 场，K=24，切点 语料末尾，无排除赛事），斜率用公开侧 sources.FITTED['elo']；rank/points = VRS 世界排名快照 2026-10-13；name 优先取 VRS 显示名，aliases = 语料内其它显示拼法 + 归一化短名 + 人工整理的常见简写（只影响按名查表）。Elo 与 VRS 覆盖不同：有 rating 无 points 的队只有语料内的 Elo；有 points 无 rating 的队**没有** Elo（公开侧按 1500 兜底并告警）。",
+ "vrs_source": {
+  "date": "2026-10-28",
+  "teams": 350,
+  "content_sha": "25f4492938ffb92f9e60dd56d69e45c691f4fa6082c1101615c999622671b027",
+  "fetched_at": "2026-10-29T04:04:46+08:00",
+  "revision": 2
+ },
  "counts": {
   "teams": 391,
   "elo": 179,
-  "vrs": 352,
-  "both": 152
+  "vrs": 350,
+  "both": 151
  },
  "teams": [
   {
    "name": "Spirit",
    "rating": 1753.0252874679923,
-   "rank": 3,
-   "points": 1899.0,
+   "rank": 5,
+   "points": 1877.0,
    "aliases": []
   },
   {
    "name": "Vitality",
    "rating": 1797.0834144879595,
    "rank": 1,
-   "points": 1979.0,
+   "points": 1986.0,
    "aliases": []
   },
   {
    "name": "Falcons",
    "rating": 1696.3944235054246,
    "rank": 7,
-   "points": 1805.0,
+   "points": 1808.0,
    "aliases": []
   },
   {
    "name": "MOUZ",
    "rating": 1715.6212073091099,
    "rank": 2,
-   "points": 1957.0,
+   "points": 1961.0,
    "aliases": [
     "mousesports"
    ]
@@ -46,42 +53,42 @@
    "name": "FUT",
    "rating": 1652.1996110749537,
    "rank": 8,
-   "points": 1778.0,
+   "points": 1783.0,
    "aliases": []
   },
   {
    "name": "FURIA",
    "rating": 1692.8231935814188,
-   "rank": 5,
-   "points": 1867.0,
+   "rank": 4,
+   "points": 1881.0,
    "aliases": []
   },
   {
    "name": "Nuclear TigeRES",
    "rating": 1641.568247178821,
-   "rank": 54,
-   "points": 1274.0,
+   "rank": 52,
+   "points": 1281.0,
    "aliases": []
   },
   {
    "name": "Legacy",
    "rating": 1634.386793628137,
    "rank": 9,
-   "points": 1689.0,
+   "points": 1692.0,
    "aliases": []
   },
   {
    "name": "Alliance",
    "rating": 1638.2805533100498,
    "rank": 46,
-   "points": 1331.0,
+   "points": 1323.0,
    "aliases": []
   },
   {
    "name": "Natus Vincere",
    "rating": 1605.4973135756977,
-   "rank": 16,
-   "points": 1559.0,
+   "rank": 11,
+   "points": 1644.0,
    "aliases": [
     "navi",
     "navi junior"
@@ -91,7 +98,7 @@
    "name": "BETBOOM",
    "rating": 1647.0625948918992,
    "rank": 6,
-   "points": 1813.0,
+   "points": 1823.0,
    "aliases": [
     "BetBoom"
    ]
@@ -100,28 +107,28 @@
    "name": "G2",
    "rating": 1619.0032878751174,
    "rank": 10,
-   "points": 1639.0,
+   "points": 1648.0,
    "aliases": []
   },
   {
    "name": "9z",
    "rating": 1580.2017986398923,
    "rank": 21,
-   "points": 1519.0,
+   "points": 1523.0,
    "aliases": []
   },
   {
    "name": "B8",
    "rating": 1606.8989057613678,
-   "rank": 29,
-   "points": 1431.0,
+   "rank": 24,
+   "points": 1495.0,
    "aliases": []
   },
   {
    "name": "BIG",
    "rating": 1575.2681111311676,
-   "rank": 25,
-   "points": 1454.0,
+   "rank": 28,
+   "points": 1443.0,
    "aliases": [
     "big"
    ]
@@ -129,22 +136,22 @@
   {
    "name": "magic",
    "rating": 1575.3570883699683,
-   "rank": 33,
-   "points": 1399.0,
+   "rank": 36,
+   "points": 1393.0,
    "aliases": []
   },
   {
    "name": "Aurora",
    "rating": 1674.2434162328882,
-   "rank": 4,
-   "points": 1882.0,
+   "rank": 3,
+   "points": 1891.0,
    "aliases": []
   },
   {
    "name": "Nemiga",
    "rating": 1594.2534668370056,
-   "rank": 20,
-   "points": 1535.0,
+   "rank": 17,
+   "points": 1563.0,
    "aliases": []
   },
   {
@@ -157,36 +164,36 @@
   {
    "name": "Nemesis",
    "rating": 1584.8591952958366,
-   "rank": 40,
-   "points": 1371.0,
+   "rank": 43,
+   "points": 1361.0,
    "aliases": []
   },
   {
    "name": "Fire Flux",
    "rating": 1578.860588015493,
-   "rank": 130,
-   "points": 931.0,
+   "rank": 129,
+   "points": 932.0,
    "aliases": []
   },
   {
    "name": "HOTU",
    "rating": 1578.1011231611703,
-   "rank": 31,
-   "points": 1409.0,
+   "rank": 30,
+   "points": 1438.0,
    "aliases": []
   },
   {
    "name": "WW",
    "rating": 1574.2631110314628,
-   "rank": 104,
-   "points": 1012.0,
+   "rank": 103,
+   "points": 1011.0,
    "aliases": []
   },
   {
    "name": "The MongolZ",
    "rating": 1546.6231006612736,
-   "rank": 11,
-   "points": 1589.0,
+   "rank": 15,
+   "points": 1576.0,
    "aliases": [
     "mongolz"
    ]
@@ -195,42 +202,42 @@
    "name": "Walczaki",
    "rating": 1573.1072886442473,
    "rank": 175,
-   "points": 754.0,
+   "points": 753.0,
    "aliases": []
   },
   {
    "name": "MIBR",
    "rating": 1584.9683639807956,
-   "rank": 12,
-   "points": 1587.0,
+   "rank": 13,
+   "points": 1590.0,
    "aliases": []
   },
   {
    "name": "HEROIC",
    "rating": 1606.998281077912,
-   "rank": 18,
-   "points": 1547.0,
+   "rank": 19,
+   "points": 1551.0,
    "aliases": []
   },
   {
    "name": "Astralis",
    "rating": 1565.0518607871588,
-   "rank": 13,
-   "points": 1579.0,
+   "rank": 12,
+   "points": 1594.0,
    "aliases": []
   },
   {
    "name": "1win",
    "rating": 1591.2389087362033,
    "rank": 22,
-   "points": 1515.0,
+   "points": 1519.0,
    "aliases": []
   },
   {
    "name": "ex-Zero Tenacity",
    "rating": 1554.6845543797117,
    "rank": 78,
-   "points": 1130.0,
+   "points": 1131.0,
    "aliases": [
     "exzerotenacity"
    ]
@@ -238,15 +245,15 @@
   {
    "name": "illwill",
    "rating": 1553.8279422608678,
-   "rank": 323,
+   "rank": 320,
    "points": 528.0,
    "aliases": []
   },
   {
    "name": "Turma do Pagode",
    "rating": 1547.5733154158263,
-   "rank": 114,
-   "points": 977.0,
+   "rank": 115,
+   "points": 976.0,
    "aliases": []
   },
   {
@@ -259,8 +266,8 @@
   {
    "name": "Ninjas in Pyjamas",
    "rating": 1528.2344792248743,
-   "rank": 15,
-   "points": 1563.0,
+   "rank": 16,
+   "points": 1574.0,
    "aliases": [
     "nip"
    ]
@@ -275,8 +282,8 @@
   {
    "name": "GamerLegion",
    "rating": 1519.3384851101046,
-   "rank": 45,
-   "points": 1348.0,
+   "rank": 44,
+   "points": 1357.0,
    "aliases": [
     "gl"
    ]
@@ -284,8 +291,8 @@
   {
    "name": "100 Thieves",
    "rating": 1561.0759038626784,
-   "rank": 24,
-   "points": 1480.0,
+   "rank": 25,
+   "points": 1482.0,
    "aliases": [
     "100t"
    ]
@@ -293,22 +300,22 @@
   {
    "name": "FaZe",
    "rating": 1512.5291750396561,
-   "rank": 17,
-   "points": 1558.0,
+   "rank": 18,
+   "points": 1560.0,
    "aliases": []
   },
   {
    "name": "Wildcard",
    "rating": 1529.39761517161,
-   "rank": 44,
-   "points": 1348.0,
+   "rank": 45,
+   "points": 1347.0,
    "aliases": []
   },
   {
    "name": "Virtus.pro",
    "rating": 1523.908635431235,
-   "rank": 30,
-   "points": 1428.0,
+   "rank": 31,
+   "points": 1430.0,
    "aliases": [
     "vp",
     "virtuspro"
@@ -317,8 +324,8 @@
   {
    "name": "BESTIA",
    "rating": 1525.4967413614288,
-   "rank": 59,
-   "points": 1232.0,
+   "rank": 60,
+   "points": 1230.0,
    "aliases": []
   },
   {
@@ -332,7 +339,7 @@
    "name": "ex-RUBY",
    "rating": 1518.2381328375031,
    "rank": 153,
-   "points": 817.0,
+   "points": 812.0,
    "aliases": [
     "exruby"
    ]
@@ -340,8 +347,8 @@
   {
    "name": "Butterfly",
    "rating": 1517.7894074074122,
-   "rank": 113,
-   "points": 979.0,
+   "rank": 114,
+   "points": 978.0,
    "aliases": []
   },
   {
@@ -354,28 +361,28 @@
   {
    "name": "Imperial",
    "rating": 1514.8922972435041,
-   "rank": 39,
-   "points": 1372.0,
+   "rank": 41,
+   "points": 1370.0,
    "aliases": []
   },
   {
    "name": "DragonClaw",
    "rating": 1514.006267585974,
-   "rank": 222,
-   "points": 682.0,
+   "rank": 220,
+   "points": 679.0,
    "aliases": []
   },
   {
    "name": "Bebop",
    "rating": 1513.5966682292014,
-   "rank": 234,
+   "rank": 232,
    "points": 667.0,
    "aliases": []
   },
   {
    "name": "TYLOO",
    "rating": 1479.4351444729566,
-   "rank": 50,
+   "rank": 49,
    "points": 1286.0,
    "aliases": [
     "tyloo"
@@ -385,7 +392,7 @@
    "name": "PARIVISION",
    "rating": 1522.518543327409,
    "rank": 14,
-   "points": 1579.0,
+   "points": 1585.0,
    "aliases": []
   },
   {
@@ -406,7 +413,7 @@
    "name": "Eternal Fire",
    "rating": 1494.3697143818392,
    "rank": 32,
-   "points": 1408.0,
+   "points": 1429.0,
    "aliases": [
     "ef"
    ]
@@ -415,7 +422,7 @@
    "name": "M80",
    "rating": 1520.5383008507656,
    "rank": 23,
-   "points": 1491.0,
+   "points": 1501.0,
    "aliases": []
   },
   {
@@ -428,8 +435,8 @@
   {
    "name": "NEXVOID",
    "rating": 1509.9826189916998,
-   "rank": 73,
-   "points": 1157.0,
+   "rank": 71,
+   "points": 1171.0,
    "aliases": []
   },
   {
@@ -449,15 +456,15 @@
   {
    "name": "Inner Circle",
    "rating": 1507.245229128093,
-   "rank": 26,
-   "points": 1451.0,
+   "rank": 27,
+   "points": 1454.0,
    "aliases": []
   },
   {
    "name": "FAVBET",
    "rating": 1505.5981797834575,
-   "rank": 343,
-   "points": 497.0,
+   "rank": 342,
+   "points": 495.0,
    "aliases": []
   },
   {
@@ -471,13 +478,13 @@
    "name": "CYBERSHOKE",
    "rating": 1503.9160277535962,
    "rank": 91,
-   "points": 1070.0,
+   "points": 1068.0,
    "aliases": []
   },
   {
    "name": "HEROIC Academy",
    "rating": 1503.089632862507,
-   "rank": 337,
+   "rank": 334,
    "points": 508.0,
    "aliases": []
   },
@@ -485,28 +492,28 @@
    "name": "FOKUS",
    "rating": 1491.3171135058283,
    "rank": 48,
-   "points": 1303.0,
+   "points": 1304.0,
    "aliases": []
   },
   {
    "name": "JiJieHao",
    "rating": 1511.337639998251,
-   "rank": 28,
-   "points": 1437.0,
+   "rank": 29,
+   "points": 1440.0,
    "aliases": []
   },
   {
    "name": "Liquid",
    "rating": 1499.9954764607169,
-   "rank": 19,
-   "points": 1539.0,
+   "rank": 20,
+   "points": 1537.0,
    "aliases": []
   },
   {
    "name": "SINNERS",
    "rating": 1499.1312452122027,
-   "rank": 35,
-   "points": 1394.0,
+   "rank": 33,
+   "points": 1399.0,
    "aliases": []
   },
   {
@@ -530,7 +537,7 @@
   {
    "name": "OlyBet",
    "rating": 1494.6900388097047,
-   "rank": 354,
+   "rank": 352,
    "points": 468.0,
    "aliases": []
   },
@@ -545,35 +552,35 @@
    "name": "Sashi",
    "rating": 1466.6952381892886,
    "rank": 98,
-   "points": 1035.0,
+   "points": 1034.0,
    "aliases": []
   },
   {
    "name": "ALGO",
    "rating": 1490.594881560351,
-   "rank": 262,
-   "points": 622.0,
+   "rank": 261,
+   "points": 621.0,
    "aliases": []
   },
   {
    "name": "MIBR fe",
    "rating": 1490.4830483368967,
-   "rank": 216,
+   "rank": 215,
    "points": 691.0,
    "aliases": []
   },
   {
    "name": "Zomblers",
    "rating": 1489.4175941219548,
-   "rank": 237,
+   "rank": 235,
    "points": 665.0,
    "aliases": []
   },
   {
    "name": "LAG",
    "rating": 1489.2573402475944,
-   "rank": 105,
-   "points": 1009.0,
+   "rank": 104,
+   "points": 1007.0,
    "aliases": []
   },
   {
@@ -593,8 +600,8 @@
   {
    "name": "Yawara",
    "rating": 1488.433304336356,
-   "rank": 155,
-   "points": 812.0,
+   "rank": 154,
+   "points": 811.0,
    "aliases": []
   },
   {
@@ -614,43 +621,43 @@
   {
    "name": "Vasco",
    "rating": 1488.0,
-   "rank": 382,
+   "rank": 379,
    "points": 366.0,
    "aliases": []
   },
   {
    "name": "MASONIC",
    "rating": 1487.9767967621556,
-   "rank": 195,
-   "points": 723.0,
+   "rank": 193,
+   "points": 721.0,
    "aliases": []
   },
   {
    "name": "MIBR Academy",
    "rating": 1487.6113917248554,
-   "rank": 249,
+   "rank": 247,
    "points": 642.0,
    "aliases": []
   },
   {
    "name": "Crashers",
    "rating": 1487.5999923740492,
-   "rank": 377,
-   "points": 396.0,
+   "rank": null,
+   "points": null,
    "aliases": []
   },
   {
    "name": "R2",
    "rating": 1487.585699413623,
-   "rank": 372,
+   "rank": 370,
    "points": 401.0,
    "aliases": []
   },
   {
    "name": "Metizport",
    "rating": 1487.416717453519,
-   "rank": 70,
-   "points": 1168.0,
+   "rank": 67,
+   "points": 1186.0,
    "aliases": []
   },
   {
@@ -663,8 +670,8 @@
   {
    "name": "FlyQuest",
    "rating": 1487.3919277276368,
-   "rank": 53,
-   "points": 1277.0,
+   "rank": 50,
+   "points": 1286.0,
    "aliases": []
   },
   {
@@ -677,35 +684,35 @@
   {
    "name": "BORING PLAYERS",
    "rating": 1486.8147023894671,
-   "rank": 369,
-   "points": 416.0,
+   "rank": 367,
+   "points": 415.0,
    "aliases": []
   },
   {
    "name": "Rooster",
    "rating": 1486.451996439135,
-   "rank": 147,
-   "points": 859.0,
+   "rank": 146,
+   "points": 855.0,
    "aliases": []
   },
   {
    "name": "KOLESIE",
    "rating": 1486.4217809817128,
    "rank": 163,
-   "points": 785.0,
+   "points": 781.0,
    "aliases": []
   },
   {
    "name": "BBL",
    "rating": 1490.628569272567,
-   "rank": 41,
-   "points": 1370.0,
+   "rank": 40,
+   "points": 1373.0,
    "aliases": []
   },
   {
    "name": "BAKS",
    "rating": 1485.067606599519,
-   "rank": 96,
+   "rank": 95,
    "points": 1044.0,
    "aliases": []
   },
@@ -713,42 +720,42 @@
    "name": "BRUTE",
    "rating": 1484.92429803005,
    "rank": 69,
-   "points": 1172.0,
+   "points": 1173.0,
    "aliases": []
   },
   {
    "name": "Luminosity",
    "rating": 1484.2729940249924,
-   "rank": 36,
-   "points": 1394.0,
+   "rank": 39,
+   "points": 1391.0,
    "aliases": []
   },
   {
    "name": "5star",
    "rating": 1497.5795130637523,
-   "rank": 67,
-   "points": 1178.0,
+   "rank": 64,
+   "points": 1206.0,
    "aliases": []
   },
   {
    "name": "ShindeN",
    "rating": 1467.1901137510124,
    "rank": 89,
-   "points": 1086.0,
+   "points": 1083.0,
    "aliases": []
   },
   {
    "name": "INFINITE",
    "rating": 1481.6451634784669,
-   "rank": 71,
-   "points": 1166.0,
+   "rank": 73,
+   "points": 1167.0,
    "aliases": []
   },
   {
    "name": "THUNDER dOWNUNDER",
    "rating": 1481.1900773583238,
-   "rank": 154,
-   "points": 816.0,
+   "rank": 152,
+   "points": 813.0,
    "aliases": []
   },
   {
@@ -761,15 +768,15 @@
   {
    "name": "Chinggis Warriors",
    "rating": 1480.3443390893515,
-   "rank": 52,
-   "points": 1279.0,
+   "rank": 54,
+   "points": 1256.0,
    "aliases": []
   },
   {
    "name": "GenOne",
    "rating": 1479.9807408375823,
    "rank": 93,
-   "points": 1052.0,
+   "points": 1053.0,
    "aliases": []
   },
   {
@@ -783,13 +790,13 @@
    "name": "Acend",
    "rating": 1479.0128034186419,
    "rank": 75,
-   "points": 1144.0,
+   "points": 1143.0,
    "aliases": []
   },
   {
    "name": "Famalicão",
    "rating": 1478.3265697535546,
-   "rank": 247,
+   "rank": 245,
    "points": 647.0,
    "aliases": [
     "famalico"
@@ -813,13 +820,13 @@
    "name": "HAVU",
    "rating": 1476.4394166697011,
    "rank": 111,
-   "points": 988.0,
+   "points": 990.0,
    "aliases": []
   },
   {
    "name": "Leo",
    "rating": 1476.1824749399284,
-   "rank": 119,
+   "rank": 121,
    "points": 956.0,
    "aliases": []
   },
@@ -827,21 +834,21 @@
    "name": "UPGRADE",
    "rating": 1476.168623304187,
    "rank": 88,
-   "points": 1086.0,
+   "points": 1087.0,
    "aliases": []
   },
   {
    "name": "Sangal",
    "rating": 1496.3728345807954,
    "rank": 42,
-   "points": 1367.0,
+   "points": 1368.0,
    "aliases": []
   },
   {
    "name": "Just Players",
    "rating": 1475.89046505566,
    "rank": 107,
-   "points": 999.0,
+   "points": 1000.0,
    "aliases": []
   },
   {
@@ -854,8 +861,8 @@
   {
    "name": "ENCE",
    "rating": 1475.037544215938,
-   "rank": 103,
-   "points": 1015.0,
+   "rank": 102,
+   "points": 1018.0,
    "aliases": []
   },
   {
@@ -868,8 +875,8 @@
   {
    "name": "SINQU",
    "rating": 1474.8097510105704,
-   "rank": 198,
-   "points": 715.0,
+   "rank": 197,
+   "points": 714.0,
    "aliases": []
   },
   {
@@ -890,7 +897,7 @@
    "name": "ex-RUSTEC",
    "rating": 1474.1176152022144,
    "rank": 99,
-   "points": 1031.0,
+   "points": 1033.0,
    "aliases": [
     "exrustec"
    ]
@@ -898,8 +905,8 @@
   {
    "name": "The Last Resort",
    "rating": 1472.6344391199555,
-   "rank": 135,
-   "points": 912.0,
+   "rank": 134,
+   "points": 921.0,
    "aliases": [
     "lastresort"
    ]
@@ -907,15 +914,15 @@
   {
    "name": "ARCRED",
    "rating": 1471.1437562730705,
-   "rank": 199,
-   "points": 714.0,
+   "rank": 198,
+   "points": 712.0,
    "aliases": []
   },
   {
    "name": "Galorys",
    "rating": 1471.0903643200456,
    "rank": 83,
-   "points": 1112.0,
+   "points": 1111.0,
    "aliases": []
   },
   {
@@ -928,21 +935,21 @@
   {
    "name": "NRG",
    "rating": 1472.349348464619,
-   "rank": 49,
-   "points": 1286.0,
+   "rank": 51,
+   "points": 1284.0,
    "aliases": []
   },
   {
    "name": "Lavked",
    "rating": 1468.822502584915,
-   "rank": 118,
-   "points": 958.0,
+   "rank": 120,
+   "points": 959.0,
    "aliases": []
   },
   {
    "name": "BET-M",
    "rating": 1468.7021383011624,
-   "rank": 95,
+   "rank": 96,
    "points": 1044.0,
    "aliases": [
     "betm"
@@ -951,15 +958,15 @@
   {
    "name": "Keyd Stars",
    "rating": 1467.650942843601,
-   "rank": 242,
-   "points": 654.0,
+   "rank": 240,
+   "points": 652.0,
    "aliases": []
   },
   {
    "name": "fnatic",
    "rating": 1463.7636834480045,
-   "rank": 27,
-   "points": 1447.0,
+   "rank": 26,
+   "points": 1474.0,
    "aliases": []
   },
   {
@@ -973,21 +980,21 @@
    "name": "Iberian Soul",
    "rating": 1464.5235663273709,
    "rank": 58,
-   "points": 1235.0,
+   "points": 1236.0,
    "aliases": []
   },
   {
    "name": "megoshort",
    "rating": 1464.4465028763657,
    "rank": 159,
-   "points": 792.0,
+   "points": 791.0,
    "aliases": []
   },
   {
    "name": "Falcons Force",
    "rating": 1464.3910235093974,
-   "rank": 145,
-   "points": 861.0,
+   "rank": 144,
+   "points": 862.0,
    "aliases": []
   },
   {
@@ -1000,64 +1007,64 @@
   {
    "name": "Just Swing",
    "rating": 1461.753391584057,
-   "rank": 170,
-   "points": 772.0,
+   "rank": 169,
+   "points": 774.0,
    "aliases": []
   },
   {
    "name": "Bounty Hunters",
    "rating": 1458.995546220185,
    "rank": 101,
-   "points": 1025.0,
+   "points": 1023.0,
    "aliases": []
   },
   {
    "name": "Reign Above",
    "rating": 1458.5780371394974,
-   "rank": 349,
-   "points": 491.0,
+   "rank": 347,
+   "points": 489.0,
    "aliases": []
   },
   {
    "name": "regain",
    "rating": 1456.812985028029,
-   "rank": 168,
-   "points": 777.0,
+   "rank": 167,
+   "points": 776.0,
    "aliases": []
   },
   {
    "name": "Rare Atom",
    "rating": 1456.0266412426658,
-   "rank": 124,
-   "points": 942.0,
+   "rank": 123,
+   "points": 945.0,
    "aliases": []
   },
   {
    "name": "Procyon",
    "rating": 1455.8589800468876,
-   "rank": 157,
+   "rank": 156,
    "points": 805.0,
    "aliases": []
   },
   {
    "name": "Lilmix",
    "rating": 1455.854101645787,
-   "rank": 193,
-   "points": 723.0,
+   "rank": 192,
+   "points": 722.0,
    "aliases": []
   },
   {
    "name": "G2 Ares",
    "rating": 1455.4199472844005,
-   "rank": 132,
-   "points": 929.0,
+   "rank": 130,
+   "points": 930.0,
    "aliases": []
   },
   {
    "name": "SportsBetExpert",
    "rating": 1455.3459706780598,
-   "rank": 68,
-   "points": 1173.0,
+   "rank": 70,
+   "points": 1172.0,
    "aliases": []
   },
   {
@@ -1070,22 +1077,22 @@
   {
    "name": "Marsborne",
    "rating": 1455.1133372249926,
-   "rank": 117,
-   "points": 961.0,
+   "rank": 119,
+   "points": 959.0,
    "aliases": []
   },
   {
    "name": "Rune Eaters",
    "rating": 1449.5528313350387,
    "rank": 108,
-   "points": 998.0,
+   "points": 997.0,
    "aliases": []
   },
   {
    "name": "Johnny Speeds",
    "rating": 1421.9453999251314,
    "rank": 109,
-   "points": 996.0,
+   "points": 995.0,
    "aliases": []
   },
   {
@@ -1106,7 +1113,7 @@
    "name": "9INE",
    "rating": 1445.5539946727836,
    "rank": 100,
-   "points": 1030.0,
+   "points": 1029.0,
    "aliases": []
   },
   {
@@ -1119,29 +1126,29 @@
   {
    "name": "EAC",
    "rating": 1422.3559005596662,
-   "rank": 116,
-   "points": 962.0,
+   "rank": 117,
+   "points": 963.0,
    "aliases": []
   },
   {
    "name": "STATE",
    "rating": 1441.4398902252174,
    "rank": 110,
-   "points": 993.0,
+   "points": 992.0,
    "aliases": []
   },
   {
    "name": "SemperFi",
    "rating": 1441.2056194065651,
-   "rank": 350,
-   "points": 487.0,
+   "rank": 348,
+   "points": 486.0,
    "aliases": []
   },
   {
    "name": "UNiTY",
    "rating": 1440.626683516857,
-   "rank": 60,
-   "points": 1229.0,
+   "rank": 61,
+   "points": 1230.0,
    "aliases": []
   },
   {
@@ -1155,7 +1162,7 @@
    "name": "Black Phoenix",
    "rating": 1437.1352339592054,
    "rank": 72,
-   "points": 1166.0,
+   "points": 1168.0,
    "aliases": []
   },
   {
@@ -1169,14 +1176,14 @@
    "name": "ASTRAL",
    "rating": 1415.3893169636872,
    "rank": 97,
-   "points": 1036.0,
+   "points": 1035.0,
    "aliases": []
   },
   {
    "name": "MOUZ NXT",
    "rating": 1433.8238845712249,
-   "rank": 148,
-   "points": 848.0,
+   "rank": 147,
+   "points": 849.0,
    "aliases": []
   },
   {
@@ -1189,21 +1196,21 @@
   {
    "name": "Lynn Vision",
    "rating": 1432.283477490625,
-   "rank": 51,
-   "points": 1279.0,
+   "rank": 53,
+   "points": 1280.0,
    "aliases": []
   },
   {
    "name": "Voca",
    "rating": 1430.7435099142153,
    "rank": 79,
-   "points": 1127.0,
+   "points": 1126.0,
    "aliases": []
   },
   {
    "name": "HyperSpirit",
    "rating": 1430.0200431392302,
-   "rank": 143,
+   "rank": 141,
    "points": 865.0,
    "aliases": []
   },
@@ -1219,50 +1226,50 @@
   {
    "name": "DEPO",
    "rating": 1427.114954360863,
-   "rank": 115,
-   "points": 972.0,
+   "rank": 116,
+   "points": 971.0,
    "aliases": []
   },
   {
    "name": "OG",
    "rating": 1425.5275215822596,
-   "rank": 125,
-   "points": 940.0,
+   "rank": 126,
+   "points": 939.0,
    "aliases": []
   },
   {
    "name": "AM",
    "rating": 1424.9972743590067,
-   "rank": 196,
-   "points": 721.0,
+   "rank": 194,
+   "points": 719.0,
    "aliases": []
   },
   {
    "name": "Omega",
    "rating": 1422.72409884218,
-   "rank": 106,
-   "points": 1008.0,
+   "rank": 105,
+   "points": 1007.0,
    "aliases": []
   },
   {
    "name": "Fake do Biru",
    "rating": 1418.336506479843,
-   "rank": 250,
-   "points": 640.0,
+   "rank": 248,
+   "points": 638.0,
    "aliases": []
   },
   {
    "name": "Fluxo",
    "rating": 1415.7201382743945,
-   "rank": 61,
-   "points": 1229.0,
+   "rank": 62,
+   "points": 1227.0,
    "aliases": []
   },
   {
    "name": "The Huns",
    "rating": 1411.012261953942,
-   "rank": 121,
-   "points": 950.0,
+   "rank": 122,
+   "points": 956.0,
    "aliases": [
     "huns"
    ]
@@ -1270,8 +1277,8 @@
   {
    "name": "Nexus",
    "rating": 1409.9327847784875,
-   "rank": 65,
-   "points": 1197.0,
+   "rank": 66,
+   "points": 1199.0,
    "aliases": []
   },
   {
@@ -1292,14 +1299,14 @@
    "name": "Phantom",
    "rating": 1400.988414974805,
    "rank": 63,
-   "points": 1216.0,
+   "points": 1219.0,
    "aliases": []
   },
   {
    "name": "SPARTA",
    "rating": 1394.3234829884934,
    "rank": 112,
-   "points": 987.0,
+   "points": 986.0,
    "aliases": []
   },
   {
@@ -1312,8 +1319,8 @@
   {
    "name": "Envy",
    "rating": null,
-   "rank": 43,
-   "points": 1366.0,
+   "rank": 35,
+   "points": 1394.0,
    "aliases": []
   },
   {
@@ -1326,36 +1333,36 @@
   {
    "name": "PRIVATE",
    "rating": null,
-   "rank": 62,
-   "points": 1227.0,
+   "rank": 59,
+   "points": 1230.0,
    "aliases": []
   },
   {
    "name": "PURE",
    "rating": null,
-   "rank": 64,
+   "rank": 65,
    "points": 1200.0,
    "aliases": []
   },
   {
    "name": "WBT",
    "rating": null,
-   "rank": 66,
-   "points": 1182.0,
+   "rank": 68,
+   "points": 1181.0,
    "aliases": []
   },
   {
    "name": "NAVI Junior",
    "rating": null,
    "rank": 76,
-   "points": 1134.0,
+   "points": 1136.0,
    "aliases": []
   },
   {
    "name": "RBLS",
    "rating": null,
    "rank": 84,
-   "points": 1112.0,
+   "points": 1111.0,
    "aliases": []
   },
   {
@@ -1369,251 +1376,251 @@
    "name": "BARCA",
    "rating": null,
    "rank": 90,
-   "points": 1076.0,
+   "points": 1075.0,
    "aliases": []
   },
   {
    "name": "Without a Roof",
    "rating": null,
    "rank": 92,
-   "points": 1069.0,
+   "points": 1068.0,
    "aliases": []
   },
   {
    "name": "Inner Circle Academy",
    "rating": null,
-   "rank": 102,
-   "points": 1023.0,
+   "rank": 106,
+   "points": 1004.0,
    "aliases": []
   },
   {
    "name": "Alter Ego",
    "rating": null,
-   "rank": 120,
-   "points": 953.0,
+   "rank": 118,
+   "points": 962.0,
    "aliases": []
   },
   {
    "name": "Off Chops",
    "rating": null,
-   "rank": 122,
-   "points": 946.0,
+   "rank": 125,
+   "points": 944.0,
    "aliases": []
   },
   {
    "name": "Illyrians",
    "rating": null,
-   "rank": 123,
-   "points": 944.0,
+   "rank": 124,
+   "points": 945.0,
    "aliases": []
   },
   {
    "name": "ex-6666",
    "rating": null,
-   "rank": 126,
+   "rank": 127,
    "points": 938.0,
    "aliases": []
   },
   {
    "name": "ex-CYBERSHOKE",
    "rating": null,
-   "rank": 127,
+   "rank": 128,
    "points": 935.0,
    "aliases": []
   },
   {
    "name": "6yuBoJlbl",
    "rating": null,
-   "rank": 128,
-   "points": 935.0,
+   "rank": 136,
+   "points": 914.0,
    "aliases": []
   },
   {
    "name": "Abyssal",
    "rating": null,
-   "rank": 129,
-   "points": 935.0,
+   "rank": 113,
+   "points": 981.0,
    "aliases": []
   },
   {
    "name": "mellren",
    "rating": null,
    "rank": 133,
-   "points": 921.0,
+   "points": 922.0,
    "aliases": []
   },
   {
    "name": "Ground Zero",
    "rating": null,
-   "rank": 134,
-   "points": 915.0,
+   "rank": 132,
+   "points": 928.0,
    "aliases": []
   },
   {
    "name": "Nordic Partners",
    "rating": null,
-   "rank": 136,
+   "rank": 137,
    "points": 899.0,
    "aliases": []
   },
   {
    "name": "Saint Sinners",
    "rating": null,
-   "rank": 137,
-   "points": 895.0,
+   "rank": 135,
+   "points": 916.0,
    "aliases": []
   },
   {
    "name": "Tropa do KinGui",
    "rating": null,
    "rank": 138,
-   "points": 884.0,
+   "points": 883.0,
    "aliases": []
   },
   {
    "name": "WBT Academy",
    "rating": null,
    "rank": 139,
-   "points": 873.0,
+   "points": 883.0,
    "aliases": []
   },
   {
    "name": "PCIFIC",
    "rating": null,
-   "rank": 144,
+   "rank": 142,
    "points": 864.0,
    "aliases": []
   },
   {
    "name": "Misa",
    "rating": null,
-   "rank": 146,
+   "rank": 145,
    "points": 860.0,
    "aliases": []
   },
   {
    "name": "LFO 10",
    "rating": null,
-   "rank": 149,
-   "points": 832.0,
+   "rank": 148,
+   "points": 838.0,
    "aliases": []
   },
   {
    "name": "PAQT",
    "rating": null,
-   "rank": 150,
+   "rank": 149,
    "points": 827.0,
    "aliases": []
   },
   {
    "name": "Overtake Sector",
    "rating": null,
-   "rank": 151,
-   "points": 823.0,
+   "rank": 150,
+   "points": 822.0,
    "aliases": []
   },
   {
    "name": "SAW Youngsters",
    "rating": null,
-   "rank": 152,
-   "points": 817.0,
+   "rank": 151,
+   "points": 819.0,
    "aliases": []
   },
   {
    "name": "Vexar",
    "rating": null,
-   "rank": 156,
-   "points": 806.0,
+   "rank": 155,
+   "points": 807.0,
    "aliases": []
   },
   {
    "name": "Young TigeRES",
    "rating": null,
-   "rank": 158,
+   "rank": 157,
    "points": 800.0,
    "aliases": []
   },
   {
    "name": "LPH",
    "rating": null,
-   "rank": 160,
-   "points": 791.0,
+   "rank": 158,
+   "points": 792.0,
    "aliases": []
   },
   {
    "name": "Quintessence",
    "rating": null,
-   "rank": 161,
+   "rank": 160,
    "points": 788.0,
    "aliases": []
   },
   {
    "name": "Enjoy",
    "rating": null,
-   "rank": 162,
-   "points": 786.0,
+   "rank": 161,
+   "points": 787.0,
    "aliases": []
   },
   {
    "name": "Kaleido",
    "rating": null,
-   "rank": 164,
-   "points": 783.0,
+   "rank": 162,
+   "points": 784.0,
    "aliases": []
   },
   {
    "name": "Desi Boyz",
    "rating": null,
    "rank": 165,
-   "points": 780.0,
+   "points": 778.0,
    "aliases": []
   },
   {
    "name": "Phantom Academy",
    "rating": null,
-   "rank": 166,
-   "points": 779.0,
+   "rank": 164,
+   "points": 781.0,
    "aliases": []
   },
   {
    "name": "Prestige",
    "rating": null,
-   "rank": 167,
-   "points": 779.0,
+   "rank": 166,
+   "points": 778.0,
    "aliases": []
   },
   {
    "name": "PsychoFace",
    "rating": null,
-   "rank": 169,
-   "points": 776.0,
+   "rank": 168,
+   "points": 774.0,
    "aliases": []
   },
   {
    "name": "DONSTU",
    "rating": null,
-   "rank": 171,
-   "points": 767.0,
+   "rank": 170,
+   "points": 768.0,
    "aliases": []
   },
   {
    "name": "BORRACHEIROS",
    "rating": null,
-   "rank": 172,
+   "rank": 171,
    "points": 761.0,
    "aliases": []
   },
   {
    "name": "Noir Verse",
    "rating": null,
-   "rank": 173,
+   "rank": 172,
    "points": 759.0,
    "aliases": []
   },
   {
    "name": "benched gods",
    "rating": null,
-   "rank": 174,
+   "rank": 173,
    "points": 757.0,
    "aliases": []
   },
@@ -1621,244 +1628,244 @@
    "name": "Chicken Coop",
    "rating": null,
    "rank": 176,
-   "points": 754.0,
+   "points": 753.0,
    "aliases": []
   },
   {
    "name": "INFURITY",
    "rating": null,
-   "rank": 177,
-   "points": 754.0,
+   "rank": 174,
+   "points": 753.0,
    "aliases": []
   },
   {
    "name": "Vitalem Aerem",
    "rating": null,
-   "rank": 178,
-   "points": 750.0,
+   "rank": 177,
+   "points": 751.0,
    "aliases": []
   },
   {
    "name": "Iowa Stormboar",
-   "rating": null,
-   "rank": 179,
-   "points": 748.0,
-   "aliases": []
-  },
-  {
-   "name": "MAYBE",
    "rating": null,
    "rank": 180,
    "points": 748.0,
    "aliases": []
   },
   {
+   "name": "MAYBE",
+   "rating": null,
+   "rank": 179,
+   "points": 748.0,
+   "aliases": []
+  },
+  {
    "name": "Banda Chuya",
    "rating": null,
-   "rank": 181,
+   "rank": 178,
    "points": 748.0,
    "aliases": []
   },
   {
    "name": "KZG",
    "rating": null,
-   "rank": 182,
-   "points": 742.0,
+   "rank": 181,
+   "points": 744.0,
    "aliases": []
   },
   {
    "name": "ex-ODDIK",
    "rating": null,
-   "rank": 184,
-   "points": 740.0,
+   "rank": 183,
+   "points": 739.0,
    "aliases": []
   },
   {
    "name": "DETONATE",
    "rating": null,
-   "rank": 185,
-   "points": 740.0,
+   "rank": 182,
+   "points": 739.0,
    "aliases": []
   },
   {
    "name": "Entropy",
    "rating": null,
-   "rank": 186,
-   "points": 739.0,
+   "rank": 252,
+   "points": 633.0,
    "aliases": []
   },
   {
    "name": "Azuolas",
    "rating": null,
-   "rank": 187,
+   "rank": 185,
    "points": 735.0,
    "aliases": []
   },
   {
    "name": "DNK",
    "rating": null,
-   "rank": 188,
+   "rank": 186,
    "points": 732.0,
    "aliases": []
   },
   {
    "name": "ALKA",
    "rating": null,
-   "rank": 189,
-   "points": 728.0,
+   "rank": 188,
+   "points": 727.0,
    "aliases": []
   },
   {
    "name": "Gothic",
    "rating": null,
-   "rank": 190,
+   "rank": 187,
    "points": 728.0,
    "aliases": []
   },
   {
    "name": "KUUSAMO",
    "rating": null,
-   "rank": 191,
+   "rank": 189,
    "points": 726.0,
    "aliases": []
   },
   {
    "name": "TitanFlow",
    "rating": null,
-   "rank": 192,
-   "points": 725.0,
+   "rank": 190,
+   "points": 726.0,
    "aliases": []
   },
   {
    "name": "Drama",
    "rating": null,
-   "rank": 194,
+   "rank": 191,
    "points": 723.0,
    "aliases": []
   },
   {
    "name": "Atreides",
    "rating": null,
-   "rank": 197,
-   "points": 717.0,
+   "rank": 196,
+   "points": 718.0,
    "aliases": []
   },
   {
    "name": "Mindfreak",
    "rating": null,
-   "rank": 200,
-   "points": 713.0,
+   "rank": 195,
+   "points": 718.0,
    "aliases": []
   },
   {
    "name": "KAMUI",
    "rating": null,
-   "rank": 202,
-   "points": 711.0,
+   "rank": 199,
+   "points": 710.0,
    "aliases": []
   },
   {
    "name": "Four Magic",
    "rating": null,
-   "rank": 203,
-   "points": 709.0,
+   "rank": 202,
+   "points": 708.0,
    "aliases": []
   },
   {
    "name": "RED Canids Academy",
    "rating": null,
-   "rank": 204,
-   "points": 709.0,
+   "rank": 201,
+   "points": 708.0,
    "aliases": []
   },
   {
    "name": "Spirit Academy Green",
    "rating": null,
-   "rank": 206,
+   "rank": 204,
    "points": 706.0,
    "aliases": []
   },
   {
    "name": "Isurus",
    "rating": null,
-   "rank": 207,
+   "rank": 205,
    "points": 704.0,
    "aliases": []
   },
   {
    "name": "Washed",
    "rating": null,
-   "rank": 209,
-   "points": 700.0,
+   "rank": 207,
+   "points": 698.0,
    "aliases": []
   },
   {
    "name": "Drip Too Hard",
    "rating": null,
-   "rank": 210,
-   "points": 700.0,
+   "rank": 209,
+   "points": 696.0,
    "aliases": []
   },
   {
    "name": "BERG",
    "rating": null,
-   "rank": 212,
-   "points": 696.0,
+   "rank": 211,
+   "points": 694.0,
    "aliases": []
   },
   {
    "name": "Morningstar",
    "rating": null,
-   "rank": 213,
-   "points": 694.0,
+   "rank": 206,
+   "points": 700.0,
    "aliases": []
   },
   {
    "name": "EMPIRE",
    "rating": null,
    "rank": 214,
-   "points": 694.0,
+   "points": 693.0,
    "aliases": []
   },
   {
    "name": "The Golden Horde",
    "rating": null,
-   "rank": 215,
+   "rank": 213,
    "points": 694.0,
    "aliases": []
   },
   {
    "name": "Honvéd",
    "rating": null,
-   "rank": 217,
-   "points": 690.0,
+   "rank": 210,
+   "points": 695.0,
    "aliases": []
   },
   {
    "name": "NEXORA",
    "rating": null,
-   "rank": 218,
+   "rank": 216,
    "points": 689.0,
    "aliases": []
   },
   {
    "name": "Ryvex",
    "rating": null,
-   "rank": 219,
+   "rank": 217,
    "points": 686.0,
    "aliases": []
   },
   {
    "name": "Mira",
    "rating": null,
-   "rank": 220,
-   "points": 685.0,
+   "rank": 219,
+   "points": 684.0,
    "aliases": []
   },
   {
    "name": "Younglings",
    "rating": null,
-   "rank": 221,
+   "rank": 218,
    "points": 684.0,
    "aliases": []
   },
@@ -1866,846 +1873,846 @@
    "name": "UNO MILLE",
    "rating": null,
    "rank": 223,
-   "points": 679.0,
+   "points": 677.0,
    "aliases": []
   },
   {
    "name": "Strael Bora",
    "rating": null,
-   "rank": 224,
-   "points": 679.0,
+   "rank": 222,
+   "points": 678.0,
    "aliases": []
   },
   {
    "name": "Privateer",
    "rating": null,
-   "rank": 225,
-   "points": 678.0,
+   "rank": 221,
+   "points": 679.0,
    "aliases": []
   },
   {
    "name": "brazylijski luz",
    "rating": null,
-   "rank": 226,
-   "points": 677.0,
+   "rank": 224,
+   "points": 675.0,
    "aliases": []
   },
   {
    "name": "Dark Moon",
    "rating": null,
-   "rank": 228,
-   "points": 674.0,
+   "rank": 226,
+   "points": 673.0,
    "aliases": []
   },
   {
    "name": "Glitch",
    "rating": null,
-   "rank": 229,
-   "points": 674.0,
+   "rank": 225,
+   "points": 673.0,
    "aliases": []
   },
   {
    "name": "roamsfiest",
    "rating": null,
-   "rank": 230,
-   "points": 673.0,
+   "rank": 228,
+   "points": 671.0,
    "aliases": []
   },
   {
    "name": "Low Cortisol BR",
    "rating": null,
-   "rank": 231,
-   "points": 671.0,
+   "rank": 229,
+   "points": 670.0,
    "aliases": []
   },
   {
    "name": "MEIA NOITE",
    "rating": null,
-   "rank": 233,
-   "points": 668.0,
+   "rank": 231,
+   "points": 667.0,
    "aliases": []
   },
   {
    "name": "QUINTESSÊNCIA",
    "rating": null,
-   "rank": 235,
+   "rank": 233,
    "points": 666.0,
    "aliases": []
   },
   {
    "name": "THE UNIT",
    "rating": null,
-   "rank": 236,
-   "points": 666.0,
+   "rank": 234,
+   "points": 665.0,
    "aliases": []
   },
   {
    "name": "ABT",
    "rating": null,
-   "rank": 239,
-   "points": 662.0,
+   "rank": 236,
+   "points": 661.0,
    "aliases": []
   },
   {
    "name": "Grêmio",
    "rating": null,
-   "rank": 240,
+   "rank": 237,
    "points": 660.0,
    "aliases": []
   },
   {
    "name": "Nas",
    "rating": null,
-   "rank": 241,
+   "rank": 239,
    "points": 658.0,
    "aliases": []
   },
   {
    "name": "Villainous",
    "rating": null,
-   "rank": 243,
-   "points": 652.0,
+   "rank": 242,
+   "points": 651.0,
    "aliases": []
   },
   {
    "name": "FarmVille",
    "rating": null,
-   "rank": 244,
-   "points": 652.0,
+   "rank": 241,
+   "points": 651.0,
    "aliases": []
   },
   {
    "name": "ex-Sashi Academy",
    "rating": null,
-   "rank": 245,
+   "rank": 243,
    "points": 651.0,
    "aliases": []
   },
   {
    "name": "5dads",
    "rating": null,
-   "rank": 246,
-   "points": 648.0,
+   "rank": 244,
+   "points": 650.0,
    "aliases": []
   },
   {
    "name": "Revenge",
    "rating": null,
-   "rank": 248,
-   "points": 646.0,
+   "rank": 246,
+   "points": 645.0,
    "aliases": []
   },
   {
    "name": "Endless Journey",
    "rating": null,
-   "rank": 252,
-   "points": 638.0,
+   "rank": 250,
+   "points": 636.0,
    "aliases": []
   },
   {
    "name": "Optibet",
    "rating": null,
-   "rank": 253,
-   "points": 635.0,
+   "rank": 251,
+   "points": 634.0,
    "aliases": []
   },
   {
    "name": "EHISTO BASE",
    "rating": null,
-   "rank": 256,
-   "points": 634.0,
+   "rank": 253,
+   "points": 632.0,
    "aliases": []
   },
   {
    "name": "Fortress",
    "rating": null,
-   "rank": 258,
+   "rank": 255,
    "points": 630.0,
    "aliases": []
   },
   {
    "name": "overTIME",
    "rating": null,
-   "rank": 259,
-   "points": 630.0,
+   "rank": 257,
+   "points": 628.0,
    "aliases": []
   },
   {
    "name": "FaZe Up Next",
    "rating": null,
-   "rank": 260,
+   "rank": 258,
    "points": 626.0,
    "aliases": []
   },
   {
    "name": "ALTAY",
    "rating": null,
-   "rank": 261,
+   "rank": 260,
    "points": 623.0,
    "aliases": []
   },
   {
    "name": "MARKandLARRY",
    "rating": null,
-   "rank": 263,
-   "points": 622.0,
+   "rank": 259,
+   "points": 625.0,
    "aliases": []
   },
   {
    "name": "NEW VISION",
    "rating": null,
-   "rank": 264,
-   "points": 620.0,
+   "rank": 266,
+   "points": 615.0,
    "aliases": []
   },
   {
    "name": "Toobisie",
    "rating": null,
-   "rank": 265,
+   "rank": 262,
    "points": 619.0,
    "aliases": []
   },
   {
    "name": "Dripmen",
    "rating": null,
-   "rank": 266,
+   "rank": 263,
    "points": 618.0,
    "aliases": []
   },
   {
    "name": "Club 333",
    "rating": null,
-   "rank": 268,
+   "rank": 264,
    "points": 616.0,
    "aliases": []
   },
   {
    "name": "los kogutos",
    "rating": null,
-   "rank": 269,
-   "points": 613.0,
+   "rank": 268,
+   "points": 611.0,
    "aliases": []
   },
   {
    "name": "Shimmer",
    "rating": null,
-   "rank": 270,
-   "points": 613.0,
+   "rank": null,
+   "points": null,
    "aliases": []
   },
   {
    "name": "BESTIA Academy",
    "rating": null,
-   "rank": 271,
-   "points": 613.0,
+   "rank": 267,
+   "points": 612.0,
    "aliases": []
   },
   {
    "name": "Legion",
    "rating": null,
-   "rank": 273,
-   "points": 602.0,
+   "rank": 271,
+   "points": 603.0,
    "aliases": []
   },
   {
    "name": "your end",
    "rating": null,
-   "rank": 274,
+   "rank": 272,
    "points": 602.0,
    "aliases": []
   },
   {
    "name": "Raccoons",
    "rating": null,
-   "rank": 275,
+   "rank": 274,
    "points": 601.0,
    "aliases": []
   },
   {
    "name": "antidaun",
    "rating": null,
-   "rank": 277,
+   "rank": 275,
    "points": 600.0,
    "aliases": []
   },
   {
    "name": "LFO 8",
    "rating": null,
-   "rank": 278,
-   "points": 597.0,
+   "rank": 276,
+   "points": 598.0,
    "aliases": []
   },
   {
    "name": "B8 Academy",
    "rating": null,
-   "rank": 279,
+   "rank": 278,
    "points": 596.0,
    "aliases": []
   },
   {
    "name": "XDM",
    "rating": null,
-   "rank": 281,
-   "points": 595.0,
+   "rank": 277,
+   "points": 596.0,
    "aliases": []
   },
   {
    "name": "OLDBOYS PL",
    "rating": null,
-   "rank": 282,
+   "rank": 279,
    "points": 594.0,
    "aliases": []
   },
   {
    "name": "train launcher",
    "rating": null,
-   "rank": 283,
-   "points": 594.0,
+   "rank": 281,
+   "points": 592.0,
    "aliases": []
   },
   {
    "name": "Haunted House",
    "rating": null,
-   "rank": 284,
-   "points": 593.0,
+   "rank": 282,
+   "points": 591.0,
    "aliases": []
   },
   {
    "name": "XI",
    "rating": null,
-   "rank": 285,
-   "points": 592.0,
+   "rank": 280,
+   "points": 593.0,
    "aliases": []
   },
   {
    "name": "cirahvi",
    "rating": null,
-   "rank": 286,
-   "points": 591.0,
+   "rank": 283,
+   "points": 590.0,
    "aliases": []
   },
   {
    "name": "LFO 7",
    "rating": null,
-   "rank": 287,
+   "rank": 284,
    "points": 587.0,
    "aliases": []
   },
   {
    "name": "Wanted Goons",
    "rating": null,
-   "rank": 288,
-   "points": 587.0,
+   "rank": 285,
+   "points": 586.0,
    "aliases": []
   },
   {
    "name": "Banger Gang",
    "rating": null,
-   "rank": 289,
-   "points": 586.0,
+   "rank": 287,
+   "points": 585.0,
    "aliases": []
   },
   {
    "name": "ex-Arcade",
    "rating": null,
-   "rank": 290,
-   "points": 584.0,
+   "rank": 286,
+   "points": 586.0,
    "aliases": []
   },
   {
    "name": "Invicta",
    "rating": null,
-   "rank": 291,
+   "rank": 288,
    "points": 583.0,
    "aliases": []
   },
   {
    "name": "SHISHKA",
    "rating": null,
-   "rank": 292,
-   "points": 583.0,
+   "rank": 290,
+   "points": 582.0,
    "aliases": []
   },
   {
    "name": "eSuba",
    "rating": null,
-   "rank": 293,
-   "points": 581.0,
+   "rank": 291,
+   "points": 580.0,
    "aliases": []
   },
   {
    "name": "Xcity",
    "rating": null,
-   "rank": 294,
+   "rank": 292,
    "points": 580.0,
    "aliases": []
   },
   {
    "name": "Festina Lente",
    "rating": null,
-   "rank": 296,
-   "points": 577.0,
+   "rank": 293,
+   "points": 576.0,
    "aliases": []
   },
   {
    "name": "Next Up",
    "rating": null,
-   "rank": 297,
+   "rank": 294,
    "points": 576.0,
    "aliases": []
   },
   {
    "name": "The KnockoutX",
    "rating": null,
-   "rank": 298,
+   "rank": 295,
    "points": 576.0,
    "aliases": []
   },
   {
    "name": "eternal premium",
    "rating": null,
-   "rank": 299,
+   "rank": 297,
    "points": 575.0,
    "aliases": []
   },
   {
    "name": "BIG Academy",
    "rating": null,
-   "rank": 300,
-   "points": 575.0,
+   "rank": 296,
+   "points": 576.0,
    "aliases": []
   },
   {
    "name": "Y27",
    "rating": null,
-   "rank": 301,
+   "rank": 298,
    "points": 573.0,
    "aliases": []
   },
   {
    "name": "Olympus",
    "rating": null,
-   "rank": 302,
+   "rank": 299,
    "points": 570.0,
    "aliases": []
   },
   {
    "name": "Revise",
    "rating": null,
-   "rank": 303,
+   "rank": 300,
    "points": 569.0,
    "aliases": []
   },
   {
    "name": "MTX",
    "rating": null,
-   "rank": 304,
-   "points": 568.0,
+   "rank": 303,
+   "points": 567.0,
    "aliases": []
   },
   {
    "name": "JOGA DE TERNO",
    "rating": null,
-   "rank": 305,
+   "rank": 301,
    "points": 567.0,
    "aliases": []
   },
   {
    "name": "KODEX",
    "rating": null,
-   "rank": 306,
+   "rank": 302,
    "points": 567.0,
    "aliases": []
   },
   {
    "name": "paiN Academy",
    "rating": null,
-   "rank": 307,
-   "points": 567.0,
+   "rank": 304,
+   "points": 566.0,
    "aliases": []
   },
   {
    "name": "LFO 9",
    "rating": null,
-   "rank": 308,
+   "rank": 305,
    "points": 566.0,
    "aliases": []
   },
   {
    "name": "LOS NINOS",
    "rating": null,
-   "rank": 310,
+   "rank": 307,
    "points": 562.0,
    "aliases": []
   },
   {
    "name": "TrafficPills",
    "rating": null,
-   "rank": 311,
+   "rank": 308,
    "points": 561.0,
    "aliases": []
   },
   {
    "name": "FAFO",
    "rating": null,
-   "rank": 314,
-   "points": 552.0,
+   "rank": 311,
+   "points": 551.0,
    "aliases": []
   },
   {
    "name": "BGNS Orange",
    "rating": null,
-   "rank": 315,
-   "points": 546.0,
+   "rank": 312,
+   "points": 547.0,
    "aliases": []
   },
   {
    "name": "Mai Tai",
    "rating": null,
-   "rank": 316,
-   "points": 544.0,
+   "rank": 313,
+   "points": 545.0,
    "aliases": []
   },
   {
    "name": "ZOTIX",
    "rating": null,
-   "rank": 318,
+   "rank": 314,
    "points": 534.0,
    "aliases": []
   },
   {
    "name": "Beyond Limits",
    "rating": null,
-   "rank": 319,
-   "points": 534.0,
+   "rank": 316,
+   "points": 533.0,
    "aliases": []
   },
   {
    "name": "the ONE",
    "rating": null,
-   "rank": 320,
+   "rank": 317,
    "points": 533.0,
    "aliases": []
   },
   {
    "name": "NuTorious",
    "rating": null,
-   "rank": 321,
+   "rank": 318,
    "points": 531.0,
    "aliases": []
   },
   {
    "name": "GamersLab",
    "rating": null,
-   "rank": 322,
+   "rank": 319,
    "points": 530.0,
    "aliases": []
   },
   {
    "name": "aAa",
    "rating": null,
-   "rank": 324,
-   "points": 527.0,
+   "rank": 322,
+   "points": 526.0,
    "aliases": []
   },
   {
    "name": "madlikewizards",
    "rating": null,
-   "rank": 325,
-   "points": 526.0,
+   "rank": 321,
+   "points": 527.0,
    "aliases": []
   },
   {
    "name": "ROUNDS",
    "rating": null,
-   "rank": 326,
+   "rank": 323,
    "points": 523.0,
    "aliases": []
   },
   {
    "name": "HAVENs",
    "rating": null,
-   "rank": 328,
-   "points": 520.0,
+   "rank": 326,
+   "points": 519.0,
    "aliases": []
   },
   {
    "name": "Tricksters",
    "rating": null,
-   "rank": 329,
+   "rank": 325,
    "points": 520.0,
    "aliases": []
   },
   {
    "name": "Elusive",
    "rating": null,
-   "rank": 330,
+   "rank": 327,
    "points": 518.0,
    "aliases": []
   },
   {
    "name": "Wingman",
    "rating": null,
-   "rank": 331,
-   "points": 514.0,
+   "rank": 329,
+   "points": 513.0,
    "aliases": []
   },
   {
    "name": "PATSANVISION",
    "rating": null,
-   "rank": 332,
+   "rank": 328,
    "points": 513.0,
    "aliases": []
   },
   {
    "name": "Martians",
    "rating": null,
-   "rank": 333,
+   "rank": 330,
    "points": 512.0,
    "aliases": []
   },
   {
    "name": "A Great Chaos",
    "rating": null,
-   "rank": 334,
-   "points": 512.0,
+   "rank": 331,
+   "points": 510.0,
    "aliases": []
   },
   {
    "name": "Hashiras",
    "rating": null,
-   "rank": 335,
-   "points": 510.0,
+   "rank": 333,
+   "points": 509.0,
    "aliases": []
   },
   {
    "name": "Aurora Young Blud",
    "rating": null,
-   "rank": 338,
+   "rank": 335,
    "points": 506.0,
    "aliases": []
   },
   {
    "name": "F5",
    "rating": null,
-   "rank": 339,
-   "points": 504.0,
+   "rank": 336,
+   "points": 503.0,
    "aliases": []
   },
   {
    "name": "Arch",
    "rating": null,
-   "rank": 340,
-   "points": 503.0,
+   "rank": 337,
+   "points": 502.0,
    "aliases": []
   },
   {
    "name": "WXM",
    "rating": null,
-   "rank": 341,
+   "rank": 338,
    "points": 501.0,
    "aliases": []
   },
   {
    "name": "Omen",
    "rating": null,
-   "rank": 342,
-   "points": 501.0,
+   "rank": 339,
+   "points": 500.0,
    "aliases": []
   },
   {
    "name": "REVENIX",
    "rating": null,
-   "rank": 344,
-   "points": 497.0,
+   "rank": 341,
+   "points": 496.0,
    "aliases": []
   },
   {
    "name": "Fruju",
    "rating": null,
-   "rank": 346,
-   "points": 493.0,
+   "rank": 343,
+   "points": 494.0,
    "aliases": []
   },
   {
    "name": "Incognito",
    "rating": null,
-   "rank": 347,
+   "rank": 344,
    "points": 493.0,
    "aliases": []
   },
   {
    "name": "Subtop De France",
    "rating": null,
-   "rank": 352,
-   "points": 470.0,
+   "rank": 350,
+   "points": 471.0,
    "aliases": []
   },
   {
    "name": "WAZABI",
    "rating": null,
    "rank": 353,
-   "points": 469.0,
+   "points": 467.0,
    "aliases": []
   },
   {
    "name": "New Legends",
    "rating": null,
-   "rank": 355,
+   "rank": 351,
    "points": 468.0,
    "aliases": []
   },
   {
    "name": "EAC EXTRA",
    "rating": null,
-   "rank": 356,
+   "rank": 354,
    "points": 466.0,
    "aliases": []
   },
   {
    "name": "DAMAJUANA",
    "rating": null,
-   "rank": 357,
+   "rank": 355,
    "points": 462.0,
    "aliases": []
   },
   {
    "name": "bLight blue",
    "rating": null,
-   "rank": 358,
+   "rank": 356,
    "points": 458.0,
    "aliases": []
   },
   {
    "name": "Zetta",
    "rating": null,
-   "rank": 359,
+   "rank": 357,
    "points": 451.0,
    "aliases": []
   },
   {
    "name": "GUARA",
    "rating": null,
-   "rank": 360,
+   "rank": 358,
    "points": 451.0,
    "aliases": []
   },
   {
    "name": "Unreal Nightmare",
    "rating": null,
-   "rank": 361,
+   "rank": 359,
    "points": 446.0,
    "aliases": []
   },
   {
    "name": "Coalesce",
    "rating": null,
-   "rank": 362,
-   "points": 442.0,
+   "rank": 360,
+   "points": 441.0,
    "aliases": []
   },
   {
    "name": "Trainwrecks",
    "rating": null,
-   "rank": 363,
-   "points": 442.0,
+   "rank": 361,
+   "points": 441.0,
    "aliases": []
   },
   {
    "name": "Hacha",
    "rating": null,
-   "rank": 364,
+   "rank": 362,
    "points": 436.0,
    "aliases": []
   },
   {
    "name": "JUMBO",
    "rating": null,
-   "rank": 365,
-   "points": 435.0,
+   "rank": 363,
+   "points": 436.0,
    "aliases": []
   },
   {
    "name": "Sementes do Mal",
    "rating": null,
-   "rank": 366,
+   "rank": 364,
    "points": 430.0,
    "aliases": []
   },
   {
    "name": "Spirit HU",
    "rating": null,
-   "rank": 367,
+   "rank": 365,
    "points": 430.0,
    "aliases": []
   },
   {
    "name": "flacons",
    "rating": null,
-   "rank": 368,
+   "rank": 366,
    "points": 418.0,
    "aliases": []
   },
   {
    "name": "6666",
    "rating": null,
-   "rank": 370,
+   "rank": 368,
    "points": 414.0,
    "aliases": []
   },
   {
    "name": "Aimhaus",
    "rating": null,
-   "rank": 371,
+   "rank": 369,
    "points": 412.0,
    "aliases": []
   },
   {
    "name": "Red Feet",
    "rating": null,
-   "rank": 373,
+   "rank": 372,
    "points": 400.0,
    "aliases": []
   },
   {
    "name": "Mansão Maromba",
    "rating": null,
-   "rank": 374,
+   "rank": 371,
    "points": 400.0,
    "aliases": []
   },
   {
    "name": "Players",
    "rating": null,
-   "rank": 376,
+   "rank": 374,
    "points": 397.0,
    "aliases": []
   },
   {
    "name": "Julie&Cie",
    "rating": null,
-   "rank": 378,
+   "rank": 375,
    "points": 394.0,
    "aliases": []
   },
   {
    "name": "ex-KRÜ",
    "rating": null,
-   "rank": 380,
+   "rank": 378,
    "points": 385.0,
    "aliases": []
   },
   {
    "name": "BOJONG",
    "rating": null,
-   "rank": 381,
+   "rank": 377,
    "points": 385.0,
    "aliases": []
   },
   {
    "name": "EXODIA",
    "rating": null,
-   "rank": 383,
+   "rank": 380,
    "points": 355.0,
    "aliases": []
   },

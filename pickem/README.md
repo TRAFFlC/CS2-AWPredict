@@ -115,10 +115,23 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   "elo_matches": 2923,
   "source": "rank_points",
   "_provenance": "rating = 公开语料重算的 Elo；rank/points 刷新自 2026-10-28 全球 VRS 快照；VRS 概率尚未重新校准。",
+  "vrs_source": {                // 用来判断「同日榜单是否被重算」
+    "date": "2026-10-28",
+    "teams": 352,
+    "content_sha": "3a013e0af46c…",
+    "fetched_at": "2026-10-29T04:10:00+08:00",
+    "revision": 2
+  },
   "counts": { "teams": 391, "elo": 179, "vrs": 352, "both": 152 },
-  "teams": [ { "name": "Spirit", "rating": 1753.0253, "rank": 3, "points": 1899.0, "aliases": [] } ]
+  "teams": [ { "name": "Spirit", "rating": 1753.0253, "rank": 5, "points": 1877.0, "aliases": [] } ]
 }
 ```
+
+- `vrs_source.content_sha` 只对 `(rank, name, points)` 排序后做 sha256，不含
+  `fetched_at` / `revision`。**同一天、同样队数、但积分被 HLTV 重算**时哈希会变，
+  根服务的 `vrs_sync.py` 据此重写强度库，不会漏掉「只改积分」的更新。
+- 同一日期的快照可能有多版：`revision` 每变一次加 1，旧版归档在
+  `data/cache/vrs_history/`（gitignored）。页面显示「第 N 版 · X 分钟前抓取」。
 
 - `rating` = **2923 场公开赛果重放的 Elo**：`data/csapi_matches_all.jsonl` 2800 场
   （2025-10-14..2026-09-05）+ `data/groundtruth/new_records_*.jsonl` 123 场增量
@@ -140,9 +153,12 @@ JSON 侧落在 `baselines` 键（每路含 `p_ge_k` / `expected_hits` / `expecte
   强度库按 mtime 热加载；只有改 `predict_gui.py` 本身才需要重启页面进程。
 - **换 VRS 快照**：`python pickem/update_vrs.py --write`（默认取 `data/vrs_rank_*.json`
   中日期最大的一份）按 name → 别名 → 规范化匹配，更新 `rank` / `points`；新队伍
-  `rating=null`，掉榜队伍 `rank` / `points=null`，`asof` / `counts` / `_provenance` 一起重写。
-  根服务的 `vrs_sync.py` 会在页面加载时自动跑这一步；独立部署（只有 `pickem/`）时
-  需手动执行或由自己的调度器调用。
+  `rating=null`，掉榜队伍 `rank` / `points=null`，`asof` / `counts` / `_provenance` /
+  `vrs_source` 一起重写。`content_sha` 与库内记录相同时直接跳过，不制造无意义的
+  mtime / git 变化；`--force` 可强制重写。
+  根服务的 `vrs_sync.py` 会在页面加载时自动跑这一步，并在快照超过 60 分钟时复核
+  最新页（同一天榜单可能被赛后重算）；独立部署（只有 `pickem/`）时需手动执行或由
+  自己的调度器调用。
 - 首次生成强度库仍走私有侧 `build_strength.py`（`…/015-scratch/`，自带队数对账断言）。
 - `GET /api/teams` 直接返回这张表（含 `asof` / `elo_asof` / `elo_matches` / `_provenance`），
   页面用它做补全与强度标签。

@@ -760,16 +760,38 @@ async function loadLib() {
 
 // ---- VRS 自动抓取（2026-10-29）--------------------------------
 // 页面每次加载都问服务端「北京时间现在该抓哪一天」；需要时后台抓 HLTV，
-// 不阻塞页面。抓到新快照后重新拉 /api/teams，输入框旁的 VRS 标签立刻更新。
-let VRS_LATEST = null, VRS_TIMER = null;
+// 不阻塞页面。同一天的榜单会被 HLTV 赛后重算，所以服务端每小时复核一次；
+// 这里用「日期 + revision」识别版本变化，变了就重拉强度库与预测。
+let VRS_KEY = null, VRS_TIMER = null;
+
+function vrsKey(s) {
+  return (s && s.latest) ? s.latest + "#" + (s.snapshot_revision || 1) : null;
+}
+
+function vrsAge(s) {
+  const sec = s && s.snapshot_age_s;
+  if (sec === null || sec === undefined) return "";
+  if (sec < 90) return "刚刚抓取";
+  if (sec < 3600) return Math.round(sec / 60) + " 分钟前抓取";
+  return Math.round(sec / 3600) + " 小时前抓取";
+}
 
 function vrsText(s) {
   if (!s || s.ok === false) {
     return "VRS 同步不可用" + (s && s.error ? "：" + s.error : "");
   }
   const t = s.target || "—", l = s.latest || "—";
+  const meta = [
+    s.snapshot_revision ? "第 " + s.snapshot_revision + " 版" : "",
+    vrsAge(s)
+  ].filter(Boolean).join(" · ");
   if (s.running) return "VRS " + l + " · 正在检查 " + t + "…";
-  if (s.target_ready) return "VRS " + l + " · 已是最新（目标 " + t + "）";
+  if (s.needs_update) return "VRS " + l + (meta ? " · " + meta : "") + " · 强度库待同步";
+  if (s.target_ready && s.needs_fetch) {
+    return "VRS " + l + (meta ? " · " + meta : "") +
+      " · 超过 " + Math.round((s.revalidate_s || 3600) / 60) + " 分钟未复核";
+  }
+  if (s.target_ready) return "VRS " + l + (meta ? " · " + meta : "") + " · 已是最新";
   if (s.cooldown_s > 0) {
     return "VRS " + l + " · 目标 " + t + " 尚未发布，" +
       Math.ceil(s.cooldown_s / 60) + " 分钟后重试";
@@ -790,20 +812,25 @@ async function vrsPoll() {
     const s = await jget("/api/vrs/status");
     vrsShow(s);
     if (s.running) { VRS_TIMER = setTimeout(vrsPoll, 1500); return; }
-    if (s.latest && VRS_LATEST && s.latest !== VRS_LATEST) {
+    const key = vrsKey(s);
+    if (key && VRS_KEY && key !== VRS_KEY) {
       await loadLib();
       refresh();
-      $("st").textContent += " · VRS 已更新到 " + s.latest;
+      $("st").textContent += " · VRS 已更新到 " + s.latest +
+        (s.snapshot_revision ? "（第 " + s.snapshot_revision + " 版）" : "");
     }
-    VRS_LATEST = s.latest || VRS_LATEST;
+    VRS_KEY = key || VRS_KEY;
   } catch (e) { /* 老服务没有该端点时静默 */ }
 }
 
 async function vrsKick() {
   try {
     const s = await jget("/api/vrs/status");
-    vrsShow(s); VRS_LATEST = s.latest || null;
-    if (!s.running && !(s.target_ready && s.library_current)) {
+    vrsShow(s); VRS_KEY = vrsKey(s);
+    const want = (s.needs_fetch === undefined)
+      ? !(s.target_ready && s.library_current)
+      : (s.needs_update || (s.needs_fetch && !(s.cooldown_s > 0)));
+    if (!s.running && want) {
       const j = await jpost("/api/vrs/refresh", {});
       if (j && j.status) vrsShow(j.status); else vrsShow(j);
     }

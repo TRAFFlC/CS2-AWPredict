@@ -18,7 +18,10 @@
 * 快照里有、库里没有 → 追加新记录，`rating=null`（不伪造 Elo），`aliases=[]`。
 * 库里有、快照里没有 → `rank=null` / `points=null`（掉榜），Elo 原样保留。
 * `asof` 改成快照日期，`counts` 重算，`_provenance` 追加一段可追溯说明。
-* 默认只预览；`--write` 才原子替换强度库。
+* 写入 `vrs_source`（date / teams / content_sha / fetched_at / revision）：
+  `vrs_sync` 用它判断「同日期、同队数、但积分变了」的情况。
+* 默认只预览；`--write` 才原子替换强度库。content_sha 相同则直接跳过，
+  不制造无意义的 mtime / git 变化；`--force` 可强制重写。
 
 用法
 ----
@@ -30,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import glob
+import hashlib
 import json
 import os
 import re
@@ -55,7 +59,7 @@ def latest_snapshot(data_dir=DATA):
 
 
 def load_snapshot(path):
-    """读并校验快照；返回 (date, rows)。非法即退出，不静默修补。"""
+    """读并校验快照；返回 (date, rows, meta)。非法即退出，不静默修补。"""
     try:
         with open(path, encoding="utf-8") as fh:
             doc = json.load(fh)
@@ -83,7 +87,21 @@ def load_snapshot(path):
         seen_name.add(name.lower())
         rows.append({"name": name, "rank": rank, "points": points})
     rows.sort(key=lambda r: r["rank"])
-    return date, rows
+    meta = {"fetched_at": doc.get("fetched_at"),
+            "revision": doc.get("revision")}
+    return date, rows, meta
+
+
+def content_sha(rows):
+    """只对 rank/name/points 排序后做 sha256（与 vrs_sync.content_sha 同口径）。
+
+    不含 fetched_at / revision：同一份榜单重复抓取时内容哈希不变，
+    强度库就不会因为「只是又抓了一次」而被重写。
+    """
+    blob = json.dumps(sorted((int(r["rank"]), str(r["name"]), float(r["points"]))
+                             for r in rows),
+                      ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
 def build_lookup(teams):
@@ -134,13 +152,20 @@ def strip_previous(text):
         text = text[:i] + text[j + len("原 provenance: "):]
 
 
-def build_doc(doc, date, rows, matched, renamed, added, dropped):
+def build_doc(doc, date, rows, matched, renamed, added, dropped, sha, meta):
     old_prov = strip_previous(doc.get("_provenance") or "")
+    rev = meta.get("revision")
+    when = meta.get("fetched_at")
+    extra = ""
+    if rev or when:
+        extra = "（第 %s 版%s）" % (
+            rev if rev is not None else "?",
+            "，抓取于 %s" % when if when else "")
     segment = (
-        "%s%s 的 Valve 全球排名快照（%d 队；新增 %d 支 rating=null；"
-        "掉榜 %d 支 rank/points=null；按别名/规范化匹配 %d 支）。"
+        "%s%s 的 Valve 全球排名快照%s（%d 队；新增 %d 支 rating=null；"
+        "掉榜 %d 支 rank/points=null；按别名/规范化匹配 %d 支；content_sha %s）。"
         "默认强度源仍是 VRS 积分；Elo 列来自公开语料重放，不随 VRS 刷新。"
-        % (MARK, date, len(rows), added, dropped, renamed)
+        % (MARK, date, extra, len(rows), added, dropped, renamed, sha[:12])
     )
     new_prov = segment + "原 provenance: " + old_prov
     teams = doc["teams"]
@@ -161,6 +186,13 @@ def build_doc(doc, date, rows, matched, renamed, added, dropped):
         "source": doc.get("source", "rank_points"),
         "_role": role,
         "_provenance": new_prov,
+        "vrs_source": {
+            "date": date,
+            "teams": len(rows),
+            "content_sha": sha,
+            "fetched_at": meta.get("fetched_at"),
+            "revision": meta.get("revision"),
+        },
         "counts": counts,
         "teams": teams,
     }
@@ -218,10 +250,13 @@ def main(argv=None):
     ap.add_argument("--data-dir", default=DATA, help="快照目录（默认 ./data）")
     ap.add_argument("--fixture", default=FIXTURE, help=argparse.SUPPRESS)
     ap.add_argument("--write", action="store_true", help="写回 fixture（默认只预览）")
+    ap.add_argument("--force", action="store_true",
+                    help="即使 content_sha 相同也重写（手工修复用）")
     args = ap.parse_args(argv)
 
     snap_path = args.snapshot or latest_snapshot(args.data_dir)
-    date, rows = load_snapshot(snap_path)
+    date, rows, meta = load_snapshot(snap_path)
+    sha = content_sha(rows)
     try:
         with open(args.fixture, encoding="utf-8") as fh:
             doc = json.load(fh)
@@ -230,11 +265,20 @@ def main(argv=None):
     if not isinstance(doc.get("teams"), list) or not doc["teams"]:
         raise SystemExit("强度库没有 teams：%s" % args.fixture)
 
+    old_src = doc.get("vrs_source") or {}
+    if (not args.force and old_src.get("date") == date
+            and old_src.get("content_sha") == sha):
+        print("强度库已与快照一致（content_sha %s），无需更新。" % sha[:12])
+        return 0
+
     stats = apply_snapshot(doc, date, rows)
     out = build_doc(doc, date, rows, stats["matched"], stats["renamed"],
-                    stats["added"], stats["dropped"])
+                    stats["added"], stats["dropped"], sha, meta)
 
-    print("快照：%s（%s，%d 队）" % (snap_path, date, len(rows)))
+    print("快照：%s（%s，%d 队，第 %s 版%s）"
+          % (snap_path, date, len(rows), meta.get("revision") or "?",
+             "，抓取于 %s" % meta["fetched_at"] if meta.get("fetched_at") else ""))
+    print("content_sha %s" % sha[:12])
     print("匹配 %d 支（其中别名/规范化 %d 支）；新增 %d 支；掉榜 %d 支（另有 %d 支本来就不在榜上）"
           % (stats["matched"], stats["renamed"], stats["added"],
              stats["dropped"], stats["off_list"] - stats["dropped"]))

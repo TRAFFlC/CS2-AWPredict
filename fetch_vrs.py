@@ -42,6 +42,7 @@ import io
 import json
 import os
 import re
+import shutil
 import sys
 import time
 
@@ -51,6 +52,8 @@ CACHE = os.path.join(DATA, "cache")
 STORAGE = os.path.join(CACHE, "hltv_storage.json")
 LOCK = os.path.join(CACHE, "fetch_vrs.lock")
 URL_TMPL = "https://www.hltv.org/valve-ranking/teams/{year}/{month}/{day}"
+LATEST_URL = "https://www.hltv.org/valve-ranking/teams"
+BJ = dt.timezone(dt.timedelta(hours=8))
 
 MONTHS = ["january", "february", "march", "april", "may", "june",
           "july", "august", "september", "october", "november", "december"]
@@ -169,6 +172,50 @@ def prune_html_cache(keep=14):
             os.remove(path)
     except OSError:
         pass
+
+
+def summarize_changes(old_teams, new_teams):
+    """比较两版 teams，返回可打印/可解析的变化摘要。"""
+    old = {t.get("name"): t for t in old_teams or []}
+    new = {t.get("name"): t for t in new_teams or []}
+    deltas = []
+    for name in old.keys() & new.keys():
+        op, np_ = old[name].get("points"), new[name].get("points")
+        orank, nrank = old[name].get("rank"), new[name].get("rank")
+        if op != np_ or orank != nrank:
+            deltas.append((name, op, np_, orank, nrank))
+    deltas.sort(key=lambda x: -abs((x[2] or 0) - (x[1] or 0)))
+    return {
+        "changed": len(deltas),
+        "rank_changed": sum(1 for d in deltas if d[3] != d[4]),
+        "added": sorted(set(new) - set(old)),
+        "dropped": sorted(set(old) - set(new)),
+        "top": [[d[0], d[1], d[2]] for d in deltas[:5]],
+    }
+
+
+def archive_snapshot(path, doc, revision):
+    """覆盖同日期快照前，把旧版本存到 data/cache/vrs_history/。"""
+    hist = os.path.join(CACHE, "vrs_history")
+    try:
+        os.makedirs(hist, exist_ok=True)
+        stamp = str(doc.get("fetched_at") or "")
+        if not stamp:
+            try:
+                stamp = dt.datetime.fromtimestamp(os.path.getmtime(path), BJ).isoformat()
+            except OSError:
+                stamp = "unknown"
+        stamp = re.sub(r"[^0-9A-Za-z]+", "-", stamp).strip("-") or "unknown"
+        base = os.path.splitext(os.path.basename(path))[0]
+        dst = os.path.join(hist, "%s_r%s_%s.json" % (base, revision, stamp))
+        shutil.copy2(path, dst)
+        files = sorted(glob.glob(os.path.join(hist, "*.json")))
+        for old in files[:-60]:
+            os.remove(old)
+        return dst
+    except OSError as e:
+        print("⚠ 旧版本归档失败（不影响新快照写入）：%s" % e)
+        return None
 
 
 def acquire_lock():
@@ -300,6 +347,8 @@ def main(argv=None):
         description="从 HLTV 抓取 Valve 全球排名（VRS）→ data/vrs_rank_<日期>.json")
     ap.add_argument("--date", default=None,
                     help="要抓取的日期 YYYY-MM-DD（默认本机今天）")
+    ap.add_argument("--latest", action="store_true",
+                    help="抓最新页（不带日期 URL），按页面 header 的实际日期写入")
     ap.add_argument("--out-dir", default=DATA, help="快照输出目录（默认 ./data）")
     ap.add_argument("--text-out", default=os.path.join(HERE, "valve_rank.txt"),
                     help="可读榜单输出路径（默认 ./valve_rank.txt）")
@@ -313,12 +362,12 @@ def main(argv=None):
                     help="重名队伍保留最后一次出现（默认保留第一次）")
     a = ap.parse_args(argv)
 
-    requested = parse_cli_date(a.date)
-    url = url_for(requested)
-    req_iso = requested.isoformat()
-    req_path = os.path.join(a.out_dir, "vrs_rank_%s.json" % req_iso)
+    requested = None if a.latest else parse_cli_date(a.date)
+    url = LATEST_URL if a.latest else url_for(requested)
+    req_iso = requested.isoformat() if requested else None
+    req_path = os.path.join(a.out_dir, "vrs_rank_%s.json" % req_iso) if req_iso else None
 
-    if not a.force:
+    if not a.force and req_path:
         try:
             doc = snapshot_doc(req_path, req_iso)
         except ParseError as e:
@@ -327,7 +376,8 @@ def main(argv=None):
         if doc:
             print("✓ 已有 %s（%d 支队），跳过网络请求。" % (req_path, len(doc["teams"])))
             append_log({"status": "skip_existing", "requested": req_iso,
-                        "path": req_path, "teams": len(doc["teams"])})
+                        "path": req_path, "teams": len(doc["teams"]),
+                        "note": "已有同期日期快照，跳过网络请求"})
             return 0
 
     if not acquire_lock():
@@ -335,7 +385,8 @@ def main(argv=None):
         return 0
     try:
         print("抓取 %s ..." % url)
-        got = fetch_page(url, timeout=a.timeout, headed=a.headed, date_hint=req_iso)
+        got = fetch_page(url, timeout=a.timeout, headed=a.headed,
+                         date_hint=req_iso or "latest")
         header = got.get("date_text") or ""
         if "valve global ranking" not in header.lower():
             raise ParseError("页面 header 不是 Valve global ranking：%r" % header)
@@ -343,7 +394,7 @@ def main(argv=None):
         if actual is None:
             raise ParseError("无法从页面 header 解析日期：%r" % header)
         actual_iso = actual.isoformat()
-        if actual != requested:
+        if requested and actual != requested:
             print("⚠ URL 日期 %s，页面实际日期 %s（HLTV 可能还没更新）" % (req_iso, actual_iso))
         rows = parse_rows(got["raw_rows"])
         try:
@@ -351,16 +402,21 @@ def main(argv=None):
         except SystemExit as e:
             raise ParseError(str(e))
         actual_path = os.path.join(a.out_dir, "vrs_rank_%s.json" % actual_iso)
-        if not a.force:
+        existing = None
+        if os.path.exists(actual_path):
             try:
                 existing = snapshot_doc(actual_path, actual_iso)
             except ParseError as e:
-                raise ParseError(str(e))
-            if existing:
+                if not a.force:
+                    raise ParseError(str(e))
+                print("⚠ 旧快照不可用，将覆盖：%s" % e)
+            if existing and not a.force:
                 print("✓ 页面仍是 %s，且已有快照（%d 支队），跳过写入。"
                       % (actual_iso, len(existing["teams"])))
                 append_log({"status": "skip_actual_existing", "requested": req_iso,
-                            "actual": actual_iso, "teams": len(existing["teams"]), "url": url})
+                            "actual": actual_iso, "teams": len(existing["teams"]),
+                            "url": url,
+                            "note": "页面日期未更新（仍是 %s），已有快照存在，跳过写入" % actual_iso})
                 return 0
 
         doc = IV.build(actual_iso, rows, keep_first=not a.keep_last,
@@ -374,12 +430,43 @@ def main(argv=None):
         if len(doc["duplicates"]) > 10:
             print("  · …其余 %d 条见 JSON 的 duplicates 字段" % (len(doc["duplicates"]) - 10))
 
+        old_teams = (existing or {}).get("teams") or []
+        changed = summarize_changes(old_teams, doc["teams"]) if existing else None
+        old_revision = int((existing or {}).get("revision") or 1)
+        has_change = bool(changed and (changed["changed"]
+                                      or changed["added"] or changed["dropped"]))
+        revision = old_revision + 1 if has_change else old_revision
+        fetched_at = dt.datetime.now(BJ).isoformat(timespec="seconds")
+        doc["revision"] = revision
+        doc["fetched_at"] = fetched_at
+
+        if existing:
+            if has_change:
+                print("内容变化（第 %d 版）：积分变动 %d 支 · 新增 %d 支 · 掉榜 %d 支"
+                      % (revision, changed["changed"],
+                         len(changed["added"]), len(changed["dropped"])))
+                for name, old_p, new_p in changed["top"]:
+                    print("  · %-24s %s → %s" % (name, old_p, new_p))
+            else:
+                print("内容未变（第 %d 版），只更新抓取时间" % revision)
+        print("VRS_CHANGE " + json.dumps({
+            "revision": revision,
+            "changed": (changed or {}).get("changed", 0),
+            "added": len((changed or {}).get("added") or []),
+            "dropped": len((changed or {}).get("dropped") or []),
+            "fetched_at": fetched_at,
+            "latest": bool(a.latest),
+        }, ensure_ascii=False))
+
         if a.dry_run:
             print("--dry-run：未写盘。")
             append_log({"status": "dry_run", "requested": req_iso, "actual": actual_iso,
-                        "teams": len(doc["teams"]), "url": url})
+                        "teams": len(doc["teams"]), "url": url, "latest": bool(a.latest),
+                        "revision": revision, "changed": (changed or {}).get("changed", 0)})
             return 0
 
+        if has_change:
+            archive_snapshot(actual_path, existing, old_revision)
         atomic_write(actual_path, json.dumps(doc, indent=1, ensure_ascii=False))
         try:
             if not a.no_text:
@@ -399,7 +486,9 @@ def main(argv=None):
             print("⚠ 快照已写入，但 HTML 缓存写入失败：%s" % e)
         append_log({"status": "ok", "requested": req_iso, "actual": actual_iso,
                     "teams": len(doc["teams"]), "duplicates": len(doc["duplicates"]),
-                    "url": url, "path": actual_path})
+                    "url": url, "path": actual_path, "latest": bool(a.latest),
+                    "revision": revision, "changed": (changed or {}).get("changed", 0),
+                    "fetched_at": fetched_at})
         print("✓ 已写入 %s（%d 字节）" % (actual_path, os.path.getsize(actual_path)))
         if not a.no_text:
             print("  可读榜单：%s" % a.text_out)

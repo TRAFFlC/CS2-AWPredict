@@ -13,11 +13,16 @@
 
 行为
 ----
-* `maybe_start()` 由页面加载时调用。目标快照已存在且强度库已同步 → 立即 no-op。
-* 需要抓取时起**后台线程**跑 `fetch_vrs.py --date <目标>`，不阻塞页面。
-* 抓取成功后跑 `pickem/update_vrs.py --write`，把 rank/points 写进强度库；
-  根页面直接读 `data/vrs_rank_*.json`，靠已有的 mtime 指纹热重载，无需重启。
-* 失败或 HLTV 尚未发布时进入冷却（默认 900 秒），避免每次刷新都打网络。
+* `maybe_start()` 由页面加载时调用。快照新鲜且强度库已同步 → 立即 no-op。
+* **同一天的榜单会变**：HLTV 在赛后持续重算，28 号凌晨和 28 号晚上看到的
+  「2026-10-28」可能不是同一份数据。因此当前快照按 `REVALIDATE_S`（默认 3600 秒）
+  限频复核：页面加载时如果距上次抓取已超过 1 小时，就后台重抓最新页。
+* 抓取用 `fetch_vrs.py --latest --force`：抓不带日期的最新页，按页面 header 的
+  实际日期写入；内容变了才升 `revision` 并把旧版本归档到 `data/cache/vrs_history/`。
+* 抓取后跑 `pickem/update_vrs.py --write`，用 `content_sha` 判断强度库是否需要更新
+  ——**队数不变、只有积分变化**时也会更新。根页面直接读 `data/vrs_rank_*.json`，
+  靠已有的 mtime 指纹热重载，无需重启。
+* 失败按 `RETRY_S`（默认 900 秒）重试；成功后按 `REVALIDATE_S` 复核。
 * 跨进程文件锁 `data/cache/vrs_sync.lock`；状态写 `data/cache/vrs_sync_state.json`。
 * `VRS_SYNC_DISABLE=1` 时只报告状态、不起线程（自检/离线环境用）。
 
@@ -25,12 +30,14 @@
 ----
     python -X utf8 vrs_sync.py status
     python -X utf8 vrs_sync.py refresh [--force]
+    python -X utf8 vrs_sync.py selftest
 """
 from __future__ import annotations
 
 import argparse
 import datetime
 import glob
+import hashlib
 import json
 import os
 import re
@@ -50,7 +57,9 @@ FIXTURE = os.path.join(HERE, "pickem", "fixtures", "team_strength.json")
 
 BJ = datetime.timezone(datetime.timedelta(hours=8))
 CUTOFF_HOUR = 8
-COOLDOWN_S = int(os.environ.get("VRS_SYNC_COOLDOWN", "900"))
+REVALIDATE_S = int(os.environ.get("VRS_SYNC_REVALIDATE", "3600"))
+RETRY_S = int(os.environ.get("VRS_SYNC_RETRY",
+                             os.environ.get("VRS_SYNC_COOLDOWN", "900")))
 FETCH_TIMEOUT = int(os.environ.get("VRS_SYNC_FETCH_TIMEOUT", "240"))
 UPDATE_TIMEOUT = int(os.environ.get("VRS_SYNC_UPDATE_TIMEOUT", "120"))
 LOCK_STALE_S = 1200
@@ -95,12 +104,28 @@ def latest_snapshot():
     return items[-1] if items else (None, None)
 
 
+def content_sha(rows):
+    """只对 rank/name/points 排序后做 sha256（与 pickem/update_vrs.py 同口径）。
+
+    不含 fetched_at / revision：同一份榜单重复抓取时内容哈希不变。
+    """
+    blob = json.dumps(sorted((int(r["rank"]), str(r["name"]), float(r["points"]))
+                             for r in rows),
+                      ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
+
 def _snapshot_info(path, filename_date=None):
-    """读快照的 date / 队数；按 (path, mtime, size) 缓存，状态轮询不重复读盘。"""
+    """读快照的 date / 队数 / revision / 抓取时间 / content_sha。
+
+    按 (path, mtime, size) 缓存，状态轮询不重复读盘。
+    """
     try:
         st = os.stat(path)
     except OSError as exc:
-        return {"path": path, "date": filename_date, "teams": None, "error": str(exc)}
+        return {"path": path, "date": filename_date, "teams": None,
+                "revision": None, "fetched_at": None, "mtime": None,
+                "content_sha": None, "error": str(exc)}
     key = (path, st.st_mtime_ns, st.st_size)
     hit = _CACHE.get("snapshot")
     if hit and hit[0] == key:
@@ -108,22 +133,34 @@ def _snapshot_info(path, filename_date=None):
     try:
         with open(path, encoding="utf-8") as fh:
             doc = json.load(fh)
+        teams = doc.get("teams") or []
+        try:
+            sha = content_sha(teams)
+        except (KeyError, TypeError, ValueError):
+            sha = None
         info = {"path": path,
                 "date": str(doc.get("date") or filename_date or ""),
-                "teams": len(doc.get("teams") or []),
+                "teams": len(teams),
+                "revision": int(doc.get("revision") or 1),
+                "fetched_at": doc.get("fetched_at"),
+                "mtime": st.st_mtime,
+                "content_sha": sha,
                 "error": None}
     except (OSError, ValueError) as exc:
-        info = {"path": path, "date": filename_date, "teams": None, "error": str(exc)}
+        info = {"path": path, "date": filename_date, "teams": None,
+                "revision": None, "fetched_at": None, "mtime": st.st_mtime,
+                "content_sha": None, "error": str(exc)}
     _CACHE["snapshot"] = (key, info)
     return info
 
 
 def _library_info():
-    """读强度库的 asof / VRS 队数；按 (mtime, size) 缓存。"""
+    """读强度库的 asof / VRS 队数 / vrs_source；按 (mtime, size) 缓存。"""
     try:
         st = os.stat(FIXTURE)
     except OSError as exc:
-        return {"asof": None, "vrs": None, "teams": 0, "error": str(exc)}
+        return {"asof": None, "vrs": None, "teams": 0,
+                "vrs_source": {}, "error": str(exc)}
     key = (st.st_mtime_ns, st.st_size)
     hit = _CACHE.get("library")
     if hit and hit[0] == key:
@@ -133,9 +170,12 @@ def _library_info():
             doc = json.load(fh)
         counts = doc.get("counts") or {}
         info = {"asof": doc.get("asof"), "vrs": counts.get("vrs"),
-                "teams": len(doc.get("teams") or []), "error": None}
+                "teams": len(doc.get("teams") or []),
+                "vrs_source": doc.get("vrs_source") or {},
+                "error": None}
     except (OSError, ValueError) as exc:
-        info = {"asof": None, "vrs": None, "teams": 0, "error": str(exc)}
+        info = {"asof": None, "vrs": None, "teams": 0,
+                "vrs_source": {}, "error": str(exc)}
     _CACHE["library"] = (key, info)
     return info
 
@@ -207,6 +247,39 @@ def _release_lock():
 
 
 # ------------------------------------------------------------------ 状态
+def _parse_ts(text):
+    try:
+        ts = datetime.datetime.fromisoformat(str(text))
+    except (TypeError, ValueError):
+        return None
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=BJ)
+    return ts
+
+
+def _age_seconds(now, fetched_at, mtime):
+    """优先用快照自带的 fetched_at，旧快照回退到文件 mtime。"""
+    ts = _parse_ts(fetched_at) if fetched_at else None
+    if ts is not None:
+        return max(0, int((now - ts).total_seconds()))
+    if mtime:
+        return max(0, int(now.timestamp() - mtime))
+    return None
+
+
+def _library_matches(lib, snap):
+    """强度库是否已与快照同步。优先 content_sha，缺失时回退 asof + 队数。"""
+    if not (lib and snap and snap.get("date")):
+        return False
+    src = lib.get("vrs_source") or {}
+    sha = snap.get("content_sha")
+    if sha and src.get("content_sha"):
+        return (src.get("date") == snap.get("date")
+                and src.get("content_sha") == sha)
+    return (lib.get("asof") == snap.get("date")
+            and lib.get("vrs") == snap.get("teams"))
+
+
 def status():
     """给页面轮询的完整状态。只读盘，不触发抓取。"""
     now = now_bj()
@@ -217,28 +290,33 @@ def status():
     state = _read_state()
 
     target_ready = bool(snap and snap.get("date") and snap["date"] >= target.isoformat())
-    library_current = bool(
-        target_ready and snap and snap.get("teams") is not None
-        and lib.get("asof") == snap["date"] and lib.get("vrs") == snap["teams"]
-    )
+    library_current = bool(target_ready and _library_matches(lib, snap))
     running = bool(_RUNNING or _lock_active())
 
+    age = _age_seconds(now, snap.get("fetched_at"), snap.get("mtime")) if snap else None
+    needs_update = bool(target_ready and not library_current)
+    needs_fetch = bool(not target_ready or age is None or age >= REVALIDATE_S)
+
+    # 只有「需要联网抓取」才看冷却；本地同步强度库不联网，不应被冷却挡住。
     cooldown = 0
-    if not target_ready and state.get("attempted_target") == target.isoformat():
-        try:
-            last = datetime.datetime.fromisoformat(str(state.get("last_attempt") or ""))
-            if last.tzinfo is None:
-                last = last.replace(tzinfo=BJ)
-            cooldown = max(0, int(COOLDOWN_S - (now - last).total_seconds()))
-        except ValueError:
-            cooldown = 0
+    if needs_fetch:
+        last_ts = _parse_ts(state.get("last_fetch_at") or state.get("last_attempt"))
+        last_result = str(state.get("last_fetch_result")
+                          or state.get("last_result") or "")
+        if last_ts is not None:
+            window = (REVALIDATE_S if last_result in ("ok", "not_published")
+                      else RETRY_S)
+            cooldown = max(0, int(window - (now - last_ts).total_seconds()))
 
     if running:
         message = "正在检查 VRS %s…" % target.isoformat()
-    elif target_ready and library_current:
-        message = "VRS 已是最新（%s），强度库已同步" % snap["date"]
-    elif target_ready:
+    elif needs_update:
         message = "VRS %s 已就绪，强度库待同步" % snap["date"]
+    elif target_ready and needs_fetch:
+        message = "VRS %s 已超过 %d 分钟未复核" % (snap["date"], REVALIDATE_S // 60)
+    elif target_ready:
+        message = "VRS 已是最新（%s · 第 %s 版），强度库已同步" % (
+            snap["date"], snap.get("revision") or "?")
     elif cooldown > 0:
         message = "HLTV 尚未发布 %s，%d 秒后重试" % (target.isoformat(), cooldown)
     else:
@@ -253,16 +331,29 @@ def status():
         "target_rule": "北京时间 08:00 前取前一天，08:00 起取当天",
         "latest": snap.get("date") if snap else None,
         "latest_teams": snap.get("teams") if snap else None,
+        "snapshot_revision": snap.get("revision") if snap else None,
+        "snapshot_fetched_at": snap.get("fetched_at") if snap else None,
+        "snapshot_age_s": age,
+        "snapshot_content_sha": snap.get("content_sha") if snap else None,
         "target_ready": target_ready,
+        "needs_fetch": needs_fetch,
+        "needs_update": needs_update,
         "running": running,
         "library_asof": lib.get("asof"),
         "library_vrs": lib.get("vrs"),
+        "library_content_sha": (lib.get("vrs_source") or {}).get("content_sha"),
+        "library_revision": (lib.get("vrs_source") or {}).get("revision"),
         "library_current": library_current,
         "last_attempt": state.get("last_attempt"),
+        "last_fetch_at": state.get("last_fetch_at"),
+        "last_fetch_result": state.get("last_fetch_result"),
+        "last_change": state.get("last_change"),
         "last_result": state.get("last_result"),
         "last_error": state.get("last_error"),
         "last_ok": state.get("last_ok"),
         "cooldown_s": cooldown,
+        "revalidate_s": REVALIDATE_S,
+        "retry_s": RETRY_S,
         "message": message,
     }
 
@@ -293,16 +384,31 @@ def _tail_line(text):
     return lines[-1][:500] if lines else ""
 
 
+def _parse_change(text):
+    """从 fetch_vrs.py 输出里取 `VRS_CHANGE {json}` 行。"""
+    for line in str(text or "").splitlines():
+        line = line.strip()
+        if not line.startswith("VRS_CHANGE "):
+            continue
+        try:
+            doc = json.loads(line[len("VRS_CHANGE "):])
+        except ValueError:
+            return None
+        return doc if isinstance(doc, dict) else None
+    return None
+
+
 def _log(message):
     sys.stderr.write("[vrs_sync %s] %s\n" % (now_bj().strftime("%H:%M:%S"), message))
     sys.stderr.flush()
 
 
 def _run(force):
-    """后台线程主体：抓取（如需要）→ 更新强度库 → 落状态。"""
+    """后台线程主体：按需抓取 → 更新强度库 → 落状态。"""
     global _RUNNING
     target = target_date().isoformat()
     started = now_bj().isoformat(timespec="seconds")
+    before = status()
     _write_state({"attempted_target": target, "last_attempt": started,
                   "last_result": "running", "last_error": None,
                   "message": "正在检查 VRS %s" % target})
@@ -311,36 +417,46 @@ def _run(force):
                       "message": "另一个进程正在抓取 VRS，本次跳过"})
         _RUNNING = False
         return
-    _log("开始：目标 %s（force=%s）" % (target, force))
+    _log("开始：目标 %s（force=%s，needs_fetch=%s，needs_update=%s）"
+         % (target, force, before.get("needs_fetch"), before.get("needs_update")))
+    fetch_rc, fetch_out, change = None, "", None
     try:
-        latest_date, latest_path = latest_snapshot()
-        fetch_rc, fetch_out = None, ""
-        if not latest_date or latest_date < target:
-            _log("调用 fetch_vrs.py --date %s" % target)
+        do_fetch = bool(force or before.get("needs_fetch"))
+        if do_fetch:
+            _log("调用 fetch_vrs.py --latest --force")
+            _write_state({"last_fetch_at": now_bj().isoformat(timespec="seconds"),
+                          "last_fetch_result": "running"})
             fetch_rc, fetch_out = _run_cmd(
-                [sys.executable, "-X", "utf8", FETCH, "--date", target], FETCH_TIMEOUT)
-            _write_state({"fetch_rc": fetch_rc, "fetch_tail": fetch_out[-2000:]})
+                [sys.executable, "-X", "utf8", FETCH, "--latest", "--force"],
+                FETCH_TIMEOUT)
+            change = _parse_change(fetch_out)
+            _write_state({
+                "fetch_rc": fetch_rc,
+                "fetch_tail": fetch_out[-2000:],
+                "last_fetch_result": "ok" if fetch_rc == 0 else "fetch_error",
+                "last_change": change,
+            })
             _log("fetch_vrs.py rc=%s" % fetch_rc)
 
         latest_date, latest_path = latest_snapshot()
-        if latest_path:
-            snap = _snapshot_info(latest_path, latest_date)
-            lib = _library_info()
-            stale = (lib.get("asof") != snap.get("date")
-                     or lib.get("vrs") != snap.get("teams"))
-            if stale:
-                _log("更新强度库：%s（%s 队）" % (snap.get("date"), snap.get("teams")))
-                urc, uout = _run_cmd(
-                    [sys.executable, "-X", "utf8", UPDATE, "--write"], UPDATE_TIMEOUT)
-                _write_state({"update_rc": urc, "update_tail": uout[-2000:]})
-                _log("update_vrs.py rc=%s" % urc)
-                if urc != 0:
-                    _write_state({
-                        "last_result": "update_error",
-                        "last_error": _tail_line(uout) or ("update_vrs rc=%s" % urc),
-                        "message": "快照已就绪，但强度库更新失败",
-                    })
-                    return
+        snap = _snapshot_info(latest_path, latest_date) if latest_path else None
+        lib = _library_info()
+        stale = bool(snap and not _library_matches(lib, snap))
+        if stale:
+            _log("更新强度库：%s（%s 队，content_sha %s）"
+                 % (snap.get("date"), snap.get("teams"),
+                    str(snap.get("content_sha"))[:12]))
+            urc, uout = _run_cmd(
+                [sys.executable, "-X", "utf8", UPDATE, "--write"], UPDATE_TIMEOUT)
+            _write_state({"update_rc": urc, "update_tail": uout[-2000:]})
+            _log("update_vrs.py rc=%s" % urc)
+            if urc != 0:
+                _write_state({
+                    "last_result": "update_error",
+                    "last_error": _tail_line(uout) or ("update_vrs rc=%s" % urc),
+                    "message": "快照已就绪，但强度库更新失败",
+                })
+                return
 
         latest_date, _ = latest_snapshot()
         if latest_date and latest_date >= target:
@@ -390,10 +506,10 @@ def maybe_start(force=False):
         if st["running"]:
             return {"ok": True, "started": False, "reason": "locked", "status": st}
         if not force:
-            if st["target_ready"] and st["library_current"]:
-                return {"ok": True, "started": False, "reason": "up_to_date", "status": st}
-            if not st["target_ready"] and st["cooldown_s"] > 0:
+            if st["needs_fetch"] and st["cooldown_s"] > 0:
                 return {"ok": True, "started": False, "reason": "cooldown", "status": st}
+            if not st["needs_fetch"] and not st["needs_update"]:
+                return {"ok": True, "started": False, "reason": "up_to_date", "status": st}
         _RUNNING = True
     threading.Thread(target=_run, args=(bool(force),), daemon=True,
                      name="vrs-sync").start()
@@ -426,6 +542,25 @@ def _selftest():
     chk("08:00" in (st.get("target_rule") or ""), "status 说明 08:00 日期规则")
     chk(bool(st.get("latest")) and bool(st.get("library_asof")),
         "status 能读到最新快照与强度库日期")
+    chk(isinstance(st.get("snapshot_revision"), int)
+        and st["snapshot_revision"] >= 1, "status 带快照 revision")
+    chk(isinstance(st.get("snapshot_age_s"), int)
+        and st["snapshot_age_s"] >= 0, "status 带快照年龄（秒）")
+    chk(isinstance(st.get("needs_fetch"), bool)
+        and isinstance(st.get("needs_update"), bool), "status 带抓取/同步判断")
+    chk(st.get("revalidate_s") == REVALIDATE_S
+        and st.get("retry_s") == RETRY_S, "status 带复核/重试间隔")
+
+    rows_a = [{"rank": 1, "name": "A", "points": 100},
+              {"rank": 2, "name": "B", "points": 90}]
+    rows_b = list(reversed(rows_a))
+    chk(content_sha(rows_a) == content_sha(rows_b), "content_sha 与顺序无关")
+    chk(content_sha(rows_a) != content_sha(
+        [{"rank": 1, "name": "A", "points": 101},
+         {"rank": 2, "name": "B", "points": 90}]), "content_sha 对积分敏感")
+    parsed = _parse_change('noise\nVRS_CHANGE {"revision": 2, "changed": 3}\n')
+    chk(parsed and parsed.get("revision") == 2 and parsed.get("changed") == 3,
+        "能解析 fetch_vrs 的 VRS_CHANGE 行")
 
     old = os.environ.get("VRS_SYNC_DISABLE")
     os.environ["VRS_SYNC_DISABLE"] = "1"
